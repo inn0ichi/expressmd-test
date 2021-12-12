@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AccountModal from '../appcomponents/AccoundModal'
 
-const pages = ['About Us', 'Blog'];
+const pages = ['Contact Us', 'FAQ'];
 export default function Nav() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 

@@ -13,7 +13,6 @@ import firebase from "../../config/firebase";
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function googleLogin() {
     signInWithPopup(auth, provider)
@@ -42,22 +41,17 @@ export default function AccoundModal() {
     const [isLoggedin, setIsLoggedIn] = useState(false);
 
 
-    const logout = (e) => {
-        signOut(auth)
-            .then(() => {
-                localStorage.removeItem("email");
-            })
-            .catch((error) => {
-                // An error happened.
-            });
-    };
 
     getAuth().onAuthStateChanged(function (user) {
         setIsLoggedIn(user);
-        if (user !== null) {
+        if (user !== null && localStorage.getItem("uid") === null) {
             localStorage.setItem("email", user.email);
+            localStorage.setItem("photoURL", user.photoURL);
+            localStorage.setItem("uid", user.uid);
+            localStorage.setItem("displayName", user.displayName);
         }
     });
+
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -71,15 +65,27 @@ export default function AccoundModal() {
         setAnchorElUser(null);
     };
 
+    function logout() {
+        signOut(auth)
+            .then(() => {
+                localStorage.removeItem("email");
+                localStorage.removeItem("photoURL");
+                localStorage.removeItem("uid");
+                localStorage.removeItem("displayName");
+            })
+            .catch((error) => {
+                // An error happened.
+                alert(error);
+            });
+    };
+
     return (
         <Box sx={{ flexGrow: 0 }}>
             {isLoggedin ? (
                 <Box >
-                    <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                        </IconButton>
-                    </Tooltip>
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt={localStorage.getItem("displayName")} src={localStorage.getItem("photoURL")} />
+                    </IconButton>
                     <Menu
                         sx={{ mt: '45px' }}
                         id="menu-appbar"
@@ -96,18 +102,22 @@ export default function AccoundModal() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{setting}</Typography>
-                            </MenuItem>
-                        ))}
+                        <MenuItem onClick={handleCloseNavMenu}>
+                            <Typography textAlign="center">Profile</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={handleCloseNavMenu}>
+                            <Typography textAlign="center">Settings</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => logout()}>
+                            <Typography textAlign="center">Logout</Typography>
+                        </MenuItem>
                     </Menu>
                 </Box>
             ) : (
                 <Box >
-                    <Tooltip title="Open settings">
+                    <Tooltip title="Login">
                         <IconButton onClick={() => googleLogin()} sx={{ p: 0 }}>
-                            <Avatar alt="Account Login" src="/static/images/avatar/2.jpg" />
+                            <Avatar alt="Account Login" />
                         </IconButton>
                     </Tooltip>
                 </Box>
