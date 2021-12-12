@@ -6,8 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import { useSelector } from 'react-redux';
 import { CssBaseline } from '@mui/material';
-import Navbar from '../components/Navbar'
-
+import App from '../pages/App';
 
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
@@ -70,10 +69,10 @@ export default function RouterComponent() {
     return (
         <ThemeProvider theme={lightTheme}>
             <CssBaseline />
-            <Navbar />
             <Router>
                 <Switch>
                     <Route exact component={Home} path="/" />
+                    <Route exact component={App} path="/app" />
                 </Switch>
             </Router>
         </ThemeProvider>

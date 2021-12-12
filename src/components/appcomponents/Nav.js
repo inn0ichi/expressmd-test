@@ -9,11 +9,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
+import AccountModal from '../appcomponents/AccoundModal'
 
 const pages = ['About Us', 'Blog'];
-
-export default function Navbar() {
+export default function Nav() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -94,18 +93,7 @@ export default function Navbar() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Link
-                            to="/app"
-                            className="appLink"
-                        >
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                sx={{ textDecoration: "none" }}
-                            >
-                                Launch the App
-                            </Button>
-                        </Link>
+                        <AccountModal />
                     </Box>
                 </Toolbar>
             </Container>

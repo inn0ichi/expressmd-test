@@ -8,6 +8,8 @@ import Regine from '../assets/regine.jpg'
 import Prago from '../assets/prago.jpg'
 import Jym from '../assets/jym.jpg'
 import Marc from '../assets/marc.jpg'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer';
 import '../App.css';
 import { Helmet } from 'react-helmet';
 
@@ -18,6 +20,7 @@ export default function Home() {
                 <meta charSet="utf-8" />
                 <title>ExpressMD</title>
             </Helmet>
+            <Navbar />
             <Box className="homeBox">
                 <Box className="headerBox" >
                     <Box className="box1 slide-right">
@@ -56,6 +59,21 @@ export default function Home() {
             <Box className="aboutUsBox">
                 <Box className="aboutUsContainer">
                     <Typography className="header" variant="h3">About Us</Typography>
+                </Box>
+                <Box className="aboutUsTextContainer">
+                    <Typography className="aboutUsText">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Nunc accumsan magna porta dictum lobortis.
+                        Suspendisse potenti. Praesent tempus,
+                        velit nec congue sagittis, nisl nunc blandit metus,
+                        non bibendum neque augue sed nisi. Sed convallis interdum tempor.
+                        Praesent lectus orci, scelerisque sit amet tempor vitae,
+                        condimentum in neque. Nullam sed eros rhoncus mi eleifend dapibus
+                        non nec risus. Curabitur sit amet odio quis nisl pellentesque
+                        congue. Morbi sollicitudin dolor ante, vitae posuere augue
+                        posuere a. Quisque mattis ligula ac orci volutpat maximus.
+                    </Typography>
+                    <Typography variant="h3" className="aboutUsLogo">LOGO</Typography>
                 </Box>
             </Box>
             <Box className="ourTeamBox">
@@ -102,6 +120,7 @@ export default function Home() {
                     </Paper>
                 </Box>
             </Box>
+            <Footer />
         </Box>
     )
 }
