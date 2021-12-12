@@ -1,0 +1,128 @@
+.resultContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.filters {
+    padding: 25px;
+}
+
+.filterSelect {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.searchContainer {
+    padding-left: 75px;
+    padding-right: 75px;
+}
+
+.hitBox {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.docAvatar {
+    vertical-align: middle;
+    width: 128px;
+    height: 128px;
+    border-radius: 5%;
+    margin: 10px;
+}
+
+
+.docDetailBox {
+    margin-left: 25px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.docNameBox {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.docDeetsBox {
+    display: flex;
+    flex-direction: column;
+
+}
+
+@media only screen and (max-width: 899px) {
+    .resultContainer {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+
+    .searchContainer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .filterBox {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .filters {
+        padding: 7px;
+    }
+
+}
+
+@media only screen and (max-width: 860px) {
+    .filterSelect {
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .searchContainer {
+        padding: 0;
+    }
+
+    .hitBox {
+        display: flex;
+        flex-direction: row;
+        padding: 5px;
+    }
+
+    .docAvatar {
+        vertical-align: middle;
+        width: 100px;
+        height: 100px;
+        border-radius: 5%;
+        margin: 5px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .searchContainer {
+        padding: 0;
+    }
+
+    .hitBox {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+    }
+
+    .docAvatar {
+        vertical-align: middle;
+        width: 100px;
+        height: 100px;
+        border-radius: 5%;
+        margin: 0;
+    }
+}

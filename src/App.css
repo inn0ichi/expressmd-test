@@ -178,6 +178,10 @@
   padding-bottom: 35px;
 }
 
+.searchContainer {
+  margin-top: 50px;
+}
+
 /* animation */
 
 .slide-right {
