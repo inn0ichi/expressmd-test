@@ -32,13 +32,13 @@ const Hits = ({ hits }) => (
                     <Divider orientation="vertical" flexItem />
                     <Box className="docDetailBox">
                         <Box className="docNameBox">
-                            <Typography variant="h5">{hit.lastname}</Typography>
-                            <Typography variant="h6">{hit.firstname}</Typography>
-                            <Typography variant="subtitle1">{hit.type}</Typography>
+                            <Typography className="lname">{hit.lastname}</Typography>
+                            <Typography className="fname">{hit.firstname}</Typography>
+                            <Typography className="type">{hit.type}</Typography>
                         </Box>
                         <Box className="docDeetsBox">
-                            <Typography variant="subtitle1">Phone Number: {hit.phoneNum}</Typography>
-                            <Typography variant="subtitle2">Location: {hit.location}</Typography>
+                            <Typography className="type">Phone Number: {hit.phoneNum}</Typography>
+                            <Typography className="type">Location: {hit.location}</Typography>
                         </Box>
                     </Box>
                 </Box>

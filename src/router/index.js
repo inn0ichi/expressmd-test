@@ -59,7 +59,7 @@ export default function RouterComponent() {
             },
             background: {
                 paper: '#f9fbfd',
-                default: '#fff',
+                default: '#fcfcfc',
             },
         },
 

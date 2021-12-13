@@ -8,7 +8,6 @@ export default function App() {
             <Nav />
             <Container>
                 <Typography>Test</Typography>
-                
             </Container>
         </Box>
     )

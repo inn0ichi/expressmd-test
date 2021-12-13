@@ -1,3 +1,9 @@
+.bottomNav {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
 .resultContainer {
     display: flex;
     flex-direction: row;
@@ -124,5 +130,31 @@
         height: 100px;
         border-radius: 5%;
         margin: 0;
+    }
+
+    .fname {
+        font-size: 0.9rem !important;
+    }
+
+    .lname {
+        font-size: 1.2rem !important;
+    }
+
+    .type {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .fname {
+        font-size: 0.8rem !important;
+    }
+
+    .lname {
+        font-size: 1.1rem !important;
+    }
+
+    .type {
+        font-size: 0.7rem !important;
     }
 }
