@@ -37,7 +37,7 @@ export default function AccoundModal() {
                 var userRef = db.collection("users").doc(user.uid);
                 userRef.get().then((doc) => {
                     if (!doc.exists) {
-                        history.push("/app/register");
+                        history.push("/register");
                     }
                 })
 

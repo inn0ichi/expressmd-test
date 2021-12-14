@@ -27,6 +27,14 @@
     }
 }
 
+@media only screen and (max-width: 899px) {
+    .base {
+        padding-bottom: 56px;
+    }
+}
+
+
+
 @media only screen and (max-width: 425px) {
     .usrImg {
         width: 187px;

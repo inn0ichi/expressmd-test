@@ -4,7 +4,7 @@ import Nav from '../components/appcomponents/Nav'
 
 export default function App() {
     return (
-        <Box>
+        <Box className='base'>
             <Nav />
             <Container>
                 <Typography>Test</Typography>

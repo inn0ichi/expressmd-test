@@ -49,6 +49,10 @@
         overflow: auto;
         max-height: 360px;
     }
+
+    .base {
+        padding-bottom: 56px;
+    }
 }
 
 @media only screen and (max-width: 768px) {

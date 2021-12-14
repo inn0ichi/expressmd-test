@@ -11,26 +11,11 @@ import '../../App.css'
 export default function SearchDoc() {
     const [value, setValue] = useState(0);
     return (
-        <Box>
+        <Box className='base'>
             <Nav />
             <Container className="searchContainer">
                 <SearchInterface />
             </Container>
-            <Box>
-                <Paper elevation="8" className="bottomNav">
-                    <BottomNavigation
-                        showLabels
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                    >
-                        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-                        <BottomNavigationAction label="Search" icon={<SearchIcon />} />
-                        <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
-                    </BottomNavigation>
-                </Paper>
-            </Box>
         </Box>
     )
 }

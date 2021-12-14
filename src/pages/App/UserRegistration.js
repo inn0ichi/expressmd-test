@@ -2,6 +2,10 @@ import { Typography, Box, Container, TextField, Button, FormGroup, FormControl, 
 import firebase from '../../config/firebase';
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
+import {
+    getAuth
+} from "firebase/auth";
+
 import './Registration.css';
 
 export default function UserRegistration() {
@@ -17,6 +21,17 @@ export default function UserRegistration() {
         houseNum: "",
         municipality: "",
         barangay: "",
+    });
+    
+    getAuth().onAuthStateChanged(function (user) {
+        var userRef = db.collection("users").doc(localStorage.getItem('uid'));
+
+        userRef.get().then((doc) => {
+            if (doc.exists) {
+                alert("you have already completed your profile. Please go to settings if you want to edit.");
+                history.push("/");
+            }
+        })
     });
     const userInput = (prop) => (e) => {
         setPayload({ ...payload, [prop]: e.target.value });
@@ -45,14 +60,14 @@ export default function UserRegistration() {
                     phoneNumber: payload.phoneNumber,
                     location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
                 })
-                .then((docRef) => { history.push("/app"); })
+                .then((docRef) => { history.push("/"); })
                 .catch((error) => {
                     console.error("Error adding document: ", error);
                 });
         }
     };
     return (
-        <Box>
+        <Box className='base'>
             <Container className='registerContainer'>
                 <Typography variant="h4">Complete Your Profile</Typography>
                 <Box className='formContainer'>
@@ -60,7 +75,7 @@ export default function UserRegistration() {
                         <img className='usrImg' alt='profileImg' src={localStorage.getItem("photoURL")} />
                     </Box>
                     <FormGroup>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -69,7 +84,7 @@ export default function UserRegistration() {
                                 onChange={userInput("fullname")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <InputLabel >Gender</InputLabel>
                             <Select
                                 id='gender'
@@ -84,7 +99,7 @@ export default function UserRegistration() {
                             </Select>
                             <FormHelperText>Required</FormHelperText>
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -93,7 +108,7 @@ export default function UserRegistration() {
                                 onChange={userInput("email")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -103,7 +118,7 @@ export default function UserRegistration() {
                                 value={payload.phoneNumber}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -113,7 +128,7 @@ export default function UserRegistration() {
                                 value={payload.houseNum}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -124,7 +139,7 @@ export default function UserRegistration() {
                             />
                         </FormControl>
 
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <InputLabel >Municipality</InputLabel>
                             <Select
                                 id='Municipality'

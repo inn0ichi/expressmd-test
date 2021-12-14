@@ -1,6 +1,6 @@
 import '../App.css';
 
-import React from "react";
+import React, { useState } from "react";
 import { ThemeProvider, createTheme } from '@mui/material';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from '../pages/Home';
@@ -10,6 +10,12 @@ import App from '../pages/App';
 import SearchDoc from '../pages/App/SearchDoc';
 import DocProfile from '../pages/App/DocProfile';
 import UserRegistration from '../pages/App/UserRegistration';
+import { Box, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import { NavLink } from 'react-router-dom';
+
 
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
@@ -69,18 +75,40 @@ export default function RouterComponent() {
             fontFamily: 'Roboto',
         },
     })
+    const [value, setValue] = useState(0);
     return (
         <ThemeProvider theme={lightTheme}>
             <CssBaseline />
             <Router>
-                <Switch>
-                    <Route exact component={Home} path="/" />
-                    <Route exact component={App} path="/app" />
-                    <Route exact component={SearchDoc} path="/app/search" />
-                    <Route exact component={DocProfile} path="/app/p/:id" />
-                    <Route exact component={UserRegistration} path="/app/register" />
+                <Switch >
+                    <Route exact component={App} path="/" />
+                    <Route exact component={SearchDoc} path="/search" />
+                    <Route exact component={DocProfile} path="/p/:id" />
+                    <Route exact component={UserRegistration} path="/register" />
                 </Switch>
+                <Box>
+                    <Paper elevation="8" className="bottomNav">
+                        <BottomNavigation
+                            value={value}
+                            onChange={(event, newValue) => {
+                                setValue(newValue);
+                            }}
+                            className="bottomNavContainer"
+                        >
+                            <NavLink to='/'>
+                                <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+                            </NavLink>
+                            <NavLink to='/search'>
+                                <BottomNavigationAction label="Search" icon={<SearchIcon />} />
+                            </NavLink>
+                            <NavLink to='/profile'>
+                                <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
+                            </NavLink>
+                        </BottomNavigation>
+                    </Paper>
+                </Box>
             </Router>
+
         </ThemeProvider>
     );
 }

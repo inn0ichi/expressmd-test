@@ -41,7 +41,7 @@ export default function DocProfile() {
     }, []);
 
     return (
-        <Box>
+        <Box className='base'>
             <Nav />
             <Container className='container'>
                 <Box>
@@ -192,22 +192,6 @@ export default function DocProfile() {
 
             </Container >
 
-            {/* will relocate nav */}
-            < Box >
-                <Paper elevation="4" className="bottomNav">
-                    <BottomNavigation
-                        showLabels
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                    >
-                        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-                        <BottomNavigationAction label="Search" icon={<SearchIcon />} />
-                        <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
-                    </BottomNavigation>
-                </Paper>
-            </Box >
         </Box >
     )
 }
