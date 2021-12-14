@@ -26,12 +26,14 @@ export default function DocProfile() {
     });
 
     const fetchData = async () => {
+        let isMounted = true
         const docRef = await db.collection("doctors").doc(id);
         let docProfile = [];
         docRef.get().then((doc) => {
             docProfile.push(doc.data());
             setdoctorProfile({ profile: docProfile });
         });
+        isMounted = false
     };
 
     useEffect(() => {
