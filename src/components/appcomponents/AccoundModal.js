@@ -10,37 +10,50 @@ import Tooltip from '@mui/material/Tooltip';
 import { Button } from '@mui/material';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import firebase from "../../config/firebase";
+import { useHistory } from "react-router-dom";
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+const db = firebase.firestore();
 
-function googleLogin() {
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            // ...
-        }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
-        });
-}
+
 
 export default function AccoundModal() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [isLoggedin, setIsLoggedIn] = useState(false);
+    const [usrExists, setusrExists] = useState(false);
+    const history = useHistory();
+
+    function GoogleLogin() {
+
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                var userRef = db.collection("users").doc(user.uid);
+                userRef.get().then((doc) => {
+                    if (!doc.exists) {
+                        history.push("/app/register");
+                    }
+                })
 
 
+                // ...
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+            });
+    }
 
     getAuth().onAuthStateChanged(function (user) {
         setIsLoggedIn(user);
@@ -116,7 +129,7 @@ export default function AccoundModal() {
             ) : (
                 <Box >
                     <Tooltip title="Login">
-                        <IconButton onClick={() => googleLogin()} sx={{ p: 0 }}>
+                        <IconButton onClick={() => GoogleLogin()} sx={{ p: 0 }}>
                             <Avatar alt="Account Login" />
                         </IconButton>
                     </Tooltip>
