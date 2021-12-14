@@ -1,8 +1,8 @@
 import { Typography, Box, Container, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
 import React, { useState } from 'react';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
 
 import Nav from '../../components/appcomponents/Nav';
 import SearchInterface from '../../components/appcomponents/SearchInterface';
@@ -25,9 +25,9 @@ export default function SearchDoc() {
                             setValue(newValue);
                         }}
                     >
-                        <BottomNavigationAction label="Home" icon={<RestoreIcon />} />
-                        <BottomNavigationAction label="Search" icon={<FavoriteIcon />} />
-                        <BottomNavigationAction label="Profile" icon={<LocationOnIcon />} />
+                        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+                        <BottomNavigationAction label="Search" icon={<SearchIcon />} />
+                        <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
                     </BottomNavigation>
                 </Paper>
             </Box>
