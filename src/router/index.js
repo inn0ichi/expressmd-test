@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { CssBaseline } from '@mui/material';
 import App from '../pages/App';
 import SearchDoc from '../pages/App/SearchDoc';
+import DocProfile from '../pages/App/DocProfile';
 
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
@@ -75,6 +76,7 @@ export default function RouterComponent() {
                     <Route exact component={Home} path="/" />
                     <Route exact component={App} path="/app" />
                     <Route exact component={SearchDoc} path="/app/search" />
+                    <Route exact component={DocProfile} path="/app/p/:id" />
                 </Switch>
             </Router>
         </ThemeProvider>

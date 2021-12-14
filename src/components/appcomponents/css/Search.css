@@ -1,6 +1,14 @@
+a {
+    color: inherit;
+    /* blue colors for links too */
+    text-decoration: inherit;
+    /* no underline */
+}
+
 .bottomNav {
     width: 100%;
     position: fixed;
+    display: none;
     bottom: 0;
 }
 
@@ -23,6 +31,7 @@
 .searchContainer {
     padding-left: 75px;
     padding-right: 75px;
+
 }
 
 .hitBox {
@@ -83,6 +92,13 @@
 
     .filters {
         padding: 7px;
+    }
+
+    .bottomNav {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        display: block;
     }
 
 }

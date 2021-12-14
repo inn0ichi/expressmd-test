@@ -4,6 +4,7 @@ import { TextField, Paper, Typography, Box, Divider, IconButton, Menu, Container
 import "../appcomponents/css/Search.css"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import React from 'react';
+import { Link } from 'react-router-dom';
 const searchClient = algoliasearch('06RC56CRHD', '61bc497931637581637d8f096434e15c');
 
 
@@ -25,23 +26,25 @@ const Hits = ({ hits }) => (
     <Box className="searchContainer">
         {hits.map(hit => (
             <Paper key={hit.objectID} sx={{ marginTop: "15px" }}>
-                <Box className="hitBox">
-                    <Box>
-                        <img src={hit.photoURL} className="docAvatar" />
-                    </Box>
-                    <Divider orientation="vertical" flexItem />
-                    <Box className="docDetailBox">
-                        <Box className="docNameBox">
-                            <Typography className="lname">{hit.lastname}</Typography>
-                            <Typography className="fname">{hit.firstname}</Typography>
-                            <Typography className="type">{hit.type}</Typography>
+                <Link to={`p/${hit.objectID}`}>
+                    <Box className="hitBox">
+                        <Box>
+                            <img src={hit.photoURL} className="docAvatar" />
                         </Box>
-                        <Box className="docDeetsBox">
-                            <Typography className="type">Phone Number: {hit.phoneNum}</Typography>
-                            <Typography className="type">Location: {hit.location}</Typography>
+                        <Divider orientation="vertical" flexItem />
+                        <Box className="docDetailBox">
+                            <Box className="docNameBox">
+                                <Typography className="lname">{hit.lastname}</Typography>
+                                <Typography className="fname">{hit.firstname}</Typography>
+                                <Typography className="type">{hit.type}</Typography>
+                            </Box>
+                            <Box className="docDeetsBox">
+                                <Typography className="type">Phone Number: {hit.phoneNum}</Typography>
+                                <Typography className="type">Location: {hit.location}</Typography>
+                            </Box>
                         </Box>
                     </Box>
-                </Box>
+                </Link>
             </Paper>
         ))}
     </Box>
