@@ -4,6 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 
+
 import Nav from '../../components/appcomponents/Nav';
 import SearchInterface from '../../components/appcomponents/SearchInterface';
 import '../../App.css'
@@ -18,3 +19,4 @@ export default function SearchDoc() {
         </Box>
     )
 }
+
