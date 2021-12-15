@@ -1,0 +1,33 @@
+.usrImg {
+    vertical-align: middle;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    margin: 6px;
+}
+
+.profileContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 899px) {
+    .base {
+        padding-bottom: 56px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .profileContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .imgBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 75px 0px 15px 0px;
+        background-color: #ebebeb;
+    }
+}

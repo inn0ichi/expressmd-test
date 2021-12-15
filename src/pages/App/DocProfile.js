@@ -13,7 +13,7 @@ import {
     useParams
 } from "react-router-dom";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-import Nav from '../../components/appcomponents/Nav';
+
 import '../App/DocProfile.css'
 
 export default function DocProfile() {
@@ -42,7 +42,6 @@ export default function DocProfile() {
 
     return (
         <Box className='base'>
-            <Nav />
             <Container className='container'>
                 <Box>
                     {doctorProfile &&

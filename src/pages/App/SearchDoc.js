@@ -12,7 +12,6 @@ export default function SearchDoc() {
     const [value, setValue] = useState(0);
     return (
         <Box className='base'>
-            <Nav />
             <Container className="searchContainer">
                 <SearchInterface />
             </Container>
