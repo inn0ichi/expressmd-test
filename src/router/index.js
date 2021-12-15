@@ -15,7 +15,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import { NavLink } from 'react-router-dom';
-
+import Profile from '../pages/App/Profile';
+import Nav from '../components/appcomponents/Nav';
 
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
@@ -79,12 +80,14 @@ export default function RouterComponent() {
     return (
         <ThemeProvider theme={lightTheme}>
             <CssBaseline />
+            <Nav />
             <Router>
                 <Switch >
                     <Route exact component={App} path="/" />
                     <Route exact component={SearchDoc} path="/search" />
                     <Route exact component={DocProfile} path="/p/:id" />
                     <Route exact component={UserRegistration} path="/register" />
+                    <Route exact component={Profile} path="/profile" />
                 </Switch>
                 <Box>
                     <Paper elevation="8" className="bottomNav">
