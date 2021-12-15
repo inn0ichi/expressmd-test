@@ -22,10 +22,9 @@ export default function UserRegistration() {
         municipality: "",
         barangay: "",
     });
-    
+
     getAuth().onAuthStateChanged(function (user) {
         var userRef = db.collection("users").doc(localStorage.getItem('uid'));
-
         userRef.get().then((doc) => {
             if (doc.exists) {
                 alert("you have already completed your profile. Please go to settings if you want to edit.");
