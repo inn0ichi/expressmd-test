@@ -4,28 +4,41 @@ import { TextField, Paper, Typography, Box, Divider, IconButton, Menu, Container
 import "../appcomponents/css/Search.css"
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import React from 'react';
+import InputAdornment from '@mui/material/InputAdornment';
 import { Link } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
+import Icon from '@mui/material/Icon';
+import { loadCSS } from 'fg-loadcss';
 const searchClient = algoliasearch('06RC56CRHD', '61bc497931637581637d8f096434e15c');
 
 
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
-    <form noValidate action="" role="search">
+    <Paper className='searchBox'>
+    <form  noValidate action="" role="search">
         <TextField
             fullWidth
             id="outlined-basic"
             label="Search"
+            InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                 <SearchIcon color="secondary"/>
+                  </InputAdornment>
+                ),
+              }}
             variant="outlined"
             value={currentRefinement}
             onChange={event => refine(event.currentTarget.value)}
         />
         {isSearchStalled ? 'My search is stalled' : ''}
     </form>
+    </Paper>
 );
 
 const Hits = ({ hits }) => (
     <Box className="searchContainer">
         {hits.map(hit => (
-            <Paper key={hit.objectID} sx={{ marginTop: "15px" }}>
+            <Paper key={hit.objectID} sx={{ marginTop: "5px" }}>
                 <Link to={`p/${hit.objectID}`}>
                     <Box className="hitBox">
                         <Box>
@@ -96,9 +109,20 @@ export default function SearchInterface() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    React.useEffect(() => {
+        const node = loadCSS(
+          'https://use.fontawesome.com/releases/v5.14.0/css/all.css',
+          // Inject before JSS
+          document.querySelector('#font-awesome-css') || document.head.firstChild,
+        );
+        return () => {
+            node.parentNode.removeChild(node);
+          };
+        }, []);
     return (
+        
         <InstantSearch searchClient={searchClient} indexName="doctors">
-
+                <Typography variant='h3' className='headerStyle'>Search Doctors     <Icon baseClassName="fas" className="fas fa-user-md" sx={{ fontSize: {xs:30 , md:50 }, color:"primary" }} /></Typography>
             <Box className="resultContainer">
                 <Box className="filterBox">
                     <CustomSearchBox />

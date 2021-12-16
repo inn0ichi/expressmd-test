@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction";

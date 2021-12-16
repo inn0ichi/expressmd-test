@@ -43,7 +43,7 @@ export default function RouterComponent() {
                 main: '#FC7374',
             },
             background: {
-                paper: '#434343',
+                paper: '#1d222e',
                 default: '#161821',
             },
         },
@@ -99,6 +99,7 @@ export default function RouterComponent() {
                 <Box>
                     <Paper elevation="8" className="bottomNav">
                         <BottomNavigation
+            
                             value={value}
                             onChange={(event, newValue) => {
                                 setValue(newValue);
@@ -106,13 +107,13 @@ export default function RouterComponent() {
                             className="bottomNavContainer"
                         >
                             <NavLink to='/'>
-                                <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+                                <BottomNavigationAction label="Home" icon={<HomeIcon color="secondary" />} />
                             </NavLink>
                             <NavLink to='/search'>
-                                <BottomNavigationAction label="Search" icon={<SearchIcon />} />
+                                <BottomNavigationAction label="Search" icon={<SearchIcon color="secondary" />} />
                             </NavLink>
                             <NavLink to='/profile'>
-                                <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
+                                <BottomNavigationAction label="Profile" icon={<AccountCircleIcon color="secondary" />} />
                             </NavLink>
                         </BottomNavigation>
                     </Paper>

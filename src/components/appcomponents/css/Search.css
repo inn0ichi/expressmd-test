@@ -32,6 +32,7 @@ a {
     padding-left: 75px;
     padding-right: 75px;
 
+   
 }
 
 .hitBox {
@@ -57,6 +58,10 @@ a {
     justify-content: center;
     align-items: center;
 }
+.headerStyle {
+    font-weight: bold;
+    
+}
 
 .docNameBox {
     display: flex;
@@ -67,6 +72,12 @@ a {
 .docDeetsBox {
     display: flex;
     flex-direction: column;
+
+}
+.searchBox {
+    margin-top: 8px;
+    margin-right: 10px;
+    margin-bottom: 5px;
 
 }
 
@@ -132,6 +143,8 @@ a {
 @media only screen and (max-width: 425px) {
     .searchContainer {
         padding: 0;
+        width: 320px;
+
     }
 
     .hitBox {
@@ -142,10 +155,10 @@ a {
 
     .docAvatar {
         vertical-align: middle;
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         border-radius: 5%;
-        margin: 0;
+        margin: 20;
     }
 
     .fname {
@@ -158,6 +171,10 @@ a {
 
     .type {
         font-size: 0.8rem !important;
+    }
+    .headerStyle {
+        font-size: 1.5rem! important;
+        text-align: center;
     }
 }
 
@@ -173,4 +190,9 @@ a {
     .type {
         font-size: 0.7rem !important;
     }
+    .headerStyle {
+        font-size: 1.3rem! important;
+        text-align: center;
+    }
+    
 }
