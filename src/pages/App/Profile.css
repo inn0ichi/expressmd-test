@@ -11,13 +11,21 @@
     flex-direction: row;
 }
 
+.mobileContainer {
+    display: none;
+}
+
+.webContainer {
+    display: block;
+}
+
 @media only screen and (max-width: 899px) {
     .base {
         padding-bottom: 56px;
     }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 560px) {
     .profileContainer {
         display: flex;
         flex-direction: column;
@@ -29,5 +37,19 @@
         align-items: center;
         padding: 75px 0px 15px 0px;
         background-color: #ebebeb;
+    }
+
+
+}
+
+@media only screen and (max-width: 460px) {
+
+
+    .mobileContainer {
+        display: block;
+    }
+
+    .webContainer {
+        display: none;
     }
 }
