@@ -6,18 +6,21 @@ import HelpIcon from '@mui/icons-material/Help';
 import PeopleIcon from '@mui/icons-material/People';
 import firebase from '../../config/firebase';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
     getAuth,
     signOut,
 } from "firebase/auth";
 import '../../pages/App/Profile.css';
+import { withRouter, useHistory } from 'react-router-dom';
 
 const auth = getAuth();
 const user = auth.currentUser;
 
 
-export default function MobileProfileContainer() {
+function MobileProfileContainer() {
 
+    const history = useHistory();
     const db = firebase.firestore();
     const [userProfile, setuserProfile] = useState({
         profile: [],
@@ -55,8 +58,8 @@ export default function MobileProfileContainer() {
             {
                 userProfile && userProfile.profile.map((userProfile) => {
                     return (
-                        <Box>
-                            <Box className='imgBox' key={userProfile.uid}>
+                        <Box key={userProfile.uid}>
+                            <Box color='primary' className='imgBox' key={userProfile.uid}>
                                 <img className='usrImg' alt='user image' src={userProfile.photoURL} />
                                 <Typography variant="h6">{userProfile.fullname}</Typography>
                                 <Button variant='contained'>Edit Profile</Button>
@@ -64,7 +67,7 @@ export default function MobileProfileContainer() {
                             <Box>
                                 <List>
                                     <ListItem disablePadding>
-                                        <ListItemButton>
+                                        <ListItemButton onClick={() => history.push("/history")}>
                                             <ListItemIcon>
                                                 <EventIcon />
                                             </ListItemIcon>
@@ -72,7 +75,7 @@ export default function MobileProfileContainer() {
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>
-                                        <ListItemButton>
+                                        <ListItemButton onClick={() => history.push("/contacts")}>
                                             <ListItemIcon>
                                                 <MedicalServicesIcon />
                                             </ListItemIcon>
@@ -96,6 +99,14 @@ export default function MobileProfileContainer() {
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>
+                                        <ListItemButton onClick={() => history.push("/settings")}>
+                                            <ListItemIcon>
+                                                <SettingsIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Settings" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                    <ListItem disablePadding>
                                         <ListItemButton onClick={() => logout()}>
                                             <ListItemIcon>
                                                 <LogoutIcon />
@@ -111,6 +122,8 @@ export default function MobileProfileContainer() {
                 })
             }
 
-        </Box>
+        </Box >
     )
 }
+
+export default withRouter(MobileProfileContainer);

@@ -3,7 +3,6 @@ import '../App.css';
 import React, { useState } from "react";
 import { ThemeProvider, createTheme } from '@mui/material';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from '../pages/Home';
 import { useSelector } from 'react-redux';
 import { CssBaseline } from '@mui/material';
 import App from '../pages/App';
@@ -17,6 +16,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { NavLink } from 'react-router-dom';
 import Profile from '../pages/App/Profile';
 import Nav from '../components/appcomponents/Nav';
+import TransactionHistory from '../components/appcomponents/TransactionHistory';
+import EmergencyContact from '../components/appcomponents/EmergencyContact';
+import Settings from '../components/appcomponents/Settings';
+
 
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
@@ -78,16 +81,20 @@ export default function RouterComponent() {
     })
     const [value, setValue] = useState(0);
     return (
-        <ThemeProvider theme={lightTheme}>
+        <ThemeProvider theme={ui.isDarkMode ? darkTheme : lightTheme}>
             <CssBaseline />
-            <Nav />
+
             <Router>
+                <Nav />
                 <Switch >
                     <Route exact component={App} path="/" />
                     <Route exact component={SearchDoc} path="/search" />
                     <Route exact component={DocProfile} path="/p/:id" />
                     <Route exact component={UserRegistration} path="/register" />
                     <Route exact component={Profile} path="/profile" />
+                    <Route exact component={TransactionHistory} path="/history" />
+                    <Route exact component={EmergencyContact} path="/contacts" />
+                    <Route exact component={Settings} path="/settings" />
                 </Switch>
                 <Box>
                     <Paper elevation="8" className="bottomNav">

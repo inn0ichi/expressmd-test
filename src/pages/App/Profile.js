@@ -13,11 +13,20 @@ import {
 import './Profile.css';
 import MobileProfileContainer from '../../components/appcomponents/MobileProfileContainer';
 import WebProfileContainer from '../../components/appcomponents/WebProfileContainer';
+import { useDispatch } from 'react-redux';
+import { getTheme } from "../../redux/actions/uiAction";
 
 const auth = getAuth();
 const user = auth.currentUser;
 
 function LoggedIn() {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch]);
+
     return (
         <Box>
             <Box className='mobileContainer'>
@@ -32,6 +41,13 @@ function LoggedIn() {
 }
 
 function NotLoggedIn() {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch]);
+
     return (
         <Box>
             <Typography>
@@ -46,7 +62,6 @@ export default function Profile() {
     getAuth().onAuthStateChanged(function (user) {
         setIsLoggedIn(user);
     });
-
 
     return (
         <Box className='base'>

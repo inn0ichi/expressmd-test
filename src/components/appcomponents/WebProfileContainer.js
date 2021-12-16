@@ -12,6 +12,8 @@ import Tab from '@mui/material/Tab';
 import TransactionHistory from '../appcomponents/TransactionHistory';
 import Settings from '../appcomponents/Settings';
 import EmergencyContact from '../appcomponents/EmergencyContact';
+
+
 const auth = getAuth();
 const user = auth.currentUser;
 

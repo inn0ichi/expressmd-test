@@ -7,8 +7,16 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import './css/TransactionHistory.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleTheme, getTheme } from "../../redux/actions/uiAction";
 
 export default function TransactionHistory() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch]);
+
     const db = firebase.firestore();
     const [transactions, setTransactions] = useState({
         datas: [],

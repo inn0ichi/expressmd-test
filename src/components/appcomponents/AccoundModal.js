@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { Button } from '@mui/material';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import firebase from "../../config/firebase";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink, withRouter } from "react-router-dom";
 
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
@@ -18,7 +18,7 @@ const db = firebase.firestore();
 
 
 
-export default function AccoundModal() {
+function AccoundModal() {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [isLoggedin, setIsLoggedIn] = useState(false);
@@ -115,12 +115,11 @@ export default function AccoundModal() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        <MenuItem onClick={handleCloseNavMenu}>
-                            <Typography textAlign="center">Profile</Typography>
-                        </MenuItem>
-                        <MenuItem onClick={handleCloseNavMenu}>
-                            <Typography textAlign="center">Settings</Typography>
-                        </MenuItem>
+                        <NavLink to='/profile'>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">Profile</Typography>
+                            </MenuItem>
+                        </NavLink>
                         <MenuItem onClick={() => logout()}>
                             <Typography textAlign="center">Logout</Typography>
                         </MenuItem>
@@ -139,3 +138,5 @@ export default function AccoundModal() {
         </Box>
     )
 }
+
+export default withRouter(AccoundModal);
