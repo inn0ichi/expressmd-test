@@ -122,7 +122,8 @@ export default function SearchInterface() {
     return (
         
         <InstantSearch searchClient={searchClient} indexName="doctors">
-                <Typography variant='h3' className='headerStyle'>Search Doctors     <Icon baseClassName="fas" className="fas fa-user-md" sx={{ fontSize: {xs:30 , md:50 }, color:"primary" }} /></Typography>
+           <Typography className='headerStyle'><Icon baseClassName="fas" className="fas fa-user-md" sx={{ fontSize: {xs:30 , md:50 }, color:"primary" }} /></Typography>
+                <Typography variant='h4' className='headerStyle'>Search Doctors</Typography>
             <Box className="resultContainer">
                 <Box className="filterBox">
                     <CustomSearchBox />
