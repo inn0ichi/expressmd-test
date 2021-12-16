@@ -12,8 +12,15 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer';
 import '../App.css';
 import { Helmet } from 'react-helmet';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleTheme, getTheme } from "../redux/actions/uiAction";
 
 export default function Home() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch])
     return (
         <Box>
             <Helmet>

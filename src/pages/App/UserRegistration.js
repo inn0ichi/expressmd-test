@@ -1,14 +1,21 @@
 import { Typography, Box, Container, TextField, Button, FormGroup, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem } from '@mui/material'
 import firebase from '../../config/firebase';
-import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useHistory, withRouter } from "react-router-dom";
 import {
     getAuth
 } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { getTheme } from "../../redux/actions/uiAction";
 
 import './Registration.css';
 
-export default function UserRegistration() {
+function UserRegistration() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch]);
     const db = firebase.firestore();
     const history = useHistory();
     const [payload, setPayload] = useState({
@@ -163,3 +170,5 @@ export default function UserRegistration() {
         </Box>
     )
 }
+
+export default withRouter(UserRegistration);

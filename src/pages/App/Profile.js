@@ -11,110 +11,43 @@ import {
     signOut,
 } from "firebase/auth";
 import './Profile.css';
+import MobileProfileContainer from '../../components/appcomponents/MobileProfileContainer';
+import WebProfileContainer from '../../components/appcomponents/WebProfileContainer';
+import { useDispatch } from 'react-redux';
+import { getTheme } from "../../redux/actions/uiAction";
 
 const auth = getAuth();
 const user = auth.currentUser;
 
 function LoggedIn() {
-    const db = firebase.firestore();
-    const [userProfile, setuserProfile] = useState({
-        profile: [],
-    })
-    const fetchList = async () => {
-        const userRef = db.collection('users').doc(localStorage.getItem("uid"));
-        let usrProfile = [];
-        userRef.get().then(doc => {
-            console.log(doc.data());
-            usrProfile.push(doc.data());
-            setuserProfile({ profile: usrProfile });
-        })
-    }
-    useEffect(() => {
-        fetchList();
-    }, []);
 
-    function logout() {
-        signOut(auth)
-            .then(() => {
-                localStorage.removeItem("email");
-                localStorage.removeItem("photoURL");
-                localStorage.removeItem("uid");
-                localStorage.removeItem("displayName");
-            })
-            .catch((error) => {
-                // An error happened.
-                alert(error);
-            });
-    };
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch]);
 
     return (
         <Box>
-            <Box className='profileContainer'>
-                {
-                    userProfile && userProfile.profile.map((userProfile) => {
-                        return (
-                            <Box>
-                                <Box className='imgBox' key={userProfile.uid}>
-                                    <img className='usrImg' alt='user image' src={userProfile.photoURL} />
-                                    <Typography variant="h6">{userProfile.fullname}</Typography>
-                                    <Button variant='contained'>Edit Profile</Button>
-                                </Box>
-                                <Box>
-                                    <List>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <EventIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="History" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <MedicalServicesIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Emergency Number" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <HelpIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="FAQ" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <PeopleIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="About Us" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton onClick={() => logout()}>
-                                                <ListItemIcon>
-                                                    <LogoutIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Logout" />
-                                            </ListItemButton>
-                                        </ListItem>
-                                    </List>
-                                </Box>
-                            </Box>
-
-                        )
-                    })
-                }
-
+            <Box className='mobileContainer'>
+                <MobileProfileContainer />
+            </Box>
+            <Box className='webContainer'>
+                <WebProfileContainer />
             </Box>
         </Box>
+
     );
 }
 
 function NotLoggedIn() {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch]);
+
     return (
         <Box>
             <Typography>
@@ -129,7 +62,6 @@ export default function Profile() {
     getAuth().onAuthStateChanged(function (user) {
         setIsLoggedIn(user);
     });
-
 
     return (
         <Box className='base'>

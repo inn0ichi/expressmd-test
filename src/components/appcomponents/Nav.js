@@ -10,9 +10,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AccountModal from '../appcomponents/AccoundModal'
+import { useHistory, withRouter, NavLink } from 'react-router-dom';
 
-const pages = ['Contact Us', 'FAQ'];
-export default function Nav() {
+function Nav() {
+
+    const history = useHistory();
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -21,6 +24,12 @@ export default function Nav() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+    };
+
+
+    function goHome() {
+        window.location.href = "/";
+        handleCloseNavMenu();
     };
 
     return (
@@ -65,11 +74,16 @@ export default function Nav() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            <NavLink to='/'>
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">Home</Typography>
                                 </MenuItem>
-                            ))}
+                            </NavLink>
+                            <NavLink to='/faq'>
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">FAQ</Typography>
+                                </MenuItem>
+                            </NavLink>
                         </Menu>
                     </Box>
                     <Typography
@@ -81,15 +95,22 @@ export default function Nav() {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        <NavLink to='/'>
                             <Button
-                                key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                Home
                             </Button>
-                        ))}
+                        </NavLink>
+                        <NavLink to='/faq'>
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                FAQ
+                            </Button>
+                        </NavLink>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
@@ -100,3 +121,5 @@ export default function Nav() {
         </AppBar>
     );
 };
+
+export default Nav;

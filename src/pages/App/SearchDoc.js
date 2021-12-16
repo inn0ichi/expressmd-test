@@ -1,15 +1,17 @@
-import { Typography, Box, Container, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
-import React, { useState } from 'react';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HomeIcon from '@mui/icons-material/Home';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Container } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getTheme } from "../../redux/actions/uiAction";
 
-import Nav from '../../components/appcomponents/Nav';
 import SearchInterface from '../../components/appcomponents/SearchInterface';
 import '../../App.css'
 
 export default function SearchDoc() {
-    const [value, setValue] = useState(0);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTheme());
+    }, [dispatch]);
     return (
         <Box className='base'>
             <Container className="searchContainer">
@@ -18,3 +20,4 @@ export default function SearchDoc() {
         </Box>
     )
 }
+
