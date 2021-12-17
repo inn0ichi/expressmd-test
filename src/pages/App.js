@@ -52,8 +52,8 @@ export default function App() {
     return (
         <Box className='base'>
             <Container>
-                <Box >
-                    <Paper >
+                <Box className='tickerBox'>
+                    <Paper>
                         <Ticker mode="await" speed='4' offset='25'>
                             {({ index }) => (
                                 <>
@@ -77,13 +77,16 @@ export default function App() {
                         <Box component="img" src={TopPhoto} alt="" sx={style.topPhoto}></Box>
                     </Paper>
                 </Box>
-                <Box>
+                <Box className='schedBox'>
                     <Container>
-                        <Typography variant='h6'>Scheduled Appointment</Typography>
-                        <Box className='schedDetails'>
-                            <Typography variant="subtitle2">There is no scheduled appointment.</Typography>
-                            <Button variant='outlined'>Set an appointment now</Button>
-                        </Box>
+                        <Paper elevation={3} className='schedPaper'>
+                            <Typography className='schedHeader' variant='h6'>Scheduled Appointment</Typography>
+                            <Box className='schedDetails'>
+                                <Typography className='schedText' variant="subtitle2">There is no scheduled appointment.</Typography>
+                                <Button className='schedButton' variant='contained'>Set an appointment now</Button>
+                            </Box>
+                        </Paper>
+
                     </Container>
 
                 </Box>

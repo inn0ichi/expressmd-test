@@ -294,6 +294,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 25px 0px 15px 0px;
+  }
+
+  .schedBox {
+    margin: 25px 0px 0px 0px;
+  }
+
+  .schedButton {
+    margin: 15px 0px 0px 0px !important;
+  }
+
+  .schedText {
+    margin: 0px 0px 15px 0px !important;
+  }
+
+  .schedPaper {
+    padding: 25px;
   }
 }
 
@@ -367,5 +384,9 @@
   .ticker {
     display: flex;
     flex-direction: row;
+  }
+
+  .tickerBox {
+    margin-top: 10px
   }
 }
