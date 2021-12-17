@@ -32,7 +32,7 @@ a {
     padding-left: 75px;
     padding-right: 75px;
 
-   
+
 }
 
 .hitBox {
@@ -58,10 +58,11 @@ a {
     justify-content: center;
     align-items: center;
 }
+
 .headerStyle {
     font-weight: bold;
     text-align: center;
-    
+    margin: 10px 0px 10px 0px;
 }
 
 .docNameBox {
@@ -75,6 +76,7 @@ a {
     flex-direction: column;
 
 }
+
 .searchBox {
     margin-top: 8px;
     margin-right: 10px;
@@ -173,8 +175,9 @@ a {
     .type {
         font-size: 0.8rem !important;
     }
+
     .headerStyle {
-        font-size: 1.5rem! important;
+        font-size: 1.5rem ! important;
         text-align: center;
     }
 }
@@ -191,9 +194,10 @@ a {
     .type {
         font-size: 0.7rem !important;
     }
+
     .headerStyle {
-        font-size: 1.3rem! important;
+        font-size: 1.3rem ! important;
         text-align: center;
     }
-    
+
 }

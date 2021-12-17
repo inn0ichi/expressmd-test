@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Typography, Button, Paper, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Box, Typography, Button, Paper, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material'
 import EventIcon from '@mui/icons-material/Event';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import HelpIcon from '@mui/icons-material/Help';
@@ -64,12 +64,13 @@ function MobileProfileContainer() {
                                 <Typography variant="h6">{userProfile.fullname}</Typography>
                                 <Button variant='contained'>Edit Profile</Button>
                             </Box>
+                            <Divider orientation="horizontal" flexItem />
                             <Box>
                                 <List>
                                     <ListItem disablePadding>
                                         <ListItemButton onClick={() => history.push("/history")}>
                                             <ListItemIcon>
-                                                <EventIcon />
+                                                <EventIcon color="secondary" />
                                             </ListItemIcon>
                                             <ListItemText primary="History" />
                                         </ListItemButton>
@@ -77,7 +78,7 @@ function MobileProfileContainer() {
                                     <ListItem disablePadding>
                                         <ListItemButton onClick={() => history.push("/contacts")}>
                                             <ListItemIcon>
-                                                <MedicalServicesIcon />
+                                                <MedicalServicesIcon color="secondary" />
                                             </ListItemIcon>
                                             <ListItemText primary="Emergency Number" />
                                         </ListItemButton>
@@ -85,7 +86,7 @@ function MobileProfileContainer() {
                                     <ListItem disablePadding>
                                         <ListItemButton>
                                             <ListItemIcon>
-                                                <HelpIcon />
+                                                <HelpIcon color="secondary" />
                                             </ListItemIcon>
                                             <ListItemText primary="FAQ" />
                                         </ListItemButton>
@@ -93,7 +94,7 @@ function MobileProfileContainer() {
                                     <ListItem disablePadding>
                                         <ListItemButton>
                                             <ListItemIcon>
-                                                <PeopleIcon />
+                                                <PeopleIcon color="secondary" />
                                             </ListItemIcon>
                                             <ListItemText primary="About Us" />
                                         </ListItemButton>
@@ -101,7 +102,7 @@ function MobileProfileContainer() {
                                     <ListItem disablePadding>
                                         <ListItemButton onClick={() => history.push("/settings")}>
                                             <ListItemIcon>
-                                                <SettingsIcon />
+                                                <SettingsIcon color="secondary" />
                                             </ListItemIcon>
                                             <ListItemText primary="Settings" />
                                         </ListItemButton>
@@ -109,7 +110,7 @@ function MobileProfileContainer() {
                                     <ListItem disablePadding>
                                         <ListItemButton onClick={() => logout()}>
                                             <ListItemIcon>
-                                                <LogoutIcon />
+                                                <LogoutIcon color="secondary" />
                                             </ListItemIcon>
                                             <ListItemText primary="Logout" />
                                         </ListItemButton>
