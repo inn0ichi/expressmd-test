@@ -92,7 +92,7 @@ function MobileProfileContainer() {
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>
-                                        <ListItemButton>
+                                        <ListItemButton onClick={() => history.push("/aboutUs")}>
                                             <ListItemIcon>
                                                 <PeopleIcon color="secondary" />
                                             </ListItemIcon>

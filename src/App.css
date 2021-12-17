@@ -137,12 +137,11 @@
 
 .footer {
   text-align: center;
-  background-color: #2e4450;
 }
 
 .footerContainer {
-  padding-top: 35px;
-  padding-bottom: 35px;
+  padding-top: 25px;
+  padding-bottom: 65px;
 }
 
 .searchContainer {

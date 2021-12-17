@@ -19,6 +19,7 @@ import Nav from '../components/appcomponents/Nav';
 import TransactionHistory from '../components/appcomponents/TransactionHistory';
 import EmergencyContact from '../components/appcomponents/EmergencyContact';
 import Settings from '../components/appcomponents/Settings';
+import About from '../components/appcomponents/AboutUs';
 
 
 export default function RouterComponent() {
@@ -95,6 +96,7 @@ export default function RouterComponent() {
                     <Route exact component={TransactionHistory} path="/history" />
                     <Route exact component={EmergencyContact} path="/contacts" />
                     <Route exact component={Settings} path="/settings" />
+                    <Route exact component={About} path="/aboutUs" />
                 </Switch>
                 <Box>
                     <Paper elevation="8" className="bottomNav">
