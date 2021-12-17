@@ -78,11 +78,13 @@ export default function App() {
                     </Paper>
                 </Box>
                 <Box>
-                    <Box>
+                    <Container>
                         <Typography variant='h6'>Scheduled Appointment</Typography>
-                        <Typography variant="subtitle2">There is no scheduled appointment.</Typography>
-                        <Button variant='outlined'>Set an appointment now</Button>
-                    </Box>
+                        <Box className='schedDetails'>
+                            <Typography variant="subtitle2">There is no scheduled appointment.</Typography>
+                            <Button variant='outlined'>Set an appointment now</Button>
+                        </Box>
+                    </Container>
 
                 </Box>
             </Container>
