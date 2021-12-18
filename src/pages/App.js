@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getTheme } from "../redux/actions/uiAction";
 import Ticker from "react-ticker";
 import CampaignIcon from '@mui/icons-material/Campaign';
+import category from "../assets/child 1.png"
 
 const style = {
     requestBtn: {
@@ -40,6 +41,36 @@ const style = {
         alignItems: "center",
         padding: "10px",
         backgroundColor: "#16C2D5"
+    },
+
+    wrapper : {
+        marginTop : "20px",
+        maxHeight : "120px",
+        display : "flex",
+        overflowX : "auto",
+        "-webkit-scrollbar" : {
+            width : "0px" ,
+
+        }
+
+    },
+
+    item : {
+        minWidth : "200px",
+        height : "110px",
+        lineHeight : "110px",
+        textAlign : "center",
+        backgroundColor : "#ddd",
+        marginRight : "20px",
+        borderRadius : "8px",
+        alignItems : "center"
+
+    },
+
+    category : {
+        height : "50px",
+        width : "50px",
+        alignItems : "center"
     }
 }
 
@@ -86,9 +117,22 @@ export default function App() {
                                 <Button className='schedButton' variant='contained'>Set an appointment now</Button>
                             </Box>
                         </Paper>
-
                     </Container>
-
+                </Box>
+                <Box sx = {style.wrapper}>
+                    <Box sx = {style.item}>
+                    category 1
+                    </Box>
+                    <Box sx = {style.item}>
+                        <Box component = "img" src = {category} alt = "" sx = {style.category}/>
+                        <Box component = "label">Pediatrics</Box>
+                    </Box>
+                    <Box sx = {style.item}>
+                    category 3
+                    </Box>
+                    <Box sx = {style.item}>
+                    category 4
+                    </Box>
                 </Box>
             </Container>
         </Box>
