@@ -93,7 +93,7 @@ export default function WebProfileContainer() {
                 {
                     userProfile && userProfile.profile.map((userProfile) => {
                         return (
-                            <Box>
+                            <Box className='profileBox'>
                                 <Box className='imgBox' key={userProfile.uid}>
                                     <img className='usrImg' alt='user image' src={userProfile.photoURL} />
                                     <Typography variant="subtitle1">{userProfile.fullname}</Typography>

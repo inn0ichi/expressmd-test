@@ -39,7 +39,7 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
 const Hits = ({ hits }) => (
     <Box className="searchContainer">
         {hits.map(hit => (
-            <Paper key={hit.objectID} sx={{ marginTop: "5px" }}>
+            <Paper key={hit.objectID} sx={{ marginTop: "15px" }}>
                 <Link to={`p/${hit.objectID}`}>
                     <Box className="hitBox">
                         <Box>
