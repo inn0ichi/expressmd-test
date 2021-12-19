@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import Icon from '@mui/material/Icon';
 import { loadCSS } from 'fg-loadcss';
-import { height } from '@mui/system';
+
 const searchClient = algoliasearch('06RC56CRHD', '61bc497931637581637d8f096434e15c');
 
 

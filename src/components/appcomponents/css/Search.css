@@ -17,6 +17,7 @@ a {
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-evenly;
+
 }
 
 .filters {
@@ -31,6 +32,8 @@ a {
 .searchContainer {
     padding-left: 75px;
     padding-right: 75px;
+    width: 599px;
+    
 
 
 }

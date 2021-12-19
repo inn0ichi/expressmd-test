@@ -80,7 +80,7 @@ function MobileProfileContainer() {
                                             <ListItemIcon>
                                                 <MedicalServicesIcon color="secondary" />
                                             </ListItemIcon>
-                                            <ListItemText primary="Emergency Number" />
+                                            <ListItemText primary="Hospital Hotlines" />
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>

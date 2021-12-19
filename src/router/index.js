@@ -17,7 +17,7 @@ import { NavLink } from 'react-router-dom';
 import Profile from '../pages/App/Profile';
 import Nav from '../components/appcomponents/Nav';
 import TransactionHistory from '../components/appcomponents/TransactionHistory';
-import EmergencyContact from '../components/appcomponents/EmergencyContact';
+import EmergencyContact from '../components/appcomponents/HospitalContact';
 import Settings from '../components/appcomponents/Settings';
 import About from '../components/appcomponents/AboutUs';
 
