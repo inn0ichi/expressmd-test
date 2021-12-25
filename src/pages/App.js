@@ -7,6 +7,7 @@ import { getTheme } from "../redux/actions/uiAction";
 import Ticker from "react-ticker";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import category from "../assets/child 1.png"
+import { textAlign } from '@mui/system';
 
 const style = {
     requestBtn: {
@@ -44,8 +45,8 @@ const style = {
     },
 
     wrapper : {
-        marginTop : "20px",
-        maxHeight : "120px",
+        marginTop : "30px",
+        maxHeight : "200px",
         display : "flex",
         overflowX : "auto",
         "-webkit-scrollbar" : {
@@ -55,15 +56,23 @@ const style = {
 
     },
 
-    item : {
+    categoryPaper : {
         minWidth : "200px",
-        height : "110px",
+        height : "80px",
         lineHeight : "110px",
-        textAlign : "center",
-        backgroundColor : "#ddd",
+        borderColor : "#7EB6BC",
         marginRight : "20px",
         borderRadius : "8px",
-        alignItems : "center"
+        display : "flex",
+        justifyContent : "center",
+        
+    },
+
+    item : {
+        display : "flex",
+        alignItems : "center",
+        justifyContent : "center",
+        flexDirection : "row"
 
     },
 
@@ -71,7 +80,8 @@ const style = {
         height : "50px",
         width : "50px",
         alignItems : "center"
-    }
+    },
+
 }
 
 export default function App() {
@@ -119,20 +129,32 @@ export default function App() {
                         </Paper>
                     </Container>
                 </Box>
+
+                <Box>
+                    <Box component = "label">Doctor Category</Box>
+                </Box>
                 <Box sx = {style.wrapper}>
+                <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
                     category 1
                     </Box>
+                </Paper>
+                <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
-                        <Box component = "img" src = {category} alt = "" sx = {style.category}/>
-                        <Box component = "label">Pediatrics</Box>
+                        <Box component = "img" src = {category} alt = "" sx = {style.category}></Box>
+                        <Typography variant="subtitle2">Pediatrics</Typography>
                     </Box>
+                    </Paper>
+                    <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
                     category 3
                     </Box>
+                    </Paper>
+                    <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
                     category 4
                     </Box>
+                    </Paper>
                 </Box>
             </Container>
         </Box>
