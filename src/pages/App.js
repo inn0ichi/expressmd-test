@@ -7,7 +7,8 @@ import { getTheme } from "../redux/actions/uiAction";
 import Ticker from "react-ticker";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import category from "../assets/child 1.png"
-import { textAlign } from '@mui/system';
+import doctorPhoto from "../assets/doctor 1.png"
+import { borderRadius } from '@mui/system';
 
 const style = {
     requestBtn: {
@@ -46,21 +47,21 @@ const style = {
 
     wrapper : {
         marginTop : "30px",
-        maxHeight : "200px",
+        maxHeight : "80px",
         display : "flex",
         overflowX : "auto",
         "-webkit-scrollbar" : {
-            width : "0px" ,
-
-        }
+            display : "none"
+        },
+        "-ms-overflow-style": "none",
 
     },
 
     categoryPaper : {
         minWidth : "200px",
         height : "80px",
-        lineHeight : "110px",
         borderColor : "#7EB6BC",
+        borderWidth : "2px",
         marginRight : "20px",
         borderRadius : "8px",
         display : "flex",
@@ -79,8 +80,14 @@ const style = {
     category : {
         height : "50px",
         width : "50px",
-        alignItems : "center"
+        alignItems : "center",
+        padding : "5px",
+        borderRadius : "3px"
     },
+    categoryText : {
+        fontSize : "14px",
+        marginLeft : "8px"
+    }
 
 }
 
@@ -136,18 +143,19 @@ export default function App() {
                 <Box sx = {style.wrapper}>
                 <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
-                    category 1
+                    <Box component = "img" src = {doctorPhoto} alt = "" sx = {style.category} style = {{backgroundColor : "#FFC107"}}></Box>
+                    <Typography variant="subtitle2" sx = {style.categoryText}>General Doctor</Typography>
                     </Box>
                 </Paper>
                 <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
-                        <Box component = "img" src = {category} alt = "" sx = {style.category}></Box>
-                        <Typography variant="subtitle2">Pediatrics</Typography>
+                        <Box component = "img" src = {category} alt = "" sx = {style.category} style = {{backgroundColor : "#65A4DA"}}></Box>
+                        <Typography variant="subtitle2" sx = {style.categoryText} >Pediatrics</Typography>
                     </Box>
                     </Paper>
                     <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
-                    category 3
+                        <Typography variant="subtitle2" sx = {style.categoryText}>Pediatrics</Typography>
                     </Box>
                     </Paper>
                     <Paper sx = {style.categoryPaper} variant = "outlined">
