@@ -20,6 +20,7 @@ import TransactionHistory from '../components/appcomponents/TransactionHistory';
 import EmergencyContact from '../components/appcomponents/HospitalContact';
 import Settings from '../components/appcomponents/Settings';
 import About from '../components/appcomponents/AboutUs';
+import Faq from '../components/appcomponents/Faqs'
 
 
 export default function RouterComponent() {
@@ -97,6 +98,7 @@ export default function RouterComponent() {
                     <Route exact component={EmergencyContact} path="/contacts" />
                     <Route exact component={Settings} path="/settings" />
                     <Route exact component={About} path="/aboutUs" />
+                    <Route exact component={Faq} path="/faq" />
                 </Switch>
                 <Box>
                     <Paper elevation="8" className="bottomNav">
