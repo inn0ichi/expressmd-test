@@ -90,9 +90,7 @@ const style = {
     },
 
     label : {
-        fontSize : "18px",
-        paddingTop : "100px",
-        fontWeight : "500px"
+        marginTop : "20px"
     },
 
 }
@@ -143,8 +141,8 @@ export default function App() {
                     </Container>
                 </Box>
 
-                <Box>
-                    <Typography variant = 'label' sx = {style.label}>Doctor Category</Typography>
+                <Box sx = {style.label}>
+                    <Typography variant = 'h6'>Doctor Category</Typography>
                 </Box>
                 <Box sx = {style.wrapper}>
                 <Paper sx = {style.categoryPaper} variant = "outlined">
