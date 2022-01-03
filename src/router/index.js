@@ -15,6 +15,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import { NavLink } from 'react-router-dom';
 import Profile from '../pages/App/Profile';
+import Request from '../pages/App/Request';
 import Nav from '../components/appcomponents/Nav';
 import TransactionHistory from '../components/appcomponents/TransactionHistory';
 import EmergencyContact from '../components/appcomponents/HospitalContact';
@@ -92,6 +93,7 @@ export default function RouterComponent() {
                     <Route exact component={App} path="/" />
                     <Route exact component={SearchDoc} path="/search" />
                     <Route exact component={DocProfile} path="/p/:id" />
+                    <Route exact component={Request} path="/p/:id/request" />
                     <Route exact component={UserRegistration} path="/register" />
                     <Route exact component={Profile} path="/profile" />
                     <Route exact component={TransactionHistory} path="/history" />
@@ -103,7 +105,7 @@ export default function RouterComponent() {
                 <Box>
                     <Paper elevation="8" className="bottomNav">
                         <BottomNavigation
-            
+
                             value={value}
                             onChange={(event, newValue) => {
                                 setValue(newValue);

@@ -13,7 +13,7 @@ import {
     useParams
 } from "react-router-dom";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
-
+import { Link } from 'react-router-dom';
 import '../App/DocProfile.css'
 
 export default function DocProfile() {
@@ -67,7 +67,14 @@ export default function DocProfile() {
                                         <Typography>Specialty: {docProfile.type}</Typography>
                                         <Typography>Location: {docProfile.location}</Typography>
                                         <Typography>Phone Number: {docProfile.phoneNum}</Typography>
-                                        <Button variant="outlined">Request Appointment</Button>
+
+                                        <Link to={`${id}/request`}>
+                                            <Button variant="outlined">
+                                                Request Appointment
+                                            </Button>
+                                        </Link>
+
+
                                     </Box>
                                     <Box className="starsRating">
                                         <Rating

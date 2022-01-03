@@ -9,6 +9,7 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import category from "../assets/child 1.png"
 import doctorPhoto from "../assets/doctor 1.png"
 import { borderRadius, fontWeight } from '@mui/system';
+import { NavLink } from 'react-router-dom';
 
 const style = {
     requestBtn: {
@@ -45,52 +46,52 @@ const style = {
         backgroundColor: "#16C2D5"
     },
 
-    wrapper : {
-        marginTop : "30px",
-        maxHeight : "80px",
-        display : "flex",
-        overflowX : "auto",
-        "-webkit-scrollbar" : {
-            display : "none"
+    wrapper: {
+        marginTop: "30px",
+        maxHeight: "80px",
+        display: "flex",
+        overflowX: "auto",
+        "-webkit-scrollbar": {
+            display: "none"
         },
         "-ms-overflow-style": "none",
 
     },
 
-    categoryPaper : {
-        minWidth : "200px",
-        height : "80px",
-        borderColor : "#7EB6BC",
-        borderWidth : "2px",
-        marginRight : "20px",
-        borderRadius : "8px",
-        display : "flex",
-        justifyContent : "center",
-        
-    },
-
-    item : {
-        display : "flex",
-        alignItems : "center",
-        justifyContent : "center",
-        flexDirection : "row"
+    categoryPaper: {
+        minWidth: "200px",
+        height: "80px",
+        borderColor: "#7EB6BC",
+        borderWidth: "2px",
+        marginRight: "20px",
+        borderRadius: "8px",
+        display: "flex",
+        justifyContent: "center",
 
     },
 
-    category : {
-        height : "50px",
-        width : "50px",
-        alignItems : "center",
-        padding : "5px",
-        borderRadius : "3px"
-    },
-    categoryText : {
-        fontSize : "14px",
-        marginLeft : "8px"
+    item: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row"
+
     },
 
-    label : {
-        marginTop : "20px"
+    category: {
+        height: "50px",
+        width: "50px",
+        alignItems: "center",
+        padding: "5px",
+        borderRadius: "3px"
+    },
+    categoryText: {
+        fontSize: "14px",
+        marginLeft: "8px"
+    },
+
+    label: {
+        marginTop: "20px"
     },
 
 }
@@ -135,27 +136,29 @@ export default function App() {
                             <Typography className='schedHeader' variant='h6'>Scheduled Appointment</Typography>
                             <Box className='schedDetails'>
                                 <Typography className='schedText' variant="subtitle2">There is no scheduled appointment.</Typography>
-                                <Button className='schedButton' variant='contained'>Set an appointment now</Button>
+                                <NavLink to='/search'>
+                                    <Button className='schedButton' variant='contained'>Set an appointment now</Button>
+                                </NavLink>
                             </Box>
                         </Paper>
                     </Container>
                 </Box>
 
-                <Box sx = {style.label}>
-                    <Typography variant = 'h6'>Doctor Category</Typography>
+                <Box sx={style.label}>
+                    <Typography variant='h6'>Doctor Category</Typography>
                 </Box>
-                <Box sx = {style.wrapper}>
-                <Paper sx = {style.categoryPaper} variant = "outlined">
-                    <Box sx = {style.item}>
-                    <Box component = "img" src = {doctorPhoto} alt = "" sx = {style.category} style = {{backgroundColor : "#FFC107"}}></Box>
-                    <Typography variant="subtitle2" sx = {style.categoryText}>General Doctor</Typography>
-                    </Box>
-                </Paper>
-                <Paper sx = {style.categoryPaper} variant = "outlined">
-                    <Box sx = {style.item}>
-                        <Box component = "img" src = {category} alt = "" sx = {style.category} style = {{backgroundColor : "#65A4DA"}}></Box>
-                        <Typography variant="subtitle2" sx = {style.categoryText} >Pediatrics</Typography>
-                    </Box>
+                <Box sx={style.wrapper}>
+                    <Paper sx={style.categoryPaper} variant="outlined">
+                        <Box sx={style.item}>
+                            <Box component="img" src={doctorPhoto} alt="" sx={style.category} style={{ backgroundColor: "#FFC107" }}></Box>
+                            <Typography variant="subtitle2" sx={style.categoryText}>General Doctor</Typography>
+                        </Box>
+                    </Paper>
+                    <Paper sx={style.categoryPaper} variant="outlined">
+                        <Box sx={style.item}>
+                            <Box component="img" src={category} alt="" sx={style.category} style={{ backgroundColor: "#65A4DA" }}></Box>
+                            <Typography variant="subtitle2" sx={style.categoryText} >Pediatrics</Typography>
+                        </Box>
                     </Paper>
                     {/* <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
