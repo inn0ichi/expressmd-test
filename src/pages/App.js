@@ -8,7 +8,7 @@ import Ticker from "react-ticker";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import category from "../assets/child 1.png"
 import doctorPhoto from "../assets/doctor 1.png"
-import { borderRadius } from '@mui/system';
+import { borderRadius, fontWeight } from '@mui/system';
 
 const style = {
     requestBtn: {
@@ -87,7 +87,13 @@ const style = {
     categoryText : {
         fontSize : "14px",
         marginLeft : "8px"
-    }
+    },
+
+    label : {
+        fontSize : "18px",
+        paddingTop : "100px",
+        fontWeight : "500px"
+    },
 
 }
 
@@ -138,7 +144,7 @@ export default function App() {
                 </Box>
 
                 <Box>
-                    <Box component = "label">Doctor Category</Box>
+                    <Typography variant = 'label' sx = {style.label}>Doctor Category</Typography>
                 </Box>
                 <Box sx = {style.wrapper}>
                 <Paper sx = {style.categoryPaper} variant = "outlined">
@@ -153,7 +159,7 @@ export default function App() {
                         <Typography variant="subtitle2" sx = {style.categoryText} >Pediatrics</Typography>
                     </Box>
                     </Paper>
-                    <Paper sx = {style.categoryPaper} variant = "outlined">
+                    {/* <Paper sx = {style.categoryPaper} variant = "outlined">
                     <Box sx = {style.item}>
                         <Typography variant="subtitle2" sx = {style.categoryText}>Pediatrics</Typography>
                     </Box>
@@ -162,7 +168,7 @@ export default function App() {
                     <Box sx = {style.item}>
                     category 4
                     </Box>
-                    </Paper>
+                    </Paper> */}
                 </Box>
             </Container>
         </Box>
