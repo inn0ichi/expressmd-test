@@ -6,24 +6,52 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
+
+const style = {
+  parentCon : {
+    display : "flex",
+    margin : "20px",
+    alignItems : "center"
+
+  },
+  label : {
+    fontSize : "24px",
+    marginRight : "10px"
+  },
+
+  subLabel : {
+    fontSize : "18px",
+    fontStyle : "italic",
+    color : "red"
+  },
+  textField : {
+    width : "300px",
+  },
+  inputField : {
+    display : "flex",
+    justifyContent : "center",
+    alignItems : 'center'
+  }
+}
+
 export default function Request() {
   return (
     <Box className="base">
       <Box>
         <Typography variant="label">Request Appointment</Typography>
       </Box>
-      <Box>
-        <Typography>
-          What do you feel ? <Typography>*required</Typography>
-        </Typography>
+      <Box sx = {style.parentCon}>
+        <Typography sx = {style.label}>What do you feel ? </Typography>
+        <Typography sx = {style.subLabel}>*Required</Typography>
       </Box>
-      <Box>
+      <Box sx = {style.inputField}>
         <TextField
           id="outlined-basic"
           variant="outlined"
           multiline
-          maxRows={4}
+          maxRows={10}
           minRows={6}
+          sx = {style.textField}
         />
       </Box>
       <Box>
@@ -72,6 +100,16 @@ export default function Request() {
             </FormGroup>
           </FormControl>
         </Box>
+      </Box>
+      <Box>
+        <Typography>Others (Please Specify):</Typography>
+      </Box>
+      <Box>
+      <TextField
+          required
+          id="standard-required"
+          defaultValue=""
+          variant="standard"/>
       </Box>
     </Box>
   );
