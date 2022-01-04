@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box, TextField } from "@mui/material";
+import { Typography, Box, TextField , Button } from "@mui/material";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
@@ -10,19 +10,23 @@ import Checkbox from "@mui/material/Checkbox";
 const style = {
   parentCon : {
     display : "flex",
-    margin : "20px",
-    alignItems : "center"
+    marginLeft : "20px",
+    alignItems : "center",
+    marginTop : "100px",
+    marginBottom : "10px"
 
   },
   label : {
     fontSize : "24px",
-    marginRight : "10px"
+    marginRight : "10px",
+    fontWeight : 100
   },
 
   subLabel : {
     fontSize : "18px",
     fontStyle : "italic",
-    color : "red"
+    color : "#E34343",
+    fontWeight : 100
   },
   textField : {
     width : "350px",
@@ -35,12 +39,61 @@ const style = {
   checkCon : {
     display : "flex",
     flexDirection : "row",
-    justifyContent : "center"
+    justifyContent : "space-between",
+    marginLeft : "20px"
   },
 
   checkBox : {
     display : "flex",
     flexDirection : "column",
+  },
+
+  synLabelCon : {
+    display : "flex",
+    marginLeft : "20px",
+    marginTop : "10px",
+    alignItems : "center",
+
+  },
+
+  Synlabel : {
+    fontSize : "18px",
+    fontWeight : 100
+  },
+  subSynlabel : {
+    fontSize : "15px",
+    fontStyle : "italic",
+    color : "#E34343",
+    fontWeight : 100
+  },
+
+  textFieldBot : {
+    marginLeft : "20px",
+    marginTop : "10px"
+  },
+
+  textFieldBotInput : {
+    fontSize : "13px"
+  },
+
+  otherSynCon : {
+    marginLeft : "20px",
+    marginTop : "10px"
+  },
+
+  otherSyn : {
+    width : "400px"
+  },
+
+  submitBtnCon : {
+    display : "flex",
+    justifyContent : "center",
+    margin : "20px 0",
+  },
+
+  submitBtn : {
+    width : "200px",
+    borderRadius : "8px"
   }
 }
 
@@ -71,7 +124,11 @@ export default function Request() {
           }}
         >
           <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
-            <Typography>Any Symptoms ?</Typography>
+            <Box sx = {style.synLabelCon}>
+            <Typography sx = {style.Synlabel}>Any Symptoms ?</Typography>
+            <Typography sx = {style.subSynlabel} >*Required</Typography>
+            </Box>
+
             <FormGroup sx = {style.checkCon}>
               <Box sx = {style.checkBox}>
               <FormControlLabel
@@ -113,15 +170,21 @@ export default function Request() {
           </FormControl>
         </Box>
       </Box>
-      <Box>
-        <Typography>Others (Please Specify):</Typography>
+      <Box sx = {style.textFieldBot}>
+        <Typography sx = {style.textFieldBotInput}>Others (Please Specify):</Typography>
       </Box>
-      <Box>
+      <Box sx = {style.otherSynCon}>
       <TextField
           required
           id="standard-required"
           defaultValue=""
-          variant="standard"/>
+          variant="standard"
+          sx = {style.otherSyn} 
+          placeholder="seperate with comma"/>
+      </Box>
+
+      <Box sx = {style.submitBtnCon}>
+        <Button variant = "contained" sx = {style.submitBtn}>Submit</Button>
       </Box>
     </Box>
   );
