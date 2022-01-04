@@ -13,19 +13,23 @@ import { useHistory } from "react-router-dom";
 const style = {
   parentCon : {
     display : "flex",
-    margin : "20px",
-    alignItems : "center"
+    marginLeft : "20px",
+    alignItems : "center",
+    marginTop : "100px",
+    marginBottom : "10px"
 
   },
   label : {
     fontSize : "24px",
-    marginRight : "10px"
+    marginRight : "10px",
+    fontWeight : 100
   },
 
   subLabel : {
     fontSize : "18px",
     fontStyle : "italic",
-    color : "red"
+    color : "#E34343",
+    fontWeight : 100
   },
   textField : {
     width : "350px",
@@ -38,12 +42,61 @@ const style = {
   checkCon : {
     display : "flex",
     flexDirection : "row",
-    justifyContent : "center"
+    justifyContent : "space-between",
+    marginLeft : "20px"
   },
 
   checkBox : {
     display : "flex",
     flexDirection : "column",
+  },
+
+  synLabelCon : {
+    display : "flex",
+    marginLeft : "20px",
+    marginTop : "10px",
+    alignItems : "center",
+
+  },
+
+  Synlabel : {
+    fontSize : "18px",
+    fontWeight : 100
+  },
+  subSynlabel : {
+    fontSize : "15px",
+    fontStyle : "italic",
+    color : "#E34343",
+    fontWeight : 100
+  },
+
+  textFieldBot : {
+    marginLeft : "20px",
+    marginTop : "10px"
+  },
+
+  textFieldBotInput : {
+    fontSize : "13px"
+  },
+
+  otherSynCon : {
+    marginLeft : "20px",
+    marginTop : "10px"
+  },
+
+  otherSyn : {
+    width : "400px"
+  },
+
+  submitBtnCon : {
+    display : "flex",
+    justifyContent : "center",
+    margin : "20px 0",
+  },
+
+  submitBtn : {
+    width : "200px",
+    borderRadius : "8px"
   }
 }
 
@@ -197,10 +250,10 @@ payload.Anysymptoms=str;
           </FormControl>
         </Box>
       </Box>
-      <Box>
-        <Typography>Others (Please Specify):</Typography>
+      <Box sx = {style.textFieldBot}>
+        <Typography sx = {style.textFieldBotInput}>Others (Please Specify):</Typography>
       </Box>
-      <Box>
+      <Box sx = {style.otherSynCon}>
       <TextField
           required
           id="standard-required"
