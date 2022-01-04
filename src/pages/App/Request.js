@@ -25,21 +25,29 @@ const style = {
     color : "red"
   },
   textField : {
-    width : "300px",
+    width : "350px",
   },
   inputField : {
     display : "flex",
     justifyContent : "center",
-    alignItems : 'center'
+  },
+
+  checkCon : {
+    display : "flex",
+    flexDirection : "row",
+    justifyContent : "center"
+  },
+
+  checkBox : {
+    display : "flex",
+    flexDirection : "column",
   }
 }
 
 export default function Request() {
   return (
     <Box className="base">
-      <Box>
-        <Typography variant="label">Request Appointment</Typography>
-      </Box>
+
       <Box sx = {style.parentCon}>
         <Typography sx = {style.label}>What do you feel ? </Typography>
         <Typography sx = {style.subLabel}>*Required</Typography>
@@ -64,7 +72,8 @@ export default function Request() {
         >
           <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
             <Typography>Any Symptoms ?</Typography>
-            <FormGroup>
+            <FormGroup sx = {style.checkCon}>
+              <Box sx = {style.checkBox}>
               <FormControlLabel
                 control={<Checkbox name="Cough" />}
                 label="Cough"
@@ -81,6 +90,8 @@ export default function Request() {
                 control={<Checkbox name="Muscle or Body Aches" />}
                 label="Muscle or Body Aches"
               />
+              </Box>
+              <Box sx = {style.checkBox}>
               <FormControlLabel
                 control={<Checkbox name="Shortness of Breath" />}
                 label="Shortness of Breath"
@@ -97,6 +108,7 @@ export default function Request() {
                 control={<Checkbox name="Diarrhea" />}
                 label="Diarrhea"
               />
+              </Box>
             </FormGroup>
           </FormControl>
         </Box>
