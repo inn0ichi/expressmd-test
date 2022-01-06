@@ -22,8 +22,8 @@ import EmergencyContact from '../components/appcomponents/HospitalContact';
 import Settings from '../components/appcomponents/Settings';
 import About from '../components/appcomponents/AboutUs';
 import Faq from '../components/appcomponents/Faqs'
-
-
+import IsSuccessful from "../pages/App/IsSuccessful";
+import IsNotSuccessful from "../pages/App/IsNotSuccessful";
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
 
@@ -101,6 +101,8 @@ export default function RouterComponent() {
                     <Route exact component={Settings} path="/settings" />
                     <Route exact component={About} path="/aboutUs" />
                     <Route exact component={Faq} path="/faq" />
+                    <Route exact component={IsSuccessful} path="/success" />
+                    <Route exact component={IsNotSuccessful} path="/sorry" />
                 </Switch>
                 <Box>
                     <Paper elevation="8" className="bottomNav">

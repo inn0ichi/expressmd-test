@@ -9,12 +9,20 @@ import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import Icon from '@mui/material/Icon';
 import { loadCSS } from 'fg-loadcss';
+import MoonLoader from "react-spinners/MoonLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 const searchClient = algoliasearch('06RC56CRHD', '61bc497931637581637d8f096434e15c');
 
 
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
-    <Paper className='searchBox'>
+    <Box className='searchBox'>
         <form noValidate action="" role="search">
             <TextField
                 fullWidth
@@ -31,9 +39,9 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
                 value={currentRefinement}
                 onChange={event => refine(event.currentTarget.value)}
             />
-            {isSearchStalled ? 'My search is stalled' : ''}
+            {isSearchStalled ? <MoonLoader color={"blue"} loading={isSearchStalled} css={override} size={64} /> : ''}
         </form>
-    </Paper>
+    </Box>
 );
 
 const Hits = ({ hits }) => (
@@ -124,7 +132,7 @@ export default function SearchInterface() {
 
         <InstantSearch searchClient={searchClient} indexName="doctors">
             <Typography className='headerStyle'>
-                <Icon baseClassName="fas" className="fas fa-user-md" sx={{ fontSize: { xs: 30, md: 50 }, color: "primary"}} />
+                <Icon baseClassName="fas" className="fas fa-user-md" sx={{ fontSize: { xs: 30, md: 50 }, color: "primary" }} />
             </Typography>
             <Typography variant='h5' className='headerStyle'>Search Doctors</Typography>
             <Box className="resultContainer">
