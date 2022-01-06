@@ -39,7 +39,7 @@ export default function DocProfile() {
     useEffect(() => {
         fetchData();
     }, []);
-
+    
     return (
         <Box className='base'>
             <Container className='container'>

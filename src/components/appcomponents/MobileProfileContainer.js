@@ -29,7 +29,7 @@ function MobileProfileContainer() {
         const userRef = db.collection('users').doc(localStorage.getItem("uid"));
         let usrProfile = [];
         userRef.get().then(doc => {
-            console.log(doc.data());
+
             usrProfile.push(doc.data());
             setuserProfile({ profile: usrProfile });
         })
@@ -52,7 +52,7 @@ function MobileProfileContainer() {
             });
     };
 
-
+    console.log(userProfile);
     return (
         <Box className='profileContainer'>
             {

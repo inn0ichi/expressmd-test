@@ -1,7 +1,7 @@
 import { Typography, Box, Container, Button, Paper } from "@mui/material";
 import Nav from "../components/appcomponents/Nav";
 import TopPhoto from "../assets/Drawkit-Vector-Illustration-Medical-01 1.png";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getTheme } from "../redux/actions/uiAction";
 import Ticker from "react-ticker";
@@ -9,7 +9,9 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import category from "../assets/child 1.png";
 import doctorPhoto from "../assets/doctor 1.png";
 import { borderRadius, fontWeight } from "@mui/system";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import firebase from '../config/firebase';
+import { getAuth } from "firebase/auth";
 
 const style = {
   requestBtn: {
@@ -97,6 +99,38 @@ export default function App() {
   useEffect(() => {
     dispatch(getTheme());
   }, [dispatch]);
+
+  const [isEmpty, setisEmpty] = useState(false);
+  const history = useHistory();
+  const db = firebase.firestore();
+  const [fetchAppointments, setfetchAppointments] = useState({
+    appointments: [],
+  })
+
+  const fetchList = async () => {
+    const userRef = db.collection('users').doc(localStorage.getItem("uid")).collection("PendingRequests").doc(localStorage.getItem("uid"));
+    userRef.get().then((doc) => {
+      if (doc.exists) {
+        setisEmpty(false);
+        let getAppointment = [];
+        userRef.get().then(doc => {
+
+          getAppointment.push(doc.data());
+          setfetchAppointments({ appointments: getAppointment });
+        })
+      } else {
+        // doc.data() will be undefined in this case
+        setisEmpty(true);
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    });
+  }
+  useEffect(() => {
+
+    fetchList();
+  }, []);
+
   return (
     <Box className="base">
       <Container>
@@ -136,14 +170,21 @@ export default function App() {
                 Scheduled Appointment
               </Typography>
               <Box className="schedDetails">
-                <Typography className="schedText" variant="subtitle2">
-                  There is no scheduled appointment.
-                </Typography>
-                <NavLink to="/search">
-                  <Button className="schedButton" variant="contained">
-                    Set an appointment now
-                  </Button>
-                </NavLink>
+                {isEmpty ?
+                  <Typography className="schedText" variant="subtitle2">
+                    There is no scheduled appointment.
+                  </Typography>
+                  :
+                  fetchAppointments.appointments.map((setappointment) => {
+                    return (
+                      <Paper key={setappointment.userID}>
+                        <Typography variant="subtitle2">Assigned Doctor:{setappointment.assigned_doctor}</Typography>
+                      </Paper>
+                    )
+
+                  })
+                }
+
               </Box>
             </Paper>
           </Container>

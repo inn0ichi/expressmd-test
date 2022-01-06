@@ -10,6 +10,7 @@ import firebase from '../../config/firebase';
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction"
 import { useHistory, useParams } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 const style = {
   parentCon: {
     display: "flex",
@@ -153,42 +154,60 @@ export default function Request() {
       alert("Please enter the required fields!");
       console.log(payload);
     } else {
+      var docRef = db.collection("doctors")
+        .doc(id)
+        .collection("PendingRequests")
+        .doc(
+          localStorage.getItem("uid"));
+      var userRef = db.collection("users")
+        .doc(getAuth().currentUser.uid)
+        .collection("PendingRequests")
+        .doc(
+          localStorage.getItem("uid"));
 
-
-      doctorProfile.profile.map((docProfile) => {
-        var docName = docProfile.lastname + ", " + docProfile.firstname + " " + docProfile.middleInitials;
-        db.collection("users").doc(localStorage.getItem("uid")).collection("requests")
-          .doc()
-          .set({
-            feel: payload.feel,
-            symptoms: payload.symptoms,
-            others: payload.others,
-            assigned_doctor: docName,
-            docId: id,
-            userID: localStorage.getItem("userID"),
-          })
-          .then((docRef) => {
-            db.collection("doctors").doc(id).collection("requests")
-              .doc()
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          alert("You can only request once. Please wait for your doctor to accept your request");
+        } else {
+          doctorProfile.profile.map((docProfile) => {
+            var docName = docProfile.lastname + ", " + docProfile.firstname + " " + docProfile.middleInitials;
+            userRef
               .set({
                 feel: payload.feel,
                 symptoms: payload.symptoms,
                 others: payload.others,
                 assigned_doctor: docName,
-                docId: id,
+                doctorId: id,
                 userID: localStorage.getItem("userID"),
               })
-              .then((docRef) => {
-                history.push("/success")
+              .then((docReference) => {
+                docRef
+                  .set({
+                    feel: payload.feel,
+                    symptoms: payload.symptoms,
+                    others: payload.others,
+                    assigned_doctor: docName,
+                    doctorId: id,
+                    userID: localStorage.getItem("userID"),
+                  })
+                  .then((docRef) => {
+                    history.push("/success")
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    history.push("/sorry")
+                  });
               })
               .catch((error) => {
+                console.log(error);
                 history.push("/sorry")
               });
           })
-          .catch((error) => {
-            history.push("/sorry")
-          });
-      })
+        }
+      }).catch((error) => {
+        console.log(error);
+        history.push("/sorry")
+      });
 
     }
   };
