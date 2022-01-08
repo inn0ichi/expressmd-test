@@ -38,6 +38,8 @@ const style = {
     justifyContent: "center",
     alignItems: "center",
     marginTop: "20px",
+    marginLeft : "20px",
+    marginRight : "20px"
   },
   paperContainer: {
     display: "flex",

@@ -42,7 +42,9 @@ const style = {
   },
   inputField: {
     display: "flex",
-    justifyContent: "center",
+    marginLeft : "45px",
+    marginRight : "45px",
+    justifyContent : "center"
   },
 
   checkCon: {
@@ -82,17 +84,24 @@ const style = {
   },
 
   textFieldBotInput: {
-    fontSize: "13px"
+    fontSize: "13px",
   },
 
   otherSynCon: {
+    display : "flex",
     marginLeft: "20px",
+    marginRight : "20px",
     marginTop: "10px",
     marginBottom: "50px"
   },
 
   otherSyn: {
-    width: "400px"
+    width : "408px"
+  },
+
+  dateTimeCon : {
+    marginLeft : "20px",
+    marginRight : "20px"
   },
 
   submitBtnCon: {
@@ -365,10 +374,11 @@ export default function Request() {
           defaultValue=""
           variant="standard"
           onChange={userInput("others")}
+          sx = {style.otherSyn}
         />
       </Box>
 
-      <Box>
+      <Box sx = {style.dateTimeCon}>
         <LocalizationProvider dateAdapter={AdapterDateFns} >
           <Stack spacing={3}>
             <MobileDatePicker
@@ -387,7 +397,9 @@ export default function Request() {
           </Stack>
         </LocalizationProvider>
       </Box>
-      <Button onClick={() => submitForm()} variant='outlined'>Submit</Button>
+      <Box sx = {style.submitBtnCon}>
+      <Button onClick={() => submitForm()} variant='contained' sx = {style.submitBtn}>Submit</Button>
+      </Box>
     </Box>
   );
 }
