@@ -176,9 +176,14 @@ export default function App() {
                   </Typography>
                   :
                   fetchAppointments.appointments.map((setappointment) => {
+                    let setDate = setappointment.datetime.toDate().toLocaleDateString();
+                    let setTime = setappointment.datetime.toDate().toLocaleTimeString();
                     return (
                       <Paper key={setappointment.userID}>
+                        <Typography>Date: {setDate}</Typography>
+                        <Typography>Time: {setTime}</Typography>
                         <Typography variant="subtitle2">Assigned Doctor:{setappointment.assigned_doctor}</Typography>
+                        <Typography variant="subtitle2">Status:{setappointment.status}</Typography>
                       </Paper>
                     )
 

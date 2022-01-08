@@ -128,6 +128,10 @@ export default function Request() {
     profile: [],
   });
 
+  const [userProfile, setuserProfile] = useState({
+    profile: [],
+  });
+
   const handleChange = (newValue) => {
     setSpecifiedDate(newValue);
   };
@@ -143,8 +147,20 @@ export default function Request() {
     isMounted = false
   };
 
+  const fetchUserData = async () => {
+    let isMounted = true
+    const docRef = await db.collection("users").doc(localStorage.getItem("uid"));
+    let userProfile = [];
+    docRef.get().then((doc) => {
+      userProfile.push(doc.data());
+      setuserProfile({ profile: userProfile });
+    });
+    isMounted = false
+  };
+
   useEffect(() => {
     fetchData();
+    fetchUserData();
   }, []);
   /*fetch doc*/
 
@@ -183,39 +199,57 @@ export default function Request() {
         } else {
           doctorProfile.profile.map((docProfile) => {
             var docName = docProfile.lastname + ", " + docProfile.firstname + " " + docProfile.middleInitials;
-            userRef
-              .set({
-                feel: payload.feel,
-                symptoms: payload.symptoms,
-                others: payload.others,
-                assigned_doctor: docName,
-                doctorId: id,
-                userID: localStorage.getItem("uid"),
-                datetime: specifiedDate,
-              })
-              .then((docReference) => {
-                docRef
-                  .set({
-                    feel: payload.feel,
-                    symptoms: payload.symptoms,
-                    others: payload.others,
-                    assigned_doctor: docName,
-                    doctorId: id,
-                    userID: localStorage.getItem("uid"),
-                    datetime: specifiedDate,
-                  })
-                  .then((docRef) => {
-                    history.push("/success")
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                    history.push("/sorry")
-                  });
-              })
-              .catch((error) => {
-                console.log(error);
-                history.push("/sorry")
-              });
+            var uid = docProfile.uid;
+            userProfile.profile.map((userProfile) => {
+              var fullname = userProfile.fullname;
+              var gender = userProfile.gender;
+              var location = userProfile.location;
+              var phoneNumber = userProfile.phoneNumber;
+              var userID = userProfile.uid;
+              userRef
+                .set({
+                  feel: payload.feel,
+                  symptoms: payload.symptoms,
+                  others: payload.others,
+                  assigned_doctor: docName,
+                  doctorId: uid,
+                  userID: userID,
+                  userFullName: fullname,
+                  datetime: specifiedDate,
+                  status: "Pending",
+                  gender: gender,
+                  location: location,
+                  phoneNumber: phoneNumber,
+                })
+                .then((docReference) => {
+                  docRef
+                    .set({
+                      feel: payload.feel,
+                      symptoms: payload.symptoms,
+                      others: payload.others,
+                      assigned_doctor: docName,
+                      doctorId: uid,
+                      userID: userID,
+                      userFullName: fullname,
+                      datetime: specifiedDate,
+                      status: "Pending",
+                      gender: gender,
+                      location: location,
+                      phoneNumber: phoneNumber,
+                    })
+                    .then((docRef) => {
+                      history.push("/success")
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      history.push("/sorry")
+                    });
+                })
+                .catch((error) => {
+                  console.log(error);
+                  history.push("/sorry")
+                });
+            });
           })
         }
       }).catch((error) => {
