@@ -1,3 +1,7 @@
+.MuiInputLabel-root {
+  z-index: 0 !important;
+}
+
 .ticker {
   display: none;
 }

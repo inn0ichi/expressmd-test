@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button } from "@mui/material";
+import { Typography, Box, TextField, Button, Stack } from "@mui/material";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
@@ -11,12 +11,17 @@ import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction"
 import { useHistory, useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import TimePicker from '@mui/lab/TimePicker';
+
 const style = {
   parentCon: {
     display: "flex",
     marginLeft: "20px",
     alignItems: "center",
-    marginTop: "100px",
+    marginTop: "40px",
     marginBottom: "10px"
 
   },
@@ -82,7 +87,8 @@ const style = {
 
   otherSynCon: {
     marginLeft: "20px",
-    marginTop: "10px"
+    marginTop: "10px",
+    marginBottom: "50px"
   },
 
   otherSyn: {
@@ -103,6 +109,10 @@ const style = {
 
 
 export default function Request() {
+
+  const [specifiedDate, setSpecifiedDate] = useState(new Date());
+
+
   const db = firebase.firestore();
   const history = useHistory();
 
@@ -118,7 +128,9 @@ export default function Request() {
     profile: [],
   });
 
-
+  const handleChange = (newValue) => {
+    setSpecifiedDate(newValue);
+  };
 
   const fetchData = async () => {
     let isMounted = true
@@ -178,7 +190,8 @@ export default function Request() {
                 others: payload.others,
                 assigned_doctor: docName,
                 doctorId: id,
-                userID: localStorage.getItem("userID"),
+                userID: localStorage.getItem("uid"),
+                datetime: specifiedDate,
               })
               .then((docReference) => {
                 docRef
@@ -188,7 +201,8 @@ export default function Request() {
                     others: payload.others,
                     assigned_doctor: docName,
                     doctorId: id,
-                    userID: localStorage.getItem("userID"),
+                    userID: localStorage.getItem("uid"),
+                    datetime: specifiedDate,
                   })
                   .then((docRef) => {
                     history.push("/success")
@@ -234,8 +248,6 @@ export default function Request() {
         <Typography sx={style.subLabel}>*Required</Typography>
       </Box>
       <Box sx={style.inputField}>
-
-
         <TextField
           id="outlined-basic"
           variant="outlined"
@@ -322,7 +334,25 @@ export default function Request() {
         />
       </Box>
 
-
+      <Box>
+        <LocalizationProvider dateAdapter={AdapterDateFns} >
+          <Stack spacing={3}>
+            <MobileDatePicker
+              label="Date"
+              inputFormat="MM/dd/yyyy"
+              value={specifiedDate}
+              onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <TimePicker
+              label="Time"
+              value={specifiedDate}
+              onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </Stack>
+        </LocalizationProvider>
+      </Box>
       <Button onClick={() => submitForm()} variant='outlined'>Submit</Button>
     </Box>
   );
