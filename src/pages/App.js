@@ -38,8 +38,8 @@ const style = {
     justifyContent: "center",
     alignItems: "center",
     marginTop: "20px",
-    marginLeft : "20px",
-    marginRight : "20px"
+    marginLeft: "20px",
+    marginRight: "20px"
   },
   paperContainer: {
     display: "flex",
@@ -94,8 +94,8 @@ const style = {
     marginTop: "20px",
   },
 
-  appointmentSched : {
-    padding : "20px",
+  appointmentSched: {
+    padding: "20px",
     borderColor: "#7EB6BC",
     borderWidth: "2px",
   }
@@ -122,7 +122,7 @@ export default function App() {
         setisEmpty(false);
         let getAppointment = [];
         userRef.get().then(doc => {
-
+          console.log(doc.data());
           getAppointment.push(doc.data());
           setfetchAppointments({ appointments: getAppointment });
         })
@@ -187,7 +187,7 @@ export default function App() {
                     let setDate = setappointment.datetime.toDate().toLocaleDateString();
                     let setTime = setappointment.datetime.toDate().toLocaleTimeString();
                     return (
-                      <Paper variant = "outlined" key={setappointment.userID} sx = {style.appointmentSched}>
+                      <Paper variant="outlined" key={setappointment.userID} sx={style.appointmentSched}>
                         <Typography>Date: {setDate}</Typography>
                         <Typography>Time: {setTime}</Typography>
                         <Typography variant="subtitle2">Assigned Doctor:{setappointment.assigned_doctor}</Typography>
