@@ -16,6 +16,7 @@ import { getAuth } from "firebase/auth";
 const style = {
   requestBtn: {
     borderColor: "white",
+    marginLeft : "10px"
   },
 
   textBtn: {
@@ -31,6 +32,7 @@ const style = {
     height: "150px",
     width: "110px",
     marginLeft: "10px",
+    marginRight : "10px"
   },
 
   topContainer: {
@@ -38,14 +40,15 @@ const style = {
     justifyContent: "center",
     alignItems: "center",
     marginTop: "20px",
-    marginLeft: "20px",
-    marginRight: "20px"
+    marginLeft: "15px",
+    marginRight: "15px"
   },
   paperContainer: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "10px",
+    width : "400px",
+    height : "170px",
     backgroundColor: "#16C2D5",
   },
 
