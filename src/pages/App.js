@@ -104,6 +104,8 @@ const style = {
   }
 };
 
+const user = getAuth();
+
 export default function App() {
   const dispatch = useDispatch();
 
@@ -117,22 +119,28 @@ export default function App() {
   const [fetchAppointments, setfetchAppointments] = useState({
     appointments: [],
   })
+  console.log(user);
 
   const fetchList = () => {
-    const userRef = db.collection('users').doc(localStorage.getItem("uid")).collection("requests").doc(localStorage.getItem("uid"));
-    userRef.onSnapshot((doc) => {
-      if (doc.exists) {
-        setisEmpty(false);
-        let getAppointment = [];
-        userRef.get().then(doc => {
-          getAppointment.push(doc.data());
-          setfetchAppointments({ appointments: getAppointment });
-        })
-      } else {
-        // doc.data() will be undefined in this case
-        setisEmpty(true);
-      }
-    });
+    if (user.currentUser) {
+      const userRef = db.collection('users').doc(localStorage.getItem("uid")).collection("requests").doc(localStorage.getItem("uid"));
+      userRef.onSnapshot((doc) => {
+        if (doc.exists) {
+          setisEmpty(false);
+          let getAppointment = [];
+          userRef.get().then(doc => {
+            getAppointment.push(doc.data());
+            setfetchAppointments({ appointments: getAppointment });
+          })
+        } else {
+          // doc.data() will be undefined in this case
+          setisEmpty(true);
+        }
+      });
+    } else {
+      setisEmpty(true);
+    }
+
   }
   useEffect(() => {
     fetchList();
