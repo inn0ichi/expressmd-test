@@ -24,6 +24,8 @@ import About from '../components/appcomponents/AboutUs';
 import Faq from '../components/appcomponents/Faqs'
 import IsSuccessful from "../pages/App/IsSuccessful";
 import IsNotSuccessful from "../pages/App/IsNotSuccessful";
+import ViewRequest from '../pages/App/ViewRequest';
+
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
 
@@ -103,6 +105,7 @@ export default function RouterComponent() {
                     <Route exact component={Faq} path="/faq" />
                     <Route exact component={IsSuccessful} path="/success" />
                     <Route exact component={IsNotSuccessful} path="/sorry" />
+                    <Route exact component={ViewRequest} path="/r/:id/view" />
                 </Switch>
                 <Box>
                     <Paper elevation="8" className="bottomNav">

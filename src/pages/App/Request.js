@@ -42,9 +42,9 @@ const style = {
   },
   inputField: {
     display: "flex",
-    marginLeft : "45px",
-    marginRight : "45px",
-    justifyContent : "center"
+    marginLeft: "45px",
+    marginRight: "45px",
+    justifyContent: "center"
   },
 
   checkCon: {
@@ -88,20 +88,20 @@ const style = {
   },
 
   otherSynCon: {
-    display : "flex",
+    display: "flex",
     marginLeft: "20px",
-    marginRight : "20px",
+    marginRight: "20px",
     marginTop: "10px",
     marginBottom: "50px"
   },
 
   otherSyn: {
-    width : "408px"
+    width: "408px"
   },
 
-  dateTimeCon : {
-    marginLeft : "20px",
-    marginRight : "20px"
+  dateTimeCon: {
+    marginLeft: "20px",
+    marginRight: "20px"
   },
 
   submitBtnCon: {
@@ -193,12 +193,12 @@ export default function Request() {
     } else {
       var docRef = db.collection("doctors")
         .doc(id)
-        .collection("PendingRequests")
+        .collection("requests")
         .doc(
           localStorage.getItem("uid"));
       var userRef = db.collection("users")
         .doc(getAuth().currentUser.uid)
-        .collection("PendingRequests")
+        .collection("requests")
         .doc(
           localStorage.getItem("uid"));
 
@@ -374,11 +374,11 @@ export default function Request() {
           defaultValue=""
           variant="standard"
           onChange={userInput("others")}
-          sx = {style.otherSyn}
+          sx={style.otherSyn}
         />
       </Box>
 
-      <Box sx = {style.dateTimeCon}>
+      <Box sx={style.dateTimeCon}>
         <LocalizationProvider dateAdapter={AdapterDateFns} >
           <Stack spacing={3}>
             <MobileDatePicker
@@ -397,8 +397,8 @@ export default function Request() {
           </Stack>
         </LocalizationProvider>
       </Box>
-      <Box sx = {style.submitBtnCon}>
-      <Button onClick={() => submitForm()} variant='contained' sx = {style.submitBtn}>Submit</Button>
+      <Box sx={style.submitBtnCon}>
+        <Button onClick={() => submitForm()} variant='contained' sx={style.submitBtn}>Submit</Button>
       </Box>
     </Box>
   );

@@ -17,7 +17,7 @@ export default function IsSuccessful() {
     return (
         <Box>
             <Typography>
-                Edit Successful.
+                Request Successful. Please wait for your Doctor to respond to your request.
             </Typography>
             <Button variant="outlined" onClick={() => history.push("/")}>OK</Button>
         </Box >
