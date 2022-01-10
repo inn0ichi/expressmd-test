@@ -52,7 +52,6 @@ function MobileProfileContainer() {
             });
     };
 
-    console.log(userProfile);
     return (
         <Box className='profileContainer'>
             {

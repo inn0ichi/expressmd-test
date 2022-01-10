@@ -105,6 +105,7 @@ const style = {
 };
 
 const user = getAuth();
+var database = firebase.database();
 
 export default function App() {
   const dispatch = useDispatch();
@@ -119,7 +120,6 @@ export default function App() {
   const [fetchAppointments, setfetchAppointments] = useState({
     appointments: [],
   })
-  console.log(user);
 
   const fetchList = () => {
     if (user.currentUser) {
@@ -140,10 +140,26 @@ export default function App() {
     } else {
       setisEmpty(true);
     }
-
   }
+  /* 
+  
+    const fetchAnnouncement = () => {
+      const dbRef = firebase.database().ref();
+      dbRef.child("aotd").get().then((snapshot) => {
+        console.log(snapshot);
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    } */
+
   useEffect(() => {
     fetchList();
+    /* fetchAnnouncement(); */
   }, []);
 
   return (
