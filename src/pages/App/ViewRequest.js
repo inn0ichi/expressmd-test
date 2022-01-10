@@ -65,6 +65,43 @@ export default function ViewRequest() {
     history.push(`${id}/edit`)
   }
 
+  function acceptRequest() {
+    appointmentData.data.map((data) => {
+      let docID = data.doctorId;
+      let userID = data.userID;
+      var docRef = db.collection("doctors")
+        .doc(docID)
+        .collection("requests")
+        .doc(userID);
+      var userRef = db.collection("users")
+        .doc(userID)
+        .collection("requests")
+        .doc(userID);
+      userRef
+        .update({
+          status: "Accepted",
+        })
+        .then((docReference) => {
+          docRef
+            .update({
+              status: "Accepted",
+            })
+            .then((docRef) => {
+              history.push("/success");
+            })
+            .catch((error) => {
+              console.log(error);
+              history.push("/sorry");
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          history.push("/sorry");
+        });
+    })
+
+  }
+
   return (
     <Box className="base">
       {
@@ -98,7 +135,7 @@ export default function ViewRequest() {
                       break;
                     case "Edited": return (
                       <Box>
-                        <Button variant="contained">Accept</Button>
+                        <Button variant="contained" onClick={() => acceptRequest()}>Accept</Button>
                         <Button variant="contained">Decline</Button>
                         <Button variant="outlined" onClick={() => editRequest()}>Change Time or Date</Button>
                       </Box>
