@@ -99,7 +99,6 @@ export default function ViewRequest() {
           history.push("/sorry");
         });
     })
-
   }
 
   return (
@@ -140,10 +139,10 @@ export default function ViewRequest() {
                         <Button variant="outlined" onClick={() => editRequest()}>Change Time or Date</Button>
                       </Box>
                     );
-                      break;
                     case "Accepted":
                       return null;
-                      break;
+                    case "Declined":
+                      return null;
                     default:
                       return null;
                   }
