@@ -1,14 +1,13 @@
 import '../App.css';
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ThemeProvider, createTheme } from '@mui/material';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { CssBaseline } from '@mui/material';
 import App from '../pages/App';
 import SearchDoc from '../pages/App/SearchDoc';
 import DocProfile from '../pages/App/DocProfile';
-import UserRegistration from '../pages/App/UserRegistration';
 import { Box, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
@@ -25,9 +24,44 @@ import Faq from '../components/appcomponents/Faqs'
 import IsSuccessful from "../pages/App/IsSuccessful";
 import IsNotSuccessful from "../pages/App/IsNotSuccessful";
 import ViewRequest from '../pages/App/ViewRequest';
+import UserRegistration from '../pages/App/UserRegistration';
+import Login from '../pages/App/Login';
+import CreateAccount from '../pages/App/CreateAccount';
+import PrivateRoute from '../utils/PrivateRoute';
+import PublicRoute from '../utils/PublicRoute';
+import firebase from '../config/firebase';
+
+function BottomNav() {
+
+    const [value, setValue] = useState(0);
+    const history = useHistory();
+    return (
+        <Box>
+            <Paper elevation="8" className="bottomNav">
+                <BottomNavigation
+
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue(newValue);
+                    }}
+                    className="bottomNavContainer"
+                >
+
+                    <BottomNavigationAction label="Home" onClick={() => history.push('/')} icon={<HomeIcon color="secondary" />} />
+
+                    <BottomNavigationAction label="Search" onClick={() => history.push('/search')} icon={<SearchIcon color="secondary" />} />
+
+                    <BottomNavigationAction label="Profile" onClick={() => history.push('/profile')} icon={<AccountCircleIcon color="secondary" />} />
+
+                </BottomNavigation>
+            </Paper>
+        </Box>
+    );
+}
 
 export default function RouterComponent() {
     const ui = useSelector((state) => state.ui);
+    const [isInitialRender, setIsInitialRender] = useState(true);
 
     const darkTheme = createTheme({
         palette: {
@@ -84,7 +118,7 @@ export default function RouterComponent() {
             fontFamily: 'Roboto',
         },
     })
-    const [value, setValue] = useState(0);
+
     return (
         <ThemeProvider theme={ui.isDarkMode ? darkTheme : lightTheme}>
             <CssBaseline />
@@ -97,6 +131,8 @@ export default function RouterComponent() {
                     <Route exact component={DocProfile} path="/p/:id" />
                     <Route exact component={Request} path="/p/:id/request" />
                     <Route exact component={UserRegistration} path="/register" />
+                    <Route exact component={CreateAccount} path="/createaccount" />
+                    <Route exact component={Login} path="/login" />
                     <Route exact component={Profile} path="/profile" />
                     <Route exact component={TransactionHistory} path="/history" />
                     <Route exact component={EmergencyContact} path="/contacts" />
@@ -107,28 +143,7 @@ export default function RouterComponent() {
                     <Route exact component={IsNotSuccessful} path="/sorry" />
                     <Route exact component={ViewRequest} path="/r/:id/view" />
                 </Switch>
-                <Box>
-                    <Paper elevation="8" className="bottomNav">
-                        <BottomNavigation
-
-                            value={value}
-                            onChange={(event, newValue) => {
-                                setValue(newValue);
-                            }}
-                            className="bottomNavContainer"
-                        >
-                            <NavLink to='/'>
-                                <BottomNavigationAction label="Home" icon={<HomeIcon color="secondary" />} />
-                            </NavLink>
-                            <NavLink to='/search'>
-                                <BottomNavigationAction label="Search" icon={<SearchIcon color="secondary" />} />
-                            </NavLink>
-                            <NavLink to='/profile'>
-                                <BottomNavigationAction label="Profile" icon={<AccountCircleIcon color="secondary" />} />
-                            </NavLink>
-                        </BottomNavigation>
-                    </Paper>
-                </Box>
+                <BottomNav />
             </Router>
 
         </ThemeProvider>

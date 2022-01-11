@@ -120,6 +120,18 @@ export default function App() {
   const [fetchAppointments, setfetchAppointments] = useState({
     appointments: [],
   })
+  useEffect(() => {
+    let isSubscribed = true;
+    getAuth().onAuthStateChanged(function (user) {
+      if (!user) {
+        setisEmpty(true);
+      }
+    });
+    return () => {
+      isSubscribed = false;
+    }
+  }, [isEmpty]);
+
 
   const fetchList = () => {
     if (user.currentUser) {

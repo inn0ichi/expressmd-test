@@ -23,7 +23,6 @@ function UserRegistration() {
         email: "",
         gender: "",
         uid: localStorage.getItem("uid"),
-        photoURL: localStorage.getItem("photoURL"),
         phoneNumber: "",
         houseNum: "",
         municipality: "",
@@ -62,7 +61,6 @@ function UserRegistration() {
                     email: payload.email,
                     gender: payload.gender,
                     uid: payload.uid,
-                    photoURL: payload.photoURL,
                     phoneNumber: payload.phoneNumber,
                     location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
                 })
@@ -77,9 +75,9 @@ function UserRegistration() {
             <Container className='registerContainer'>
                 <Typography variant="h4">Complete Your Profile</Typography>
                 <Box className='formContainer'>
-                    <Box className='imgContainer'>
+                    {/* <Box className='imgContainer'>
                         <img className='usrImg' alt='profileImg' src={localStorage.getItem("photoURL")} />
-                    </Box>
+                    </Box> */}
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField

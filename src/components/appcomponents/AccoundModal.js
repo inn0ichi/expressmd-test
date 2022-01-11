@@ -13,6 +13,7 @@ import firebase from "../../config/firebase";
 import { useHistory, NavLink, withRouter } from "react-router-dom";
 
 const auth = getAuth();
+
 const provider = new GoogleAuthProvider();
 const db = firebase.firestore();
 
@@ -27,41 +28,13 @@ function AccoundModal() {
 
     function GoogleLogin() {
         setAnchorElUser(null);
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                var userRef = db.collection("users").doc(user.uid);
-                userRef.get().then((doc) => {
-                    if (!doc.exists) {
-                        history.push("/register");
-                    }
-                })
-
-
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
-            });
+        history.push("/login");
     }
 
     getAuth().onAuthStateChanged(function (user) {
         setIsLoggedIn(user);
         if (user !== null && localStorage.getItem("uid") === null) {
-            localStorage.setItem("email", user.email);
-            localStorage.setItem("photoURL", user.photoURL);
             localStorage.setItem("uid", user.uid);
-            localStorage.setItem("displayName", user.displayName);
         }
     });
 
@@ -81,10 +54,7 @@ function AccoundModal() {
     function logout() {
         signOut(auth)
             .then(() => {
-                localStorage.removeItem("email");
-                localStorage.removeItem("photoURL");
                 localStorage.removeItem("uid");
-                localStorage.removeItem("displayName");
             })
             .catch((error) => {
                 // An error happened.
@@ -97,7 +67,7 @@ function AccoundModal() {
             {isLoggedin ? (
                 <Box >
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt={localStorage.getItem("displayName")} src={localStorage.getItem("photoURL")} />
+                        <Avatar alt="test" />
                     </IconButton>
                     <Menu
                         sx={{ mt: '45px' }}

@@ -6,6 +6,13 @@
     margin: 6px;
 }
 
+.logoImg {
+    vertical-align: middle;
+    width: 128px;
+    height: 128px;
+    margin: 6px;
+}
+
 .profileContainer {
     display: flex;
     flex-direction: row;

@@ -29,7 +29,6 @@ function MobileProfileContainer() {
         const userRef = db.collection('users').doc(localStorage.getItem("uid"));
         let usrProfile = [];
         userRef.get().then(doc => {
-
             usrProfile.push(doc.data());
             setuserProfile({ profile: usrProfile });
         })
@@ -41,10 +40,8 @@ function MobileProfileContainer() {
     function logout() {
         signOut(auth)
             .then(() => {
-                localStorage.removeItem("email");
-                localStorage.removeItem("photoURL");
                 localStorage.removeItem("uid");
-                localStorage.removeItem("displayName");
+                history.push("/");
             })
             .catch((error) => {
                 // An error happened.

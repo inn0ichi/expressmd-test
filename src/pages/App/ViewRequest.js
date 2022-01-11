@@ -8,6 +8,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
+import { getAuth } from "firebase/auth";
 
 const style = {
   parentCon: {
@@ -37,10 +38,22 @@ const style = {
 }
 
 export default function ViewRequest() {
-
   const { id } = useParams();
 
   const history = useHistory();
+
+  useEffect(() => {
+    let isSubscribed = true;
+    getAuth().onAuthStateChanged(function (user) {
+      if (!user) {
+        history.push('/login');
+      }
+    });
+    return () => {
+      isSubscribed = false;
+    }
+  }, []);
+
   const db = firebase.firestore();
   const [appointmentData, setappointmentData] = useState({
     data: [],
@@ -59,7 +72,7 @@ export default function ViewRequest() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [appointmentData]);
 
   function editRequest() {
     history.push(`${id}/edit`)

@@ -125,6 +125,18 @@ export default function Request() {
   const db = firebase.firestore();
   const history = useHistory();
 
+  useEffect(() => {
+    let isSubscribed = true;
+    getAuth().onAuthStateChanged(function (user) {
+      if (!user) {
+        window.location.replace('/login');
+      }
+    });
+    return () => {
+      isSubscribed = false;
+    }
+  }, []);
+
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -170,7 +182,7 @@ export default function Request() {
   useEffect(() => {
     fetchData();
     fetchUserData();
-  }, []);
+  }, [doctorProfile, userProfile]);
   /*fetch doc*/
 
   const [payload, setPayload] = useState({

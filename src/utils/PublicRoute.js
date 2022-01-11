@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 export default function PublicRoute({
     component: Component,
-    isAuthenticated,
     restricted,
+    isAuthenticated,
     ...rest
 }) {
     return (
@@ -11,7 +11,7 @@ export default function PublicRoute({
             {...rest}
             component={(props) =>
                 isAuthenticated && restricted ? (
-                    <Redirect to="/app" />
+                    <Redirect to="/" />
                 ) : (
                     <Component {...props} />
                 )
