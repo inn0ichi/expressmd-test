@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import { Button } from '@mui/material';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import firebase from "../../config/firebase";
 import { useHistory, NavLink, withRouter } from "react-router-dom";
 
@@ -27,7 +27,7 @@ function AccoundModal() {
 
     function GoogleLogin() {
         setAnchorElUser(null);
-        /* signInWithPopup(auth, provider)
+        signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -52,36 +52,7 @@ function AccoundModal() {
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
-            }); */
-        if (!auth.currentUser) {
-            signInWithRedirect(auth, provider);
-            getRedirectResult(auth)
-                .then((result) => {
-                    // This gives you a Google Access Token. You can use it to access Google APIs.
-                    const credential = GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
-
-                    // The signed-in user info.
-                    const user = result.user;
-                    var userRef = db.collection("users").doc(user.uid);
-                    userRef.get().then((doc) => {
-                        if (!doc.exists) {
-                            history.push("/register");
-                        }
-                    })
-                }).catch((error) => {
-                    // Handle Errors here.
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // The email of the user's account used.
-                    const email = error.email;
-                    // The AuthCredential type that was used.
-                    const credential = GoogleAuthProvider.credentialFromError(error);
-                    // ...
-                });
-        }
-
-
+            });
     }
 
     getAuth().onAuthStateChanged(function (user) {
