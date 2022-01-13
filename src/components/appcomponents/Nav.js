@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AccountModal from '../appcomponents/AccoundModal'
 import { useHistory, withRouter, NavLink } from 'react-router-dom';
-
+import Logo from "./icon-256x256.png";
 function Nav() {
 
     const history = useHistory();
@@ -42,7 +42,7 @@ function Nav() {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        LOGO
+                        <img src={Logo} alt='logo' width={64} height={64} />
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -92,7 +92,7 @@ function Nav() {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        LOGO
+                        <img src={Logo} alt='logo' width={64} height={64} />
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <NavLink to='/'>
