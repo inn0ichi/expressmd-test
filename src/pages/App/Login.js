@@ -62,13 +62,21 @@ function Login() {
 
         }
     };
+
+    const style = {
+        logo : {
+            width : "200px",
+            height : "150px"
+        }
+    }
+
     return (
         <Box className='base'>
             <Container className='registerContainer'>
 
                 <Box className='formContainer'>
                     <Box className='imgContainer'>
-                        <img className='logoImg' alt='logo' src={Logo} />
+                        <Box component = "img" src = {Logo} alt = "logo" sx = {style.logo}></Box>
                     </Box>
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
@@ -76,7 +84,10 @@ function Login() {
                                 required
                                 id="filled-required"
                                 label="E-mail"
-                                variant="filled"
+                                variant="standard"
+                                InputLabelProps={{
+                                    style: { color: 'black' },
+                                  }}
                                 onChange={userInput("email")}
                             />
                         </FormControl>
@@ -85,8 +96,11 @@ function Login() {
                                 required
                                 id="filled-required"
                                 label="Password"
-                                variant="filled"
+                                variant="standard"
                                 type="password"
+                                InputLabelProps={{
+                                    style: { color: 'black' },
+                                  }}
                                 onChange={userInput("password")}
                             />
                         </FormControl>

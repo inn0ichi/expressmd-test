@@ -69,46 +69,84 @@ function CreateAccount() {
 
         }
     };
+
+    const style = {
+        labelCon : {
+            marginTop : "20px",
+            marginLeft : "10px"
+        },
+        label : {
+            color : "#808080",
+            fontSize : "40px",
+        },
+
+        btnCon : {
+            display : "flex",
+            justifyContent : "center",
+            alignItems : "center",
+            marginTop : "20px"
+        },
+
+        createBtn : {
+            width : "200px"
+        },
+
+        txtHelp : {
+            display : "flex",
+            marginTop : "20px",
+            color : "black"
+        }
+    }
     return (
         <Box className='base'>
             <Container className='registerContainer'>
                 <Box className='formContainer'>
-                    <Box className='imgContainer'>
-                        <img className='logoImg' alt='logo' src={Logo} />
+                    <Box sx = {style.labelCon}>
+                        <Typography sx = {style.label}>Create</Typography>
+                        <Typography sx = {style.label}>Account</Typography>
                     </Box>
                     <FormGroup>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 , marginTop : "10px"}}>
                             <TextField
                                 required
                                 id="filled-required"
                                 label="E-mail"
-                                variant="filled"
+                                variant="standard"
+                                InputLabelProps={{
+                                    style: { color: 'black' },
+                                  }}
                                 onChange={userInput("email")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 , marginTop : "10px"}}>
                             <TextField
                                 required
                                 id="filled-required"
                                 label="Password"
-                                variant="filled"
+                                variant="standard"
                                 type="password"
+                                InputLabelProps={{
+                                    style: { color: 'black' },
+                                  }}
                                 onChange={userInput("password")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 , marginTop : "10px"}}>
                             <TextField
                                 required
                                 id="filled-required"
                                 label="Confirm Password"
-                                variant="filled"
+                                variant="standard"
                                 type="password"
+                                InputLabelProps={{
+                                    style: { color: 'black' },
+                                  }}
                                 onChange={userInput("confirmpassword")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
-                            <Button onClick={() => createaccount()} variant='outlined'>Create Account</Button>
-                            <FormHelperText>You will be prompted to complete your account on the next page.</FormHelperText>
+                        <FormControl required sx = {style.btnCon}>
+                            <Button sx = {style.createBtn} onClick={() => createaccount()} variant='outlined'>Create Account</Button>
+                            <FormHelperText sx = {style.txtHelp}>*You will be prompted to complete your account information on the next page.</FormHelperText>
                         </FormControl>
 
                     </FormGroup>
