@@ -1,4 +1,4 @@
-import { Typography, Box, Container, TextField, Button, FormGroup, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem } from '@mui/material'
+import { Typography, Box, Container, TextField, Button, FormGroup, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem, Stack, Input } from '@mui/material'
 import firebase from '../../config/firebase';
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from "react-router-dom";
@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction";
+import { IconButton } from '@mui/material';
 
 import './Registration.css';
 
@@ -17,6 +18,7 @@ function UserRegistration() {
         dispatch(getTheme());
     }, [dispatch]);
     const db = firebase.firestore();
+    const store = firebase.storage();
     const history = useHistory();
     const [payload, setPayload] = useState({
         fullname: "",
@@ -29,11 +31,17 @@ function UserRegistration() {
         barangay: "",
     });
 
+    const [file, setFile] = useState(null);
+    const [url, setURL] = useState("");
+
+    function handleChange(e) {
+        setFile(e.target.files[0]);
+    }
+
     getAuth().onAuthStateChanged(function (user) {
         var userRef = db.collection("users").doc(localStorage.getItem('uid'));
         userRef.get().then((doc) => {
             if (doc.exists) {
-                alert("you have already completed your profile. Please go to settings if you want to edit.");
                 history.push("/");
             }
         })
@@ -64,7 +72,23 @@ function UserRegistration() {
                     phoneNumber: payload.phoneNumber,
                     location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
                 })
-                .then((docRef) => { history.push("/"); })
+                .then((docRef) => {
+                    const ref = store.ref(`/images/${localStorage.getItem("uid")}/${file.name}`);
+                    const uploadTask = ref.put(file);
+                    uploadTask.on("state_changed", console.log, console.error, () => {
+                        ref.getDownloadURL().then((url) => {
+                            setFile(null);
+                            setURL(url);
+                            db
+                                .collection("users")
+                                .doc(payload.uid)
+                                .update({
+                                    photoURL: url,
+                                })
+                                .then((doc) => { history.push("/") });
+                        });
+                    })
+                })
                 .catch((error) => {
                     console.error("Error adding document: ", error);
                 });
@@ -79,6 +103,15 @@ function UserRegistration() {
                         <img className='usrImg' alt='profileImg' src={localStorage.getItem("photoURL")} />
                     </Box> */}
                     <FormGroup>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
+                            <Box className='imageUpload'>
+                                <IconButton color="primary" aria-label="upload picture" component="span">
+                                    <Avatar src={file} sx={{ width: 128, height: 128 }} />
+                                </IconButton>
+                                <input accept="image/*" id="icon-button-file" type="file" accept="image/x-png,image/gif,image/jpeg" onChange={handleChange} />
+                            </Box>
+
+                        </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
                                 required
@@ -158,7 +191,7 @@ function UserRegistration() {
                             <FormHelperText>*Required. Bustos and Baliuag only.</FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120 }}>
-                            <Button onClick={() => completeProfile()} variant='outlined'>Complete</Button>
+                            <Button onClick={() => completeProfile()} variant='outlined' disabled={!file}>Complete</Button>
                             <FormHelperText>By clicking complete, you agree to the Privacy Policy.</FormHelperText>
                         </FormControl>
 

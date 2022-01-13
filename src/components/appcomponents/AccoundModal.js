@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -38,6 +38,21 @@ function AccoundModal() {
         }
     });
 
+    const [userProfile, setuserProfile] = useState({
+        profile: [],
+    })
+    const fetchList = async () => {
+        const userRef = db.collection('users').doc(localStorage.getItem("uid"));
+        let usrProfile = [];
+        userRef.get().then(doc => {
+            usrProfile.push(doc.data());
+            setuserProfile({ profile: usrProfile });
+        })
+    }
+    useEffect(() => {
+        fetchList();
+    }, []);
+
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -66,9 +81,15 @@ function AccoundModal() {
         <Box sx={{ flexGrow: 0 }}>
             {isLoggedin ? (
                 <Box >
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt="test" />
-                    </IconButton>
+                    {
+                        userProfile && userProfile.profile.map((userProfile) => {
+                            return (
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} key={userProfile.uid}>
+                                    <Avatar alt="User Image" src={userProfile.photoURL} />
+                                </IconButton>
+                            )
+                        })
+                    }
                     <Menu
                         sx={{ mt: '45px' }}
                         id="menu-appbar"
