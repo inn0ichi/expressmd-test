@@ -241,6 +241,7 @@ export default function Request() {
                   gender: gender,
                   location: location,
                   phoneNumber: phoneNumber,
+                  photoURL: userProfile.photoURL,
                 })
                 .then((docReference) => {
                   docRef
@@ -257,6 +258,7 @@ export default function Request() {
                       gender: gender,
                       location: location,
                       phoneNumber: phoneNumber,
+                      photoURL: userProfile.photoURL,
                     })
                     .then((docRef) => {
                       history.push("/success")

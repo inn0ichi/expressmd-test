@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button } from "@mui/material";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Checkbox from "@mui/material/Checkbox";
+import { Typography, Box, TextField, Button, Avatar } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -122,6 +116,9 @@ export default function ViewRequest() {
           let setTime = data.datetime.toDate().toLocaleTimeString();
           return (
             <Box>
+              <Box>
+                <Avatar alt="Image of Patient" src={data.photoURL} />
+              </Box>
               <Box>
                 <Typography>Name: {data.userFullName}</Typography>
                 <Typography>Date: {setDate}</Typography>
