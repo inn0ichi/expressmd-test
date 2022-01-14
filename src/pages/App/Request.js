@@ -11,10 +11,9 @@ import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction"
 import { useHistory, useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import TimePicker from '@mui/lab/TimePicker';
+import { DateTimePicker } from '@mui/lab/';
 
 const style = {
   parentCon: {
@@ -101,7 +100,8 @@ const style = {
 
   dateTimeCon: {
     marginLeft: "20px",
-    marginRight: "20px"
+    marginRight: "20px",
+    minWidth: "200px",
   },
 
   submitBtnCon: {
@@ -125,17 +125,7 @@ export default function Request() {
   const db = firebase.firestore();
   const history = useHistory();
 
-  useEffect(() => {
-    let isSubscribed = true;
-    getAuth().onAuthStateChanged(function (user) {
-      if (!user) {
-        window.location.replace('/login');
-      }
-    });
-    return () => {
-      isSubscribed = false;
-    }
-  }, []);
+
 
   const { id } = useParams();
 
@@ -182,7 +172,7 @@ export default function Request() {
   useEffect(() => {
     fetchData();
     fetchUserData();
-  }, [doctorProfile, userProfile]);
+  }, []);
   /*fetch doc*/
 
   const [payload, setPayload] = useState({
@@ -209,7 +199,7 @@ export default function Request() {
         .doc(
           localStorage.getItem("uid"));
       var userRef = db.collection("users")
-        .doc(getAuth().currentUser.uid)
+        .doc(localStorage.getItem("uid"))
         .collection("requests")
         .doc(
           localStorage.getItem("uid"));
@@ -391,22 +381,15 @@ export default function Request() {
       </Box>
 
       <Box sx={style.dateTimeCon}>
-        <LocalizationProvider dateAdapter={AdapterDateFns} >
-          <Stack spacing={3}>
-            <MobileDatePicker
-              label="Date"
-              inputFormat="MM/dd/yyyy"
-              value={specifiedDate}
-              onChange={handleChange}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <TimePicker
-              label="Time"
-              value={specifiedDate}
-              onChange={handleChange}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </Stack>
+        <LocalizationProvider dateAdapter={DateAdapter} >
+
+          <DateTimePicker
+            label="Set Date and Time"
+            value={specifiedDate}
+            onChange={handleChange}
+            renderInput={(params) => <TextField {...params} />}
+          />
+
         </LocalizationProvider>
       </Box>
       <Box sx={style.submitBtnCon}>
