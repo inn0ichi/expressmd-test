@@ -125,7 +125,17 @@ export default function Request() {
   const db = firebase.firestore();
   const history = useHistory();
 
-
+  useEffect(() => {
+    let isSubscribed = true;
+    getAuth().onAuthStateChanged(function (user) {
+      if (!user) {
+        window.location.replace('/login');
+      }
+    });
+    return () => {
+      isSubscribed = false;
+    }
+  }, []);
 
   const { id } = useParams();
 
