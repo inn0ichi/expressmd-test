@@ -108,6 +108,11 @@ export default function ViewRequest() {
     })
   }
 
+  function requestCancellation() {
+    history.push(`/r/${id}/cancel`);
+  }
+
+
   return (
     <Box className="base">
       {
@@ -140,7 +145,7 @@ export default function ViewRequest() {
                 {(() => {
                   switch (data.status) {
                     case "Pending":
-                      return <Button variant="contained">Cancel</Button>;
+                      return <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>;
                       break;
                     case "Edited": return (
                       <Box>
