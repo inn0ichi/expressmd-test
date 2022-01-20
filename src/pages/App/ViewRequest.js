@@ -113,6 +113,44 @@ export default function ViewRequest() {
   }
 
 
+  const style = {
+    innerCon: {
+      marginTop: "20px",
+      display: "flex",
+      flexDirection: "row",
+      marginLeft: "30px",
+      alignItems : "center",
+      
+    },
+    patientProf : {
+      width : "90px",
+      height : "90px",
+      borderRadius : "90px"
+    },
+    superInnerCon : {
+      marginLeft : "30px"
+    },
+    innerSub: {
+      fontSize: "24px",
+      marginLeft: "25px",
+      marginTop: "20px",
+    },
+
+    inputField: {
+      display: "flex",
+      marginLeft: "30px",
+      marginRight: "30px",
+      justifyContent: "center",
+      marginTop : "10px",
+      minWidth : "300px"
+    },
+
+    textField: {
+      width: "350px",
+    },
+  }
+
+
   return (
     <Box className="base">
       {
@@ -121,21 +159,33 @@ export default function ViewRequest() {
           let setTime = data.datetime.toDate().toLocaleTimeString();
           return (
             <Box>
+              <Box sx={style.innerCon}>
               <Box>
-                <Avatar alt="Image of Patient" src={data.photoURL} />
+                <Box component = "img" alt="Image of Patient" sx = {style.patientProf} src={data.photoURL} />
+              </Box>
+              <Box sx = {style.superInnerCon}>
+                <Typography variant="subtitle1">Name: {data.userFullName}</Typography>
+                <Typography variant="subtitle1">Date: {setDate}</Typography>
+                <Typography variant="subtitle1">Time: {setTime}</Typography>
+                <Typography variant="subtitle1">Gender: {data.gender}</Typography>
+                <Typography variant="subtitle1">Location: {data.location}</Typography>
+              </Box>
               </Box>
               <Box>
-                <Typography>Name: {data.userFullName}</Typography>
-                <Typography>Date: {setDate}</Typography>
-                <Typography>Time: {setTime}</Typography>
-                <Typography>Gender: {data.gender}</Typography>
-                <Typography>Location: {data.location}</Typography>
+              <Typography sx={style.innerSub}>What do I feel:</Typography>
+              <Box sx={style.inputField}>
+                  <TextField inputProps={{ readOnly: true, }}
+                   value={data.feel} 
+                   sx={style.textField}
+                   variant="outlined"
+                   multiline
+                   maxRows={10}
+                   minRows={5}
+                   ></TextField>
+                </Box>
               </Box>
               <Box>
                 <Typography>Symptoms: {data.symptoms}</Typography>
-              </Box>
-              <Box>
-                <Typography>What do I feel: {data.feel}</Typography>
                 <Typography>Any Others?: {data.others}</Typography>
               </Box>
               <Box>
