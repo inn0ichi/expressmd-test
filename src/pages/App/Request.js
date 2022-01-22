@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction"
 import { useHistory, useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import DateAdapter from '@mui/lab/AdapterMoment';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { DateTimePicker } from '@mui/lab/';
 
@@ -393,7 +393,7 @@ export default function Request() {
       </Box>
 
       <Box sx={style.dateTimeCon}>
-        <LocalizationProvider dateAdapter={DateAdapter} >
+        <LocalizationProvider dateAdapter={AdapterDateFns} >
 
           <DateTimePicker
             label="Set Date and Time"
