@@ -53,6 +53,7 @@ export default function ViewRequest() {
   }, []);
 
   const db = firebase.firestore();
+  const [specifiedDate, setSpecifiedDate] = useState(new Date());
   const [appointmentData, setappointmentData] = useState({
     data: [],
   });
@@ -152,8 +153,53 @@ export default function ViewRequest() {
     textField: {
       width: "350px",
     },
+
+    dateTimeCon: {
+      marginTop : "50px",
+      marginLeft: "20px",
+      marginRight: "30px",
+      minWidth: "200px",
+    },
+    dateandTime : {
+      display : "flex",
+      justifyContent : "center",
+      flexDirection : "column",
+      marginLeft: "20px",
+      marginRight: "30px",
+        
+    },
+
+    con : {
+      marginTop : "50px"
+    },
+
+    dateAndTime : {
+      marginTop : "10px"
+    },
+
+    notelabel : {
+      fontSize : "12px",
+      fontStyle : "Italic",
+      marginLeft : "20px",
+      color : "gray"
+    },
+
+    btnBox: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      marginTop: "20px"
+    },
+
+    btn: {
+      width: "200px",
+      marginBottom: "10px",
+      borderRadius: "10px"
+    }
   }
 
+  
 
   return (
     <Box className="base">
@@ -212,27 +258,30 @@ export default function ViewRequest() {
                       break;
                     case "Edited": return (
                       <Box>
-                         <Box sx = {style.dateTimeCon}>
-                                <LocalizationProvider dateAdapter={AdapterDateFns} >
-                                    <Stack spacing={3}>
-                                        <MobileDatePicker
-                                            label="Date"
-                                            inputFormat="MM/dd/yyyy"
-                                            value={setDate}
-                                            renderInput={(params) => <TextField {...params} />}
-                                        />
-                                        <TimePicker
-                                            label="Time"
-                                            value={setTime}
-                                            inputProps = {{readOnly : true}}
-                                            renderInput={(params) => <TextField {...params} />}
-                                        />
-                                    </Stack>
-                                </LocalizationProvider>
+                         <Box sx = {style.con}>
+                           <Typography sx = {style.notelabel}>*Note : Time and Date have been Edited by your Doctor</Typography>
+                         <Box sx = {style.dateandTime}>
+                            <TextField inputProps={{ readOnly: true, }}
+                             value={setDate}
+                             sx = {style.dateAndTime}
+                             label = "DATE"
+                             variant="outlined"
+                             />
+
+                             <TextField inputProps={{ readOnly: true, }}
+                             label = "TIME"
+                             sx = {style.dateAndTime}
+                             value={setTime} 
+                             variant="outlined"
+                             />
+                          </Box>
                             </Box>
-                        <Button variant="contained" onClick={() => acceptRequest()}>Accept</Button>
-                        <Button variant="contained">Decline</Button>
-                        <Button variant="outlined" onClick={() => editRequest()}>Change Time or Date</Button>
+                        <Box  sx={style.btnBox}>
+                        <Button variant="outlined" sx={style.btn}  onClick={() => editRequest()}>Change Time or Date</Button>
+                        <Button variant="contained" sx={style.btn}  onClick={() => acceptRequest()}>Accept</Button>
+                        <Button variant="contained" sx={style.btn} style={{ backgroundColor: "#FF5956" }} >Decline</Button>
+                        
+                        </Box>
                       </Box>
                     );
                     case "Accepted":
