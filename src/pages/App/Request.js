@@ -213,7 +213,6 @@ export default function Request() {
         .collection("requests")
         .doc(
           localStorage.getItem("uid"));
-
       docRef.get().then((doc) => {
         if (doc.exists) {
           alert("You can only request once. Please wait for your doctor to accept your request");
@@ -260,24 +259,69 @@ export default function Request() {
                       phoneNumber: phoneNumber,
                       photoURL: userProfile.photoURL,
                     })
-                    .then((docRef) => {
-                      history.push("/success")
+                    .then((docRef1) => {
+                      db
+                        .collection("requests")
+                        .add({
+                          feel: payload.feel,
+                          symptoms: payload.symptoms,
+                          others: payload.others,
+                          assigned_doctor: docName,
+                          doctorId: uid,
+                          userID: userID,
+                          userFullName: fullname,
+                          datetime: specifiedDate,
+                          status: "Pending",
+                          gender: gender,
+                          location: location,
+                          phoneNumber: phoneNumber,
+                          photoURL: userProfile.photoURL,
+                        })
+                        .then((documentRef) => {
+                          let globalID = documentRef.id;
+                          userRef
+                            .update({
+                              globalID: globalID,
+                            })
+                            .then((docReference3) => {
+                              docRef
+                                .update({
+                                  globalID: globalID,
+                                })
+                                .then((docRef7) => {
+                                  history.push("/success");
+                                })
+                                .catch((error) => {
+                                  console.log(error);
+                                  history.push("/sorry");
+                                });
+                            })
+                            .catch((error) => {
+                              console.log(error);
+                              history.push("/sorry");
+                            });
+                          history.push("/success");
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                          history.push("/sorry");
+                        });
                     })
                     .catch((error) => {
                       console.log(error);
-                      history.push("/sorry")
+                      history.push("/sorry");
                     });
                 })
                 .catch((error) => {
                   console.log(error);
-                  history.push("/sorry")
+                  history.push("/sorry");
                 });
             });
           })
         }
       }).catch((error) => {
         console.log(error);
-        history.push("/sorry")
+        history.push("/sorry");
       });
 
     }

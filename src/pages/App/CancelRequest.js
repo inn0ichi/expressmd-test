@@ -88,6 +88,8 @@ export default function CancelRequest() {
                     .doc(data.userID)
                     .collection("requests")
                     .doc(data.userID);
+                var globalRef = db.collection("requests")
+                    .doc(data.globalID);
                 userRef
                     .update({
                         reason: payload.reason,
