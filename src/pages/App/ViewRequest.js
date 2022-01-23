@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button, Avatar } from "@mui/material";
+import { Typography, Box, TextField, Button, Avatar , Stack } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import TimePicker from '@mui/lab/TimePicker';
 
 const style = {
   parentCon: {
@@ -158,14 +162,9 @@ export default function ViewRequest() {
           let setDate = data.datetime.toDate().toLocaleDateString();
           let setTime = data.datetime.toDate().toLocaleTimeString();
           return (
-            
               <Box>
-                {(() => {
-                  switch (data.status) {
-                    case "Pending":
-                      return (
-                        <Box>
-                        <Box sx={style.innerCon}>
+
+                <Box sx={style.innerCon}>
                         <Box>
                           <Box component = "img" alt="Image of Patient" sx = {style.patientProf} src={data.photoURL} />
                         </Box>
@@ -177,6 +176,14 @@ export default function ViewRequest() {
                           <Typography variant="subtitle1">Location: {data.location}</Typography>
                         </Box>
                         </Box>
+
+
+
+                {(() => {
+                  switch (data.status) {
+                    case "Pending":
+                      return (
+                        <Box>
                         <Box>
                         <Typography sx={style.innerSub}>What do I feel:</Typography>
                         <Box sx={style.inputField}>
@@ -205,6 +212,24 @@ export default function ViewRequest() {
                       break;
                     case "Edited": return (
                       <Box>
+                         <Box sx = {style.dateTimeCon}>
+                                <LocalizationProvider dateAdapter={AdapterDateFns} >
+                                    <Stack spacing={3}>
+                                        <MobileDatePicker
+                                            label="Date"
+                                            inputFormat="MM/dd/yyyy"
+                                            value={setDate}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                        <TimePicker
+                                            label="Time"
+                                            value={setTime}
+                                            inputProps = {{readOnly : true}}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </Stack>
+                                </LocalizationProvider>
+                            </Box>
                         <Button variant="contained" onClick={() => acceptRequest()}>Accept</Button>
                         <Button variant="contained">Decline</Button>
                         <Button variant="outlined" onClick={() => editRequest()}>Change Time or Date</Button>
