@@ -158,44 +158,50 @@ export default function ViewRequest() {
           let setDate = data.datetime.toDate().toLocaleDateString();
           let setTime = data.datetime.toDate().toLocaleTimeString();
           return (
-            <Box>
-              <Box sx={style.innerCon}>
-              <Box>
-                <Box component = "img" alt="Image of Patient" sx = {style.patientProf} src={data.photoURL} />
-              </Box>
-              <Box sx = {style.superInnerCon}>
-                <Typography variant="subtitle1">Name: {data.userFullName}</Typography>
-                <Typography variant="subtitle1">Date: {setDate}</Typography>
-                <Typography variant="subtitle1">Time: {setTime}</Typography>
-                <Typography variant="subtitle1">Gender: {data.gender}</Typography>
-                <Typography variant="subtitle1">Location: {data.location}</Typography>
-              </Box>
-              </Box>
-              <Box>
-              <Typography sx={style.innerSub}>What do I feel:</Typography>
-              <Box sx={style.inputField}>
-                  <TextField inputProps={{ readOnly: true, }}
-                   value={data.feel} 
-                   sx={style.textField}
-                   variant="outlined"
-                   multiline
-                   maxRows={10}
-                   minRows={5}
-                   ></TextField>
-                </Box>
-              </Box>
-              <Box>
-                <Typography>Symptoms: {data.symptoms}</Typography>
-                <Typography>Any Others?: {data.others}</Typography>
-              </Box>
-              <Box>
-                <Typography>Status: {data.status}</Typography>
-              </Box>
+            
               <Box>
                 {(() => {
                   switch (data.status) {
                     case "Pending":
-                      return <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>;
+                      return (
+                        <Box>
+                        <Box sx={style.innerCon}>
+                        <Box>
+                          <Box component = "img" alt="Image of Patient" sx = {style.patientProf} src={data.photoURL} />
+                        </Box>
+                        <Box sx = {style.superInnerCon}>
+                          <Typography variant="subtitle1">Name: {data.userFullName}</Typography>
+                          <Typography variant="subtitle1">Date: {setDate}</Typography>
+                          <Typography variant="subtitle1">Time: {setTime}</Typography>
+                          <Typography variant="subtitle1">Gender: {data.gender}</Typography>
+                          <Typography variant="subtitle1">Location: {data.location}</Typography>
+                        </Box>
+                        </Box>
+                        <Box>
+                        <Typography sx={style.innerSub}>What do I feel:</Typography>
+                        <Box sx={style.inputField}>
+                            <TextField inputProps={{ readOnly: true, }}
+                             value={data.feel} 
+                             sx={style.textField}
+                             variant="outlined"
+                             multiline
+                             maxRows={10}
+                             minRows={5}
+                             ></TextField>
+                          </Box>
+                        </Box>
+                        <Box>
+                          <Typography>Symptoms: {data.symptoms}</Typography>
+                          <Typography>Any Others?: {data.others}</Typography>
+                        </Box>
+                        <Box>
+                          <Typography>Status: {data.status}</Typography>
+                        </Box>
+                      <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>
+                      
+                    </Box>
+                    
+                      );
                       break;
                     case "Edited": return (
                       <Box>
@@ -212,10 +218,7 @@ export default function ViewRequest() {
                       return null;
                   }
                 })()}
-
-
-              </Box>
-            </Box>
+                </Box>
           );
         })
       }
