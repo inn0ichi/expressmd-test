@@ -222,8 +222,8 @@ export default function App() {
                     let setDate = setappointment.datetime.toDate().toLocaleDateString();
                     let setTime = setappointment.datetime.toDate().toLocaleTimeString();
                     return (
-                      <Link to={`/r/${setappointment.userID}/view`}>
-                        <Paper variant="outlined" key={setappointment.userID} sx={style.appointmentSched} >
+                      <Link to={`/r/${setappointment.userID}/view`} key={setappointment.globalID}>
+                        <Paper variant="outlined" sx={style.appointmentSched} >
                           <Typography>Date: {setDate}</Typography>
                           <Typography>Time: {setTime}</Typography>
                           <Typography variant="subtitle2">Assigned Doctor:{setappointment.assigned_doctor}</Typography>

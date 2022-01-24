@@ -24,6 +24,7 @@ import Faq from '../components/appcomponents/Faqs'
 import IsSuccessful from "../pages/App/IsSuccessful";
 import IsNotSuccessful from "../pages/App/IsNotSuccessful";
 import ViewRequest from '../pages/App/ViewRequest';
+import EditRequest from '../pages/App/EditRequest';
 import CancelRequest from '../pages/App/CancelRequest';
 import UserRegistration from '../pages/App/UserRegistration';
 import Login from '../pages/App/Login';
@@ -144,6 +145,7 @@ export default function RouterComponent() {
                     <Route exact component={IsNotSuccessful} path="/sorry" />
                     <Route exact component={ViewRequest} path="/r/:id/view" />
                     <Route exact component={CancelRequest} path="/r/:id/cancel" />
+                    <Route exact component={EditRequest} path="/r/:id/edit" />
                 </Switch>
                 <BottomNav />
             </Router>

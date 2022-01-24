@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button, Avatar , Stack } from "@mui/material";
+import { Typography, Box, TextField, Button, Avatar, Stack } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -74,9 +74,8 @@ export default function ViewRequest() {
   }, [appointmentData]);
 
   function editRequest() {
-    history.push(`${id}/edit`)
+    history.push(`/r/${id}/edit`);
   }
-
   function acceptRequest() {
     appointmentData.data.map((data) => {
       let docID = data.doctorId;
@@ -124,16 +123,16 @@ export default function ViewRequest() {
       display: "flex",
       flexDirection: "row",
       marginLeft: "30px",
-      alignItems : "center",
-      
+      alignItems: "center",
+
     },
-    patientProf : {
-      width : "90px",
-      height : "90px",
-      borderRadius : "90px"
+    patientProf: {
+      width: "90px",
+      height: "90px",
+      borderRadius: "90px"
     },
-    superInnerCon : {
-      marginLeft : "30px"
+    superInnerCon: {
+      marginLeft: "30px"
     },
     innerSub: {
       fontSize: "24px",
@@ -146,8 +145,8 @@ export default function ViewRequest() {
       marginLeft: "30px",
       marginRight: "30px",
       justifyContent: "center",
-      marginTop : "10px",
-      minWidth : "300px"
+      marginTop: "10px",
+      minWidth: "300px"
     },
 
     textField: {
@@ -155,33 +154,33 @@ export default function ViewRequest() {
     },
 
     dateTimeCon: {
-      marginTop : "50px",
+      marginTop: "50px",
       marginLeft: "20px",
       marginRight: "30px",
       minWidth: "200px",
     },
-    dateandTime : {
-      display : "flex",
-      justifyContent : "center",
-      flexDirection : "column",
+    dateandTime: {
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
       marginLeft: "20px",
       marginRight: "30px",
-        
+
     },
 
-    con : {
-      marginTop : "50px"
+    con: {
+      marginTop: "50px"
     },
 
-    dateAndTime : {
-      marginTop : "10px"
+    dateAndTime: {
+      marginTop: "10px"
     },
 
-    notelabel : {
-      fontSize : "12px",
-      fontStyle : "Italic",
-      marginLeft : "20px",
-      color : "gray"
+    notelabel: {
+      fontSize: "12px",
+      fontStyle: "Italic",
+      marginLeft: "20px",
+      color: "gray"
     },
 
     btnBox: {
@@ -199,7 +198,7 @@ export default function ViewRequest() {
     }
   }
 
-  
+
 
   return (
     <Box className="base">
@@ -208,39 +207,39 @@ export default function ViewRequest() {
           let setDate = data.datetime.toDate().toLocaleDateString();
           let setTime = data.datetime.toDate().toLocaleTimeString();
           return (
-              <Box>
+            <Box>
 
-                <Box sx={style.innerCon}>
+              <Box sx={style.innerCon}>
+                <Box>
+                  <Box component="img" alt="Image of Patient" sx={style.patientProf} src={data.photoURL} />
+                </Box>
+                <Box sx={style.superInnerCon}>
+                  <Typography variant="subtitle1">Name: {data.userFullName}</Typography>
+                  <Typography variant="subtitle1">Date: {setDate}</Typography>
+                  <Typography variant="subtitle1">Time: {setTime}</Typography>
+                  <Typography variant="subtitle1">Gender: {data.gender}</Typography>
+                  <Typography variant="subtitle1">Location: {data.location}</Typography>
+                </Box>
+              </Box>
+
+
+
+              {(() => {
+                switch (data.status) {
+                  case "Pending":
+                    return (
+                      <Box>
                         <Box>
-                          <Box component = "img" alt="Image of Patient" sx = {style.patientProf} src={data.photoURL} />
-                        </Box>
-                        <Box sx = {style.superInnerCon}>
-                          <Typography variant="subtitle1">Name: {data.userFullName}</Typography>
-                          <Typography variant="subtitle1">Date: {setDate}</Typography>
-                          <Typography variant="subtitle1">Time: {setTime}</Typography>
-                          <Typography variant="subtitle1">Gender: {data.gender}</Typography>
-                          <Typography variant="subtitle1">Location: {data.location}</Typography>
-                        </Box>
-                        </Box>
-
-
-
-                {(() => {
-                  switch (data.status) {
-                    case "Pending":
-                      return (
-                        <Box>
-                        <Box>
-                        <Typography sx={style.innerSub}>What do I feel:</Typography>
-                        <Box sx={style.inputField}>
+                          <Typography sx={style.innerSub}>What do I feel:</Typography>
+                          <Box sx={style.inputField}>
                             <TextField inputProps={{ readOnly: true, }}
-                             value={data.feel} 
-                             sx={style.textField}
-                             variant="outlined"
-                             multiline
-                             maxRows={10}
-                             minRows={5}
-                             ></TextField>
+                              value={data.feel}
+                              sx={style.textField}
+                              variant="outlined"
+                              multiline
+                              maxRows={10}
+                              minRows={5}
+                            ></TextField>
                           </Box>
                         </Box>
                         <Box>
@@ -250,54 +249,53 @@ export default function ViewRequest() {
                         <Box>
                           <Typography>Status: {data.status}</Typography>
                         </Box>
-                      <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>
-                      
-                    </Box>
-                    
-                      );
-                      break;
-                    case "Edited": return (
-                      <Box>
-                         <Box sx = {style.con}>
-                           <Typography sx = {style.notelabel}>*Note : Time and Date have been Edited by your Doctor</Typography>
-                         <Box sx = {style.dateandTime}>
-                            <TextField inputProps={{ readOnly: true, }}
-                             value={setDate}
-                             sx = {style.dateAndTime}
-                             label = "DATE"
-                             variant="outlined"
-                             />
+                        <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>
 
-                             <TextField inputProps={{ readOnly: true, }}
-                             label = "TIME"
-                             sx = {style.dateAndTime}
-                             value={setTime} 
-                             variant="outlined"
-                             />
-                          </Box>
-                            </Box>
-                        <Box  sx={style.btnBox}>
-                        <Button variant="outlined" sx={style.btn}  onClick={() => editRequest()}>Change Time or Date</Button>
-                        <Button variant="contained" sx={style.btn}  onClick={() => acceptRequest()}>Accept</Button>
-                        <Button variant="contained" sx={style.btn} style={{ backgroundColor: "#FF5956" }} >Decline</Button>
-                        
+                      </Box>
+
+                    );
+                  case "Edited": return (
+                    <Box>
+                      <Box sx={style.con}>
+                        <Typography sx={style.notelabel}>*Note : Time and Date have been Edited by your Doctor</Typography>
+                        <Box sx={style.dateandTime}>
+                          <TextField inputProps={{ readOnly: true, }}
+                            value={setDate}
+                            sx={style.dateAndTime}
+                            label="DATE"
+                            variant="outlined"
+                          />
+
+                          <TextField inputProps={{ readOnly: true, }}
+                            label="TIME"
+                            sx={style.dateAndTime}
+                            value={setTime}
+                            variant="outlined"
+                          />
                         </Box>
                       </Box>
-                    );
-                    case "Accepted":
-                      return (
+                      <Box sx={style.btnBox}>
+                        <Button variant="outlined" sx={style.btn} onClick={() => editRequest()}>Change Time and Date</Button>
+                        <Button variant="contained" sx={style.btn} onClick={() => acceptRequest()}>Accept</Button>
+                        <Button variant="contained" sx={style.btn} onClick={() => requestCancellation()} style={{ backgroundColor: "#FF5956" }} >Request Cancellation</Button>
+
+                      </Box>
+                    </Box>
+                  );
+                  case "Accepted":
+                    return (
+                      <Box>
                         <Box>
-                        <Box>
-                        <Typography sx={style.innerSub}>What do I feel:</Typography>
-                        <Box sx={style.inputField}>
+                          <Typography sx={style.innerSub}>What do I feel:</Typography>
+                          <Box sx={style.inputField}>
                             <TextField inputProps={{ readOnly: true, }}
-                             value={data.feel} 
-                             sx={style.textField}
-                             variant="outlined"
-                             multiline
-                             maxRows={10}
-                             minRows={5}
-                             ></TextField>
+                              value={data.feel}
+                              sx={style.textField}
+                              variant="outlined"
+                              multiline
+                              maxRows={10}
+                              minRows={5}
+                            ></TextField>
                           </Box>
                         </Box>
                         <Box>
@@ -307,17 +305,17 @@ export default function ViewRequest() {
                         <Box>
                           <Typography>Status: {data.status}</Typography>
                         </Box>
-                      <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>
-                      
-                    </Box>
-                      );
-                    case "Declined":
-                      return null;
-                    default:
-                      return null;
-                  }
-                })()}
-                </Box>
+                        <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>
+
+                      </Box>
+                    );
+                  case "Declined":
+                    return null;
+                  default:
+                    return null;
+                }
+              })()}
+            </Box>
           );
         })
       }

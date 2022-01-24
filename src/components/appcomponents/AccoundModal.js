@@ -26,6 +26,10 @@ function AccoundModal() {
     const [usrExists, setusrExists] = useState(false);
     const history = useHistory();
 
+    const [userProfile, setuserProfile] = useState({
+        profile: [],
+    })
+
     function GoogleLogin() {
         setAnchorElUser(null);
         history.push("/login");
@@ -35,24 +39,16 @@ function AccoundModal() {
         setIsLoggedIn(user);
         if (user !== null && localStorage.getItem("uid") === null) {
             localStorage.setItem("uid", user.uid);
+            const fetchList = async () => {
+                const userRef = db.collection('users').doc(localStorage.getItem("uid"));
+                let usrProfile = [];
+                userRef.get().then(doc => {
+                    usrProfile.push(doc.data());
+                    setuserProfile({ profile: usrProfile });
+                })
+            }
         }
     });
-
-    const [userProfile, setuserProfile] = useState({
-        profile: [],
-    })
-    const fetchList = async () => {
-        const userRef = db.collection('users').doc(localStorage.getItem("uid"));
-        let usrProfile = [];
-        userRef.get().then(doc => {
-            usrProfile.push(doc.data());
-            setuserProfile({ profile: usrProfile });
-        })
-    }
-    useEffect(() => {
-        fetchList();
-    }, []);
-
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
@@ -70,6 +66,7 @@ function AccoundModal() {
         signOut(auth)
             .then(() => {
                 localStorage.removeItem("uid");
+                history.push("/");
             })
             .catch((error) => {
                 // An error happened.
