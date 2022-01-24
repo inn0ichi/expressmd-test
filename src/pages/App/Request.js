@@ -289,7 +289,7 @@ export default function Request() {
                                   globalID: globalID,
                                 })
                                 .then((docRef7) => {
-                                  history.push("/success");
+                                  history.push(`/success/${"request"}`);
                                 })
                                 .catch((error) => {
                                   console.log(error);
@@ -300,7 +300,6 @@ export default function Request() {
                               console.log(error);
                               history.push("/sorry");
                             });
-                          history.push("/success");
                         })
                         .catch((error) => {
                           console.log(error);

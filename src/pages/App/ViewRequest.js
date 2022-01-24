@@ -98,7 +98,7 @@ export default function ViewRequest() {
               status: "Accepted",
             })
             .then((docRef) => {
-              history.push("/success");
+              history.push(`/success/${"accepted"}`);
             })
             .catch((error) => {
               console.log(error);

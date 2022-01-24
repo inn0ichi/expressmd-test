@@ -141,7 +141,7 @@ export default function RouterComponent() {
                     <Route exact component={Settings} path="/settings" />
                     <Route exact component={About} path="/aboutUs" />
                     <Route exact component={Faq} path="/faq" />
-                    <Route exact component={IsSuccessful} path="/success" />
+                    <Route exact component={IsSuccessful} path="/success/:status" />
                     <Route exact component={IsNotSuccessful} path="/sorry" />
                     <Route exact component={ViewRequest} path="/r/:id/view" />
                     <Route exact component={CancelRequest} path="/r/:id/cancel" />

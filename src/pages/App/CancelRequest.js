@@ -102,7 +102,7 @@ export default function CancelRequest() {
                                 status: "Requested Cancellation",
                             })
                             .then((docRef) => {
-                                history.push("/success");
+                                history.push(`/success/${"cancellation"}`);
                             })
                             .catch((error) => {
                                 console.log(error);
