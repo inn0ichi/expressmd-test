@@ -285,7 +285,32 @@ export default function ViewRequest() {
                       </Box>
                     );
                     case "Accepted":
-                      return null;
+                      return (
+                        <Box>
+                        <Box>
+                        <Typography sx={style.innerSub}>What do I feel:</Typography>
+                        <Box sx={style.inputField}>
+                            <TextField inputProps={{ readOnly: true, }}
+                             value={data.feel} 
+                             sx={style.textField}
+                             variant="outlined"
+                             multiline
+                             maxRows={10}
+                             minRows={5}
+                             ></TextField>
+                          </Box>
+                        </Box>
+                        <Box>
+                          <Typography>Symptoms: {data.symptoms}</Typography>
+                          <Typography>Any Others?: {data.others}</Typography>
+                        </Box>
+                        <Box>
+                          <Typography>Status: {data.status}</Typography>
+                        </Box>
+                      <Button variant="contained" onClick={() => requestCancellation()}>Request Cancellation</Button>
+                      
+                    </Box>
+                      );
                     case "Declined":
                       return null;
                     default:
