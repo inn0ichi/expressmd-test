@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Box, TextField, Button, Stack } from "@mui/material";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Checkbox from "@mui/material/Checkbox";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import TimePicker from '@mui/lab/TimePicker';
-import { getAuth } from "firebase/auth";
 
 const style = {
     parentCon: {

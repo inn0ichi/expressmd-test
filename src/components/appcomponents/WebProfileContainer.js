@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Typography, Button, Container } from '@mui/material'
+import { Box, Typography, Button, Container, Tabs, Tab } from '@mui/material'
 import firebase from '../../config/firebase';
 import {
     getAuth,
@@ -7,8 +7,6 @@ import {
 } from "firebase/auth";
 import '../../pages/App/Profile.css';
 import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import TransactionHistory from '../appcomponents/TransactionHistory';
 import Settings from '../appcomponents/Settings';
 import EmergencyContact from './HospitalContact';

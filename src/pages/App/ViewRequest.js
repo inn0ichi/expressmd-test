@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button, Avatar, Stack } from "@mui/material";
+import { Typography, Box, TextField, Button } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import TimePicker from '@mui/lab/TimePicker';
 
 const style = {
   parentCon: {

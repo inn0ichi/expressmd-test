@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, Container, TextField, Button, FormGroup, IconButton, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem, Link } from "@mui/material";
+import { Box, TextField, Button, IconButton, Avatar } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -169,23 +169,6 @@ export default function EditProfile() {
                     )
                 })
             }
-            {/* <Typography>Forgot Your Password?</Typography>
-            <Typography>Don't worry. We are here to help you reset your password. Enter the email associated with your account below then click Reset Password. We will send a password reset form to that email if it is found in our database.</Typography>
-            <FormGroup>
-                <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
-                    <TextField
-                        required
-                        id="filled-required"
-                        label="E-mail"
-                        variant="standard"
-                        onChange={userInput("email")}
-                    />
-                </FormControl>
-                <FormControl required sx={{ m: 1, minWidth: 120 }}>
-                    <Button onClick={() => submitForm()} variant='contained'>Reset Password</Button>
-                </FormControl>
-
-            </FormGroup> */}
         </Box >
     );
 }

@@ -1,11 +1,6 @@
-import { Avatar, Rating, Typography, Box, Container, BottomNavigation, BottomNavigationAction, Paper, Button } from '@mui/material';
+import { Avatar, Rating, Typography, Box, Container, BottomNavigation, BottomNavigationAction, Paper, Button, List, ListItem, Divider, ListItemText, ListItemAvatar } from '@mui/material';
 import React, { useState, useEffect } from 'react'
 import firebase from '../../config/firebase';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import './css/TransactionHistory.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme, getTheme } from "../../redux/actions/uiAction";

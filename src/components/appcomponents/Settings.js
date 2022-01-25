@@ -1,9 +1,5 @@
-import { Box, Typography, FormControl, Container } from '@mui/material'
+import { Box, Typography, FormControl, Container, FormGroup, FormControlLabel, Switch, styled } from '@mui/material'
 import React, { useEffect } from 'react'
-import { styled } from '@mui/material/styles';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme, getTheme } from "../../redux/actions/uiAction";
 import './css/Settings.css';

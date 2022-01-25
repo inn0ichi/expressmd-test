@@ -1,6 +1,6 @@
 import '../App.css';
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { ThemeProvider, createTheme } from '@mui/material';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import { Box, BottomNavigation, BottomNavigationAction, Paper } from '@mui/mater
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
-import { NavLink } from 'react-router-dom';
 import Profile from '../pages/App/Profile';
 import Request from '../pages/App/Request';
 import Nav from '../components/appcomponents/Nav';
@@ -31,9 +30,6 @@ import ForgotPassword from '../pages/App/ForgotPassword';
 import EditProfile from '../pages/App/EditProfile';
 import Login from '../pages/App/Login';
 import CreateAccount from '../pages/App/CreateAccount';
-import PrivateRoute from '../utils/PrivateRoute';
-import PublicRoute from '../utils/PublicRoute';
-import firebase from '../config/firebase';
 
 
 function BottomNav() {

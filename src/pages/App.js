@@ -1,5 +1,4 @@
 import { Typography, Box, Container, Button, Paper } from "@mui/material";
-import Nav from "../components/appcomponents/Nav";
 import TopPhoto from "../assets/Drawkit-Vector-Illustration-Medical-01 1.png";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -8,7 +7,6 @@ import Ticker from "react-ticker";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import category from "../assets/child 1.png";
 import doctorPhoto from "../assets/doctor 1.png";
-import { borderRadius, fontWeight } from "@mui/system";
 import { Link, useHistory } from "react-router-dom";
 import firebase from '../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -272,16 +270,7 @@ export default function App() {
               </Typography>
             </Box>
           </Paper>
-          {/* <Paper sx = {style.categoryPaper} variant = "outlined">
-                    <Box sx = {style.item}>
-                        <Typography variant="subtitle2" sx = {style.categoryText}>Pediatrics</Typography>
-                    </Box>
-                    </Paper>
-                    <Paper sx = {style.categoryPaper} variant = "outlined">
-                    <Box sx = {style.item}>
-                    category 4
-                    </Box>
-                    </Paper> */}
+
         </Box>
       </Container>
     </Box>

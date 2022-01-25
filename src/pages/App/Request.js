@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button, Stack } from "@mui/material";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
-import Checkbox from "@mui/material/Checkbox";
+import { Typography, Box, TextField, Button, Stack, FormLabel, FormGroup, FormControlLabel, FormHelperText, Checkbox, FormControl } from "@mui/material";
 import firebase from '../../config/firebase';
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction"

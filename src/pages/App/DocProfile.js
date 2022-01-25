@@ -1,13 +1,5 @@
-import { Avatar, Rating, Typography, Box, Container, BottomNavigation, BottomNavigationAction, Paper, Button } from '@mui/material'
+import { List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Rating, Typography, Box, Container, Button } from '@mui/material'
 import React, { useState, useEffect } from 'react';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HomeIcon from '@mui/icons-material/Home';
-import SearchIcon from '@mui/icons-material/Search';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import firebase from '../../config/firebase';
 import {
     useParams
@@ -17,7 +9,6 @@ import { Link } from 'react-router-dom';
 import '../App/DocProfile.css'
 
 export default function DocProfile() {
-    const [value, setValue] = useState(0);
     const { id } = useParams();
 
     const db = firebase.firestore();
