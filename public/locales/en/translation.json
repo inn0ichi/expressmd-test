@@ -1,0 +1,14 @@
+{
+    "assigned_doctor": "Assigned Doctor",
+    "scheduled_appointment": "Scheduled Appointment",
+    "no_appointment": "There are no scheduled appointment.",
+    "date": "Date",
+    "time": "Time",
+    "settings": "Settings",
+    "hotlines": "Hospital Hotlines",
+    "settinglist": {
+        "dmode": "Enable Dark Mode",
+        "changeLang": "Change Language",
+        "langLabel": "Select"
+    }
+}

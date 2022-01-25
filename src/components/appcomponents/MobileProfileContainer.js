@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 import '../../pages/App/Profile.css';
 import { withRouter, useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const auth = getAuth();
 const user = auth.currentUser;
@@ -20,6 +21,7 @@ const user = auth.currentUser;
 
 function MobileProfileContainer() {
 
+    const { t, i18n } = useTranslation()
     const history = useHistory();
     const db = firebase.firestore();
     const [userProfile, setuserProfile] = useState({
@@ -76,7 +78,7 @@ function MobileProfileContainer() {
                                             <ListItemIcon>
                                                 <MedicalServicesIcon color="secondary" />
                                             </ListItemIcon>
-                                            <ListItemText primary="Hospital Hotlines" />
+                                            <ListItemText primary={t("hotlines")} />
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>
@@ -100,7 +102,7 @@ function MobileProfileContainer() {
                                             <ListItemIcon>
                                                 <SettingsIcon color="secondary" />
                                             </ListItemIcon>
-                                            <ListItemText primary="Settings" />
+                                            <ListItemText primary={t("settings")} />
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>

@@ -1,7 +1,8 @@
-import { Box, Typography, FormControl, Container, FormGroup, FormControlLabel, Switch, styled } from '@mui/material'
-import React, { useEffect } from 'react'
+import { MenuItem, Select, Button, Box, Typography, FormControl, Container, FormGroup, FormControlLabel, Switch, styled } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme, getTheme } from "../../redux/actions/uiAction";
+import { useTranslation } from 'react-i18next';
 import './css/Settings.css';
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
@@ -40,10 +41,20 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
 export default function Settings() {
     const dispatch = useDispatch();
     const ui = useSelector((state) => state.ui);
+    const { t, i18n } = useTranslation()
 
     useEffect(() => {
         dispatch(getTheme());
     }, [dispatch]);
+
+    function setEn() {
+        localStorage.setItem("locale", "en");
+        window.location.reload()
+    }
+    function setPh() {
+        localStorage.setItem("locale", "ph");
+        window.location.reload()
+    }
 
     return (
         <Box>
@@ -52,10 +63,25 @@ export default function Settings() {
                 <FormGroup>
                     <FormControl>
                         <FormControlLabel
-                            label="Enable Dark Mode"
+                            label={t("settinglist.dmode")}
                             control={
                                 <React.Fragment>
                                     <Android12Switch checked={ui.isDarkMode} onChange={() => dispatch(toggleTheme(!ui.isDarkMode))} />
+                                </React.Fragment>
+                            }
+                            labelPlacement="start"
+                            className="darkThemeSwitch"
+                        >
+                        </FormControlLabel>
+
+                    </FormControl>
+                    <FormControl>
+                        <FormControlLabel
+                            label={t("settinglist.changeLang")}
+                            control={
+                                <React.Fragment>
+                                    <Button size="small" variant="contained" onClick={() => setEn()}>English</Button>
+                                    <Button size="small" variant="contained" onClick={() => setPh()}>Tagalog</Button>
                                 </React.Fragment>
                             }
                             labelPlacement="start"

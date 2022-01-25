@@ -1,0 +1,14 @@
+{
+    "assigned_doctor": "Nakatakdang Doktor",
+    "scheduled_appointment": "Nakatakdang Appointment",
+    "no_appointment": "Walang nakaiskedyul na appointment.",
+    "date": "Petsa",
+    "time": "Oras",
+    "settings": "Mga Settings",
+    "hotlines": "Mga Hotlines",
+    "settinglist": {
+        "dmode": "I-on ang Dark Mode",
+        "changeLang": "Palitan ang Lengguwahe",
+        "langLabel": "Pumili"
+    }
+}

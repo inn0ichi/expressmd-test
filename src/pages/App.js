@@ -10,6 +10,8 @@ import doctorPhoto from "../assets/doctor 1.png";
 import { Link, useHistory } from "react-router-dom";
 import firebase from '../config/firebase';
 import { getAuth } from "firebase/auth";
+import { useTranslation } from 'react-i18next';
+
 
 const style = {
   requestBtn: {
@@ -105,12 +107,17 @@ const style = {
 const user = getAuth();
 var database = firebase.database();
 
+
 export default function App() {
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(getTheme());
+    i18n.changeLanguage(localStorage.getItem("locale"));
   }, [dispatch]);
+
+  const { t, i18n } = useTranslation()
 
   const [isEmpty, setisEmpty] = useState(false);
   const history = useHistory();
@@ -208,12 +215,12 @@ export default function App() {
           <Container>
             <Paper elevation={3} className="schedPaper">
               <Typography className="schedHeader" variant="h6">
-                Scheduled Appointment
+                {t("scheduled_appointment")}
               </Typography>
               <Box className="schedDetails">
                 {isEmpty ?
                   <Typography className="schedText" variant="subtitle2">
-                    There is no scheduled appointment.
+                    {t("no_appointment")}
                   </Typography>
                   :
                   fetchAppointments.appointments.map((setappointment) => {
@@ -222,9 +229,9 @@ export default function App() {
                     return (
                       <Link to={`/r/${setappointment.userID}/view`} key={setappointment.globalID}>
                         <Paper variant="outlined" sx={style.appointmentSched} >
-                          <Typography>Date: {setDate}</Typography>
-                          <Typography>Time: {setTime}</Typography>
-                          <Typography variant="subtitle2">Assigned Doctor:{setappointment.assigned_doctor}</Typography>
+                          <Typography>{t("date")}: {setDate}</Typography>
+                          <Typography>{t("time")}: {setTime}</Typography>
+                          <Typography variant="subtitle2">{t("assigned_doctor")}:{setappointment.assigned_doctor}</Typography>
                           <Typography variant="subtitle2">Status:{setappointment.status}</Typography>
                         </Paper>
                       </Link>
