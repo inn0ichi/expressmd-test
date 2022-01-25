@@ -1,4 +1,4 @@
-import { Typography, Box, Container, TextField, Button, FormGroup, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem } from '@mui/material'
+import { Typography, Box, Container, TextField, Button, FormGroup, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem, Link } from '@mui/material'
 import firebase from '../../config/firebase';
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from "react-router-dom";
@@ -64,9 +64,9 @@ function Login() {
     };
 
     const style = {
-        logo : {
-            width : "200px",
-            height : "150px"
+        logo: {
+            width: "200px",
+            height: "150px"
         }
     }
 
@@ -76,7 +76,7 @@ function Login() {
 
                 <Box className='formContainer'>
                     <Box className='imgContainer'>
-                        <Box component = "img" src = {Logo} alt = "logo" sx = {style.logo}></Box>
+                        <Box component="img" src={Logo} alt="logo" sx={style.logo}></Box>
                     </Box>
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
@@ -87,7 +87,7 @@ function Login() {
                                 variant="standard"
                                 InputLabelProps={{
                                     style: { color: 'black' },
-                                  }}
+                                }}
                                 onChange={userInput("email")}
                             />
                         </FormControl>
@@ -100,7 +100,7 @@ function Login() {
                                 type="password"
                                 InputLabelProps={{
                                     style: { color: 'black' },
-                                  }}
+                                }}
                                 onChange={userInput("password")}
                             />
                         </FormControl>
@@ -109,6 +109,16 @@ function Login() {
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120 }}>
                             <Button onClick={() => history.push("/createaccount")} variant='outlined'>Create an Account</Button>
+                        </FormControl>
+                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                            <Link
+                                component="button"
+                                variant="body2"
+                                onClick={() => history.push("/resetpassword")}
+                                color="error"
+                            >
+                                I Forgot My Password
+                            </Link>
                         </FormControl>
 
                     </FormGroup>

@@ -60,7 +60,6 @@ function UserRegistration() {
             !payload.barangay
         ) {
             alert("Please fill out all of the fields");
-            console.log(payload);
         } else {
             db.collection("users")
                 .doc(payload.uid)
@@ -96,8 +95,8 @@ function UserRegistration() {
     };
 
     const style = {
-        textHelp : {
-            color : "red"
+        textHelp: {
+            color: "red"
         }
     }
     return (
@@ -109,7 +108,7 @@ function UserRegistration() {
                         <img className='usrImg' alt='profileImg' src={localStorage.getItem("photoURL")} />
                     </Box> */}
                     <FormGroup>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 , marginTop : "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <Box className='imageUpload'>
                                 <IconButton color="primary" aria-label="upload picture" component="span">
                                     <Avatar src={file} sx={{ width: 128, height: 128 }} />
@@ -118,7 +117,7 @@ function UserRegistration() {
                             </Box>
 
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 , marginTop : "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -126,12 +125,12 @@ function UserRegistration() {
                                 variant="standard"
                                 InputLabelProps={{
                                     style: { color: 'black' },
-                                  }}
+                                }}
                                 onChange={userInput("fullname")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0  , marginTop : "30px"}}>
-                            <InputLabel sx = {{color : 'black'}} >Gender</InputLabel>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                            <InputLabel sx={{ color: 'black' }} >Gender</InputLabel>
                             <Select
                                 id='gender'
                                 label="Gender *"
@@ -143,9 +142,9 @@ function UserRegistration() {
                                 <MenuItem value={'Female'}>Female</MenuItem>
                                 <MenuItem value={'Others'}>Others/Prefer not to say</MenuItem>
                             </Select>
-                            <FormHelperText sx = {style.textHelp}>*Required</FormHelperText>
+                            <FormHelperText sx={style.textHelp}>*Required</FormHelperText>
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0  , marginTop : "30px"}}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -153,11 +152,11 @@ function UserRegistration() {
                                 variant="standard"
                                 InputLabelProps={{
                                     style: { color: 'black' },
-                                  }}
+                                }}
                                 onChange={userInput("email")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0  , marginTop : "30px"}}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -165,12 +164,12 @@ function UserRegistration() {
                                 variant="standard"
                                 InputLabelProps={{
                                     style: { color: 'black' },
-                                  }}
+                                }}
                                 onChange={userInput("phoneNumber")}
                                 value={payload.phoneNumber}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 , marginTop : "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -178,12 +177,12 @@ function UserRegistration() {
                                 variant="standard"
                                 InputLabelProps={{
                                     style: { color: 'black' },
-                                  }}
+                                }}
                                 onChange={userInput("houseNum")}
                                 value={payload.houseNum}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 , marginTop : "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -191,14 +190,14 @@ function UserRegistration() {
                                 variant="standard"
                                 InputLabelProps={{
                                     style: { color: 'black' },
-                                  }}
+                                }}
                                 onChange={userInput("barangay")}
                                 value={payload.barangay}
                             />
                         </FormControl>
 
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0  , marginTop : "20px"}}>
-                            <InputLabel sx = {{color : 'black'}} >Municipality</InputLabel>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "20px" }}>
+                            <InputLabel sx={{ color: 'black' }} >Municipality</InputLabel>
                             <Select
                                 id='Municipality'
                                 label="Municipality *"
@@ -209,7 +208,7 @@ function UserRegistration() {
                                 <MenuItem value={'Bustos'}>Bustos</MenuItem>
                                 <MenuItem value={'Baliuag'}>Baliuag</MenuItem>
                             </Select>
-                            <FormHelperText sx = {style.textHelp}>*Required. Bustos and Baliuag only.</FormHelperText>
+                            <FormHelperText sx={style.textHelp}>*Required. Bustos and Baliuag only.</FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120 }}>
                             <Button onClick={() => completeProfile()} variant='outlined' disabled={!file}>Complete</Button>

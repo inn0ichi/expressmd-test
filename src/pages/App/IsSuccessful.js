@@ -74,6 +74,18 @@ export default function IsSuccessful() {
                                 <Button variant="filled" sx={style.btn} onClick={() => history.push("/")}>OK</Button>
                             </Paper>
                         );
+                    case "reset":
+                        return (
+                            <Paper sx={style.innerConPaper}>
+                                <Typography sx={style.label}>
+                                    Password Reset Email Sent!
+                                </Typography>
+                                <Typography sx={style.sublabel}>
+                                    The password reset email has been sent. Please check your mailbox.
+                                </Typography>
+                                <Button variant="filled" sx={style.btn} onClick={() => history.push("/")}>OK</Button>
+                            </Paper>
+                        );
                     case "edited":
                         return (
                             <Paper sx={style.innerConPaper}>

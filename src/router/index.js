@@ -27,11 +27,14 @@ import ViewRequest from '../pages/App/ViewRequest';
 import EditRequest from '../pages/App/EditRequest';
 import CancelRequest from '../pages/App/CancelRequest';
 import UserRegistration from '../pages/App/UserRegistration';
+import ForgotPassword from '../pages/App/ForgotPassword';
+import EditProfile from '../pages/App/EditProfile';
 import Login from '../pages/App/Login';
 import CreateAccount from '../pages/App/CreateAccount';
 import PrivateRoute from '../utils/PrivateRoute';
 import PublicRoute from '../utils/PublicRoute';
 import firebase from '../config/firebase';
+
 
 function BottomNav() {
 
@@ -146,6 +149,8 @@ export default function RouterComponent() {
                     <Route exact component={ViewRequest} path="/r/:id/view" />
                     <Route exact component={CancelRequest} path="/r/:id/cancel" />
                     <Route exact component={EditRequest} path="/r/:id/edit" />
+                    <Route exact component={ForgotPassword} path="/resetpassword" />
+                    <Route exact component={EditProfile} path="/editprofile" />
                 </Switch>
                 <BottomNav />
             </Router>
