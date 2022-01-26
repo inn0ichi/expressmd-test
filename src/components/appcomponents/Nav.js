@@ -4,6 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountModal from '../appcomponents/AccoundModal'
 import { NavLink } from 'react-router-dom';
 import Logo from "./icon-256x256.png";
+import Logo2 from '../../assets/logo2.png'
+
 function Nav() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -75,7 +77,7 @@ function Nav() {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        <img src={Logo} alt='logo' width={64} height={64} />
+                        <img src={Logo2} alt='logo2' width={64} height={50} />
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <NavLink to='/'>
