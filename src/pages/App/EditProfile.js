@@ -73,7 +73,7 @@ export default function EditProfile() {
                     .update({
                         photoURL: url,
                     })
-                    .then((doc) => { history.push("/editprofile") });
+                    .then((doc) => { window.location.reload() });
             });
         })
     }
