@@ -52,30 +52,30 @@ export default function TransactionHistory() {
     }, []);
 
     const style = {
-        outerCon : {
-            display : "flex",
-            justifyContent : "center",
-            alignItems : "center"
+        outerCon: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
         },
 
-        paperCon : {
-            padding : "20px",
-            minWidth : "250px"
+        paperCon: {
+            padding: "20px",
+            minWidth: "250px"
         },
 
-        LabelCon : {
-            marginTop : "10px",
-            marginLeft : "10px"
+        LabelCon: {
+            marginTop: "10px",
+            marginLeft: "10px"
         },
 
-        Label : {
-            fontSize : "24px"
+        Label: {
+            fontSize: "24px"
         }
     }
     return (
         <Box>
-            <Box sx = {style.LabelCon}>
-            <Typography sx = {style.Label}>Transaction History</Typography>
+            <Box sx={style.LabelCon}>
+                <Typography sx={style.Label}>Transaction History</Typography>
             </Box>
             <Box className='transactionBox'>
                 {isEmpty ?
@@ -88,20 +88,20 @@ export default function TransactionHistory() {
                             let setDate = transactions.datetime.toDate().toLocaleDateString();
                             let setTime = transactions.datetime.toDate().toLocaleTimeString();
                             return (
-                                <ListItem sx = {style.outerCon}>
-                                    <Link to={`/r/${transactions.userID}/view`}>
+                                <ListItem sx={style.outerCon}>
+                                    <Link to={`/a/${transactions.documentId}/view`}>
                                         <Box>
-                                        <Paper sx = {style.paperCon} elevation = "5"> 
-                                            <Typography>
-                                                Doctor Assigned: {transactions.assigned_doctor}
-                                            </Typography>
-                                            <Typography>
-                                                Date: {setDate}
-                                            </Typography>
-                                            <Typography>
-                                                Time: {setTime}
-                                            </Typography>
-                                        </Paper>
+                                            <Paper sx={style.paperCon} elevation="5">
+                                                <Typography>
+                                                    Doctor Assigned: {transactions.assigned_doctor}
+                                                </Typography>
+                                                <Typography>
+                                                    Date: {setDate}
+                                                </Typography>
+                                                <Typography>
+                                                    Time: {setTime}
+                                                </Typography>
+                                            </Paper>
                                         </Box>
                                     </Link>
                                 </ListItem>

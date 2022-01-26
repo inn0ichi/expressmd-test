@@ -176,7 +176,6 @@ export default function App() {
     docRef.onSnapshot((doc) => {
       let getTopDoctor = [];
       doc.forEach((req) => {
-        console.log(req.data())
         getTopDoctor.push(req.data());
       });
       setfetchTopDoc({ topdoc: getTopDoctor });
@@ -198,7 +197,6 @@ export default function App() {
   const FetchAnnouncement = () => {
     const dbRef = firebase.database().ref();
     dbRef.child("aotd").get().then((snapshot) => {
-      console.log(snapshot);
       if (snapshot.exists()) {
         setgetAnnouncement(snapshot.val());
         setisLoading(false);
@@ -231,7 +229,6 @@ export default function App() {
     fetchTopRated();
   }, []);
 
-  console.log(getAnnouncement);
 
   return (
     <Box className="base">
