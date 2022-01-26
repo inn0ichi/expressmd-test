@@ -1,4 +1,4 @@
-import { MenuItem, Select, Button, Box, Typography, FormControl, Container, FormGroup, FormControlLabel, Switch, styled } from '@mui/material'
+import { MenuItem, Select, Button, Box, Typography, FormControl, Container, FormGroup, FormControlLabel, Switch, styled , Paper } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme, getTheme } from "../../redux/actions/uiAction";
@@ -62,6 +62,7 @@ export default function Settings() {
             <Container>
                 <FormGroup>
                     <FormControl>
+                        <Paper>
                         <FormControlLabel
                             label={t("settinglist.dmode")}
                             control={
@@ -73,9 +74,10 @@ export default function Settings() {
                             className="darkThemeSwitch"
                         >
                         </FormControlLabel>
-
+                        </Paper>
                     </FormControl>
                     <FormControl>
+                    <Paper>
                         <FormControlLabel
                             label={t("settinglist.changeLang")}
                             control={
@@ -88,6 +90,7 @@ export default function Settings() {
                             className="darkThemeSwitch"
                         >
                         </FormControlLabel>
+                        </Paper>
 
                     </FormControl>
                 </FormGroup>
