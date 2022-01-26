@@ -1,4 +1,4 @@
-import { Typography, Box, Container, Button, Paper } from "@mui/material";
+import { Typography, Box, Container, Button, Paper, Rating } from "@mui/material";
 import TopPhoto from "../assets/Drawkit-Vector-Illustration-Medical-01 1.png";
 import React, { useEffect, useState, Suspense } from "react";
 import { useDispatch } from "react-redux";
@@ -133,6 +133,10 @@ export default function App() {
 
   const [getAnnouncement, setgetAnnouncement] = useState('');
 
+  const [fetchTopDoc, setfetchTopDoc] = useState({
+    topdoc: [],
+  })
+
   useEffect(() => {
     let isSubscribed = true;
     getAuth().onAuthStateChanged(function (user) {
@@ -165,6 +169,18 @@ export default function App() {
     } else {
       setisEmpty(true);
     }
+  }
+
+  const fetchTopRated = () => {
+    const docRef = db.collection('doctors').orderBy("rating", "desc").limit(3);
+    docRef.onSnapshot((doc) => {
+      let getTopDoctor = [];
+      doc.forEach((req) => {
+        console.log(req.data())
+        getTopDoctor.push(req.data());
+      });
+      setfetchTopDoc({ topdoc: getTopDoctor });
+    })
   }
 
   const override = css`
@@ -212,7 +228,7 @@ export default function App() {
 
   useEffect(() => {
     fetchList();
-
+    fetchTopRated();
   }, []);
 
   console.log(getAnnouncement);
@@ -265,47 +281,29 @@ export default function App() {
                         </Paper>
                       </Link>
                     )
-
                   })
                 }
-
               </Box>
             </Paper>
           </Container>
         </Box>
 
         <Box sx={style.label}>
-          <Typography variant="h6">Doctor Category</Typography>
+          <Typography variant="h6">Top Rated Doctors</Typography>
         </Box>
-        <Box sx={style.wrapper}>
-          <Paper sx={style.categoryPaper} variant="outlined">
-            <Box sx={style.item}>
-              <Box
-                component="img"
-                src={doctorPhoto}
-                alt=""
-                sx={style.category}
-                style={{ backgroundColor: "#FFC107" }}
-              ></Box>
-              <Typography variant="subtitle2" sx={style.categoryText}>
-                General Doctor
-              </Typography>
-            </Box>
-          </Paper>
-          <Paper sx={style.categoryPaper} variant="outlined">
-            <Box sx={style.item}>
-              <Box
-                component="img"
-                src={category}
-                alt=""
-                sx={style.category}
-                style={{ backgroundColor: "#65A4DA" }}
-              ></Box>
-              <Typography variant="subtitle2" sx={style.categoryText}>
-                Pediatrics
-              </Typography>
-            </Box>
-          </Paper>
+        <Box >
+          {fetchTopDoc.topdoc.map((data) => {
+            return (
+              <Link to={`p/${data.uid}`}>
+                <Paper variant="outlined" key={data.uid}>
+                  <img src={data.photoURL} alt={data.firstname} width={128} height={128} />
+                  <Typography>Dr. {data.firstname + " " + data.lastname}</Typography>
+                  <Typography>{data.type}</Typography>
+                  <Rating name="rating" value={data.rating} readOnly />
+                </Paper>
+              </Link>
+            )
+          })}
 
         </Box>
       </Container>
