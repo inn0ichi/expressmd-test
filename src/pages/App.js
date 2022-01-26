@@ -295,11 +295,18 @@ export default function App() {
           {fetchTopDoc.topdoc.map((data) => {
             return (
               <Link to={`p/${data.uid}`}>
-                <Paper variant="outlined" key={data.uid}>
+                <Paper variant="outlined" key={data.uid} sx={{
+                  display: 'flex',
+                  direction: 'row',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center'
+                }}>
                   <img src={data.photoURL} alt={data.firstname} width={128} height={128} />
-                  <Typography>Dr. {data.firstname + " " + data.lastname}</Typography>
-                  <Typography>{data.type}</Typography>
-                  <Rating name="rating" value={data.rating} readOnly />
+                  <Box>
+                    <Typography>Dr. {data.firstname + " " + data.lastname}</Typography>
+                    <Typography>{data.type}</Typography>
+                    <Rating name="rating" value={data.rating} readOnly />
+                  </Box>
                 </Paper>
               </Link>
             )
