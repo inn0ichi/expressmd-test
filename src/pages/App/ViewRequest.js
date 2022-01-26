@@ -142,7 +142,7 @@ export default function ViewRequest() {
       marginRight: "30px",
       justifyContent: "center",
       marginTop: "10px",
-      minWidth: "300px"
+      
     },
 
     textField: {

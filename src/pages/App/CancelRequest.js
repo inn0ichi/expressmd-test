@@ -27,7 +27,72 @@ const style = {
         display: "flex",
         justifyContent: "center",
         alignItems: 'center'
-    }
+    },
+
+    innerCon: {
+        marginTop: "20px",
+        display: "flex",
+        flexDirection: "row",
+        marginLeft: "30px",
+        alignItems: "center",
+  
+      },
+      patientProf: {
+        width: "90px",
+        height: "90px",
+        borderRadius: "90px"
+      },
+      superInnerCon: {
+        marginLeft: "30px"
+      },
+
+      Label : {
+          fontSize : "24px"
+      },
+
+      subLabel : {
+          fontSize : "18px"
+      },
+
+      mainCon : {
+          marginLeft : "20px",
+          marginRight : "20px"
+      },
+
+      subLabelCon : {
+          display : "flex",
+          flexdirection : "column",
+          alignItems : "center",
+          marginTop : "20px"
+      },
+
+      inputField: {
+        display: "flex",
+        marginLeft: "30px",
+        marginRight: "30px",
+        justifyContent: "center",
+        marginTop: "10px",
+        
+      },
+
+      textField: {
+        width: "350px",
+      },
+
+      btnCon : {
+        display: "flex",
+        justifyContent: "center",
+        alignItems : "center",
+        flexDirection : "column",
+        marginTop : "20px"
+      },
+
+
+      btn : {
+          marginBottom : "10px",
+          width : "200px",
+          borderRadius : "10px"
+      }
 }
 
 export default function CancelRequest() {
@@ -116,21 +181,27 @@ export default function CancelRequest() {
                     let setDate = data.datetime.toDate().toLocaleDateString();
                     let setTime = data.datetime.toDate().toLocaleTimeString();
                     return (
-                        <Box key={data.userID}>
-                            <Typography variant="h5">Request Cancellation</Typography>
-                            <Box>
+                        <Box key={data.userID} sx = {style.mainCon}>
+                            <Typography sx = {style.Label}>Request Cancellation</Typography>
+                            <Box sx={style.innerCon}>
+                                <Box>
+                                <Box component="img" alt="Image of Patient" sx={style.patientProf} src={data.photoURL}/>
+                                </Box>
+                                <Box sx={style.superInnerCon}>
                                 <Typography>Name: {data.userFullName}</Typography>
                                 <Typography>Date: {setDate}</Typography>
                                 <Typography>Time: {setTime}</Typography>
                                 <Typography>Location: {data.location}</Typography>
+                                </Box>
                             </Box>
-                            <Box>
-                                <Typography >Reason for Cancellation </Typography>
-                                <Typography>*Required</Typography>
+                            <Box sx = {style.subLabelCon}>
+                                <Typography sx = {style.subLabel}>Reason for Cancellation </Typography>
+                                <Typography sx = {{color :"red" , marginLeft : "10px" , fontStyle : "Italic"}}>*Required</Typography>
                             </Box>
-                            <Box >
+                            <Box sx={style.inputField} >
                                 <TextField
                                     id="outlined-basic"
+                                    sx={style.textField}
                                     variant="outlined"
                                     multiline
                                     maxRows={10}
@@ -139,9 +210,9 @@ export default function CancelRequest() {
                                 />
 
                             </Box>
-                            <Box>
-                                <Button variant="contained" onClick={() => submitForm()}>Continue</Button>
-                                <Button variant="contained" onClick={() => history.goBack()}>Cancel</Button>
+                            <Box sx = {style.btnCon}>
+                                <Button variant="contained" sx = {style.btn} onClick={() => submitForm()}>Continue</Button>
+                                <Button variant="contained" sx = {style.btn} style={{ backgroundColor: "#FF5956" }} onClick={() => history.goBack()}>Cancel</Button>
                             </Box>
                         </Box>
                     );
