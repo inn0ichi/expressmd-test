@@ -50,9 +50,33 @@ export default function TransactionHistory() {
         fetchData();
         console.log(isEmpty);
     }, []);
+
+    const style = {
+        outerCon : {
+            display : "flex",
+            justifyContent : "center",
+            alignItems : "center"
+        },
+
+        paperCon : {
+            padding : "20px",
+            minWidth : "250px"
+        },
+
+        LabelCon : {
+            marginTop : "10px",
+            marginLeft : "10px"
+        },
+
+        Label : {
+            fontSize : "24px"
+        }
+    }
     return (
         <Box>
-            <Typography>Transaction History</Typography>
+            <Box sx = {style.LabelCon}>
+            <Typography sx = {style.Label}>Transaction History</Typography>
+            </Box>
             <Box className='transactionBox'>
                 {isEmpty ?
                     <Typography variant="subtitle2">
@@ -64,9 +88,10 @@ export default function TransactionHistory() {
                             let setDate = transactions.datetime.toDate().toLocaleDateString();
                             let setTime = transactions.datetime.toDate().toLocaleTimeString();
                             return (
-                                <ListItem>
+                                <ListItem sx = {style.outerCon}>
                                     <Link to={`/r/${transactions.userID}/view`}>
-                                        <Paper>
+                                        <Box>
+                                        <Paper sx = {style.paperCon} elevation = "5"> 
                                             <Typography>
                                                 Doctor Assigned: {transactions.assigned_doctor}
                                             </Typography>
@@ -77,6 +102,7 @@ export default function TransactionHistory() {
                                                 Time: {setTime}
                                             </Typography>
                                         </Paper>
+                                        </Box>
                                     </Link>
                                 </ListItem>
                             );
