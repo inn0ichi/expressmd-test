@@ -1,6 +1,6 @@
 import { Typography, Box, Container, Button, Paper } from "@mui/material";
 import TopPhoto from "../assets/Drawkit-Vector-Illustration-Medical-01 1.png";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { getTheme } from "../redux/actions/uiAction";
 import Ticker from "react-ticker";
@@ -11,6 +11,11 @@ import { Link, useHistory } from "react-router-dom";
 import firebase from '../config/firebase';
 import { getAuth } from "firebase/auth";
 import { useTranslation } from 'react-i18next';
+
+import BarLoader from "react-spinners/BarLoader";
+import { css } from "@emotion/react";
+
+
 
 
 const style = {
@@ -125,6 +130,9 @@ export default function App() {
   const [fetchAppointments, setfetchAppointments] = useState({
     appointments: [],
   })
+
+  const [getAnnouncement, setgetAnnouncement] = useState('');
+
   useEffect(() => {
     let isSubscribed = true;
     getAuth().onAuthStateChanged(function (user) {
@@ -158,44 +166,65 @@ export default function App() {
       setisEmpty(true);
     }
   }
-  /* 
-  
-    const fetchAnnouncement = () => {
-      const dbRef = firebase.database().ref();
-      dbRef.child("aotd").get().then((snapshot) => {
-        console.log(snapshot);
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    } */
+
+  const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
+  const [isLoading, setisLoading] = useState(true);
+
+  const Loader = () => (
+    <BarLoader color={"blue"} loading={isLoading} css={override} size={64} />
+  );
+
+  const FetchAnnouncement = () => {
+    const dbRef = firebase.database().ref();
+    dbRef.child("aotd").get().then((snapshot) => {
+      console.log(snapshot);
+      if (snapshot.exists()) {
+        setgetAnnouncement(snapshot.val());
+        setisLoading(false);
+      } else {
+        console.log("No data available");
+        setisLoading(true);
+      }
+    }).catch((error) => {
+      console.error(error);
+      setisLoading(true);
+    });
+    return (
+      <Ticker mode="await" speed="4" offset="25">
+        {({ index }) => (
+          <>
+            <Box className="ticker">
+              <CampaignIcon />
+              <Typography variant="subtitle2">
+                {getAnnouncement}
+              </Typography>
+            </Box>
+          </>
+        )}
+      </Ticker>
+    );
+  }
 
   useEffect(() => {
     fetchList();
-    /* fetchAnnouncement(); */
+
   }, []);
+
+  console.log(getAnnouncement);
 
   return (
     <Box className="base">
       <Container>
         <Box className="tickerBox">
           <Paper>
-            <Ticker mode="await" speed="4" offset="25">
-              {({ index }) => (
-                <>
-                  <Box className="ticker">
-                    <CampaignIcon />
-                    <Typography variant="subtitle2">
-                      Sample Announcement! This is a test!{" "}
-                    </Typography>
-                  </Box>
-                </>
-              )}
-            </Ticker>
+            <Suspense fallback={<Loader />}>
+              <FetchAnnouncement />
+            </Suspense>
           </Paper>
         </Box>
         <Box sx={style.topContainer}>
