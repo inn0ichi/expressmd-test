@@ -121,6 +121,18 @@ export default function IsSuccessful() {
                                 <Button variant="filled" sx={style.btn} onClick={() => history.push("/")}>OK</Button>
                             </Paper>
                         );
+                    case "rating":
+                        return (
+                            <Paper sx={style.innerConPaper}>
+                                <Typography sx={style.label}>
+                                    Rating Submitted
+                                </Typography>
+                                <Typography sx={style.sublabel}>
+                                    Your rating has been submitted. Thank you for using ExpressMD.
+                                </Typography>
+                                <Button variant="filled" sx={style.btn} onClick={() => history.push("/")}>OK</Button>
+                            </Paper>
+                        );
                     default:
                         return null;
                 }

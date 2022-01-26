@@ -15,6 +15,27 @@ export default function DocProfile() {
     const [doctorProfile, setdoctorProfile] = useState({
         profile: [],
     });
+    const [isEmpty, setisEmpty] = useState(false);
+    const [fetchTopDoc, setfetchTopDoc] = useState({
+        topdoc: [],
+    })
+
+    const fetchTopRated = () => {
+        const docRef = db.collection('doctors').doc(id).collection("usrrating").orderBy("rating", "desc").limit(3);
+        docRef.onSnapshot((doc) => {
+            if (doc.size > 0) {
+                setisEmpty(false);
+                let getTopDoctor = [];
+                doc.forEach((req) => {
+                    getTopDoctor.push(req.data());
+                });
+                setfetchTopDoc({ topdoc: getTopDoctor });
+            } else {
+                setisEmpty(true);
+            }
+
+        })
+    }
 
     const fetchData = async () => {
         let isMounted = true
@@ -28,8 +49,11 @@ export default function DocProfile() {
     };
 
     useEffect(() => {
+        fetchTopRated();
         fetchData();
     }, []);
+
+    console.log(isEmpty);
 
     return (
         <Box className='base'>
@@ -86,109 +110,57 @@ export default function DocProfile() {
 
                     <List className='reviewList'>
                         <Typography variant="h6" alignItems="flex-start">Reviews</Typography>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Marcy Bunag" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={<React.Fragment>
-                                    <Rating
-                                        name="text-feedback"
-                                        value="5"
-                                        readOnly
-                                        precision={0.5}
-                                        icon={<StarRoundedIcon />}
-                                        emptyIcon={<StarRoundedIcon />}
 
-                                    />
-                                </React.Fragment>
-                                }
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            Marcy Bunag
-                                        </Typography>
-                                        {" — Bartz Eytin"}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Regine Manuel" src="/static/images/avatar/2.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={<React.Fragment>
-                                    <Rating
-                                        name="text-feedback"
-                                        value="5"
-                                        readOnly
-                                        precision={0.5}
-                                        icon={<StarRoundedIcon />}
-                                        emptyIcon={<StarRoundedIcon />}
+                        <Box>
+                            {isEmpty ?
+                                <Typography variant="subtitle2">
+                                    <Typography>There are currently no ratings for this doctor</Typography>
+                                </Typography>
+                                :
+                                fetchTopDoc.topdoc.map((data) => {
+                                    return (
+                                        <Box>
+                                            <ListItem alignItems="flex-start">
+                                                <ListItemAvatar>
+                                                    <Avatar alt={data.fullname} src={data.fullname} />
+                                                </ListItemAvatar>
+                                                <ListItemText
+                                                    primary={<React.Fragment>
+                                                        <Rating
+                                                            name="text-feedback"
+                                                            value={data.rating}
+                                                            readOnly
+                                                            precision={1}
+                                                            icon={<StarRoundedIcon />}
+                                                            emptyIcon={<StarRoundedIcon />}
 
-                                    />
-                                </React.Fragment>
-                                }
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            Regine Manuel
-                                        </Typography>
-                                        {" — Malakas maging doctor"}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Jay Ron Mendoza" src="/static/images/avatar/3.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={<React.Fragment>
-                                    <Rating
-                                        name="text-feedback"
-                                        value="5"
-                                        readOnly
-                                        precision={0.5}
-                                        icon={<StarRoundedIcon />}
-                                        emptyIcon={<StarRoundedIcon />}
-
-                                    />
-                                </React.Fragment>
-                                }
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            Jay Ron Mendoza
-                                        </Typography>
-                                        {' — best doctor in town'}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
+                                                        />
+                                                    </React.Fragment>
+                                                    }
+                                                    secondary={
+                                                        <React.Fragment>
+                                                            <Typography
+                                                                sx={{ display: 'inline' }}
+                                                                component="span"
+                                                                variant="body2"
+                                                                color="text.primary"
+                                                            >
+                                                                {data.review}
+                                                            </Typography>
+                                                            {` — ${data.fullname}`}
+                                                        </React.Fragment>
+                                                    }
+                                                />
+                                            </ListItem>
+                                            <Divider variant="inset" component="li" />
+                                        </Box>
+                                    )
+                                })
+                            }
+                        </Box>
                     </List>
                 </Box>
-
             </Container >
-
         </Box >
     )
 }

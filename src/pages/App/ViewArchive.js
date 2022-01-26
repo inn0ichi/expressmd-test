@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button, Rating } from "@mui/material";
+import { Typography, Box, TextField, Button, Rating, FormLabel, FormGroup, FormControlLabel, FormHelperText, FormControl } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -33,7 +33,7 @@ const style = {
 
 export default function ViewArchive() {
     const { id } = useParams();
-
+    const [rating, setRating] = useState(0);
     const history = useHistory();
 
     useEffect(() => {
@@ -52,6 +52,16 @@ export default function ViewArchive() {
     const [appointmentData, setappointmentData] = useState({
         data: [],
     });
+    const [docData, setdocData] = useState({
+        data: [],
+    });
+
+    const [payload, setPayload] = useState({
+        review: "",
+    });
+    const userInput = (prop) => (e) => {
+        setPayload({ ...payload, [prop]: e.target.value });
+    };
 
     const fetchData = async () => {
         let isMounted = true
@@ -60,11 +70,23 @@ export default function ViewArchive() {
         docRef.get().then((doc) => {
             rawData.push(doc.data());
             setappointmentData({ data: rawData });
+            localStorage.setItem("docID", doc.data().doctorId)
+        });
+        isMounted = false
+    };
+    const fetchDoc = async () => {
+        let isMounted = true
+        const docRef = await db.collection("doctors").doc(localStorage.getItem("docID"));
+        let rawData = [];
+        docRef.get().then((doc) => {
+            rawData.push(doc.data());
+            setdocData({ data: rawData });
         });
         isMounted = false
     };
 
     useEffect(() => {
+        fetchDoc();
         fetchData();
     }, [appointmentData]);
 
@@ -149,6 +171,85 @@ export default function ViewArchive() {
         }
     }
 
+    const submitForm = (e) => {
+        if (!payload.review || rating === null) {
+            alert("Please enter a review.");
+        } else {
+            appointmentData.data.map((data) => {
+                let docRef = db.collection("doctors")
+                    .doc(data.doctorId)
+                    .collection("usrrating")
+                var userRef = db.collection("users")
+                    .doc(data.userID)
+                    .collection("archive")
+                    .doc(data.documentId);
+                var globalRef = db.collection("requests")
+                    .doc(data.globalID);
+                userRef
+                    .update({
+                        rated: true,
+                        review: payload.review,
+                        rating: rating,
+                        fullname: data.userFullName,
+                    })
+                    .then((docReference) => {
+                        docRef
+                            .add({
+                                rated: true,
+                                review: payload.review,
+                                rating: rating,
+                                fullname: data.userFullName,
+                            })
+                            .then((docRef) => {
+                                docRef = db.collection("doctors").doc(data.doctorId).collection("usrrating").doc(docRef.id);
+                                docRef
+                                    .update({
+                                        documentId: docRef.id,
+                                    })
+                                    .then((docRef) => {
+                                        docRef = db.collection("doctors").doc(data.doctorId);
+                                        docData.data.map((doc) => {
+                                            console.log(doc);
+                                            let currentrev = doc.numReviews;
+                                            let currentrate = doc.rating;
+
+                                            let newrev = parseInt(currentrev, 10) + 1;
+                                            let newrate = currentrate + rating
+                                            let roundedrate = Math.round(newrate / newrev);
+                                            docRef
+                                                .update({
+                                                    numReviews: newrev,
+                                                    rating: roundedrate,
+                                                })
+                                                .then((docRef) => {
+                                                    history.push(`/success/${"rating"}`);
+                                                })
+                                                .catch((error) => {
+                                                    console.log(error);
+                                                    history.push("/sorry");
+                                                });
+                                        })
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        history.push("/sorry");
+                                    });
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                history.push("/sorry");
+                            });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        history.push("/sorry");
+                    });
+            })
+
+
+        }
+
+    }
 
 
     return (
@@ -173,8 +274,6 @@ export default function ViewArchive() {
                                 </Box>
                             </Box>
 
-
-
                             {(() => {
                                 switch (data.status) {
                                     case "Completed":
@@ -182,12 +281,43 @@ export default function ViewArchive() {
                                             return (
                                                 <Box>
                                                     <Box>
-                                                        <TextField id="outlined-basic" label="What do I think?" variant="outlined" />
+                                                        <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
+                                                            <FormGroup>
+                                                                <Box>
+                                                                    <FormControl>
+                                                                        <TextField id="outlined-basic" label="What do I think?" variant="outlined" onChange={userInput("review")} />
+                                                                    </FormControl>
+                                                                </Box>
+                                                            </FormGroup>
+                                                            <FormGroup>
+                                                                <Box>
+                                                                    <FormControlLabel
+                                                                        control={
+                                                                            <>
+                                                                                <input
+                                                                                    name="rating"
+                                                                                    type="number"
+                                                                                    value={rating}
+                                                                                    hidden
+                                                                                    readOnly
+                                                                                />
+                                                                                <Rating
+                                                                                    name="rating"
+                                                                                    value={rating}
+                                                                                    precision={1}
+                                                                                    onChange={(_, rating) => {
+                                                                                        setRating(rating);
+                                                                                    }}
+                                                                                />
+                                                                            </>
+                                                                        }
+                                                                        label="Rating"
+                                                                    />
+                                                                </Box>
+                                                            </FormGroup>
+                                                        </FormControl>
                                                     </Box>
-                                                    <Box>
-                                                        <Rating name="rating" />
-                                                    </Box>
-                                                    <Button variant="contained" >Rate</Button>
+                                                    <Button variant="contained" onClick={() => submitForm()}>Rate</Button>
                                                 </Box>
                                             );
                                         } else {

@@ -5,8 +5,6 @@ import { useDispatch } from "react-redux";
 import { getTheme } from "../redux/actions/uiAction";
 import Ticker from "react-ticker";
 import CampaignIcon from "@mui/icons-material/Campaign";
-import category from "../assets/child 1.png";
-import doctorPhoto from "../assets/doctor 1.png";
 import { Link, useHistory } from "react-router-dom";
 import firebase from '../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -14,9 +12,6 @@ import { useTranslation } from 'react-i18next';
 
 import BarLoader from "react-spinners/BarLoader";
 import { css } from "@emotion/react";
-
-
-
 
 const style = {
   requestBtn: {
@@ -291,8 +286,8 @@ export default function App() {
         <Box >
           {fetchTopDoc.topdoc.map((data) => {
             return (
-              <Link to={`p/${data.uid}`}>
-                <Paper variant="outlined" key={data.uid} sx={{
+              <Link to={`p/${data.uid}`} key={data.uid}>
+                <Paper variant="outlined" sx={{
                   display: 'flex',
                   direction: 'row',
                   justifyContent: 'flex-start',
