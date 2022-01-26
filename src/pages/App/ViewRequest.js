@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button } from "@mui/material";
+import { Typography, Box, TextField, Button, Rating } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -142,7 +142,7 @@ export default function ViewRequest() {
       marginRight: "30px",
       justifyContent: "center",
       marginTop: "10px",
-      
+
     },
 
     textField: {
@@ -305,6 +305,23 @@ export default function ViewRequest() {
 
                       </Box>
                     );
+                  case "Completed":
+                    if (!data.rated) {
+                      return (
+                        <Box>
+                          <Box>
+                            <TextField id="outlined-basic" label="What do I think?" variant="outlined" />
+                          </Box>
+                          <Box>
+                            <Rating name="rating" />
+                          </Box>
+                          <Button variant="contained" >Rate</Button>
+                        </Box>
+                      );
+                    } else {
+                      return null;
+                    }
+
                   case "Declined":
                     return null;
                   default:
