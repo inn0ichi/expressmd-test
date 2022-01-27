@@ -210,7 +210,7 @@ export default function App() {
             <Box className="ticker">
               <CampaignIcon />
               <Typography variant="subtitle2">
-                {getAnnouncement}
+                 Test Announcement
               </Typography>
             </Box>
           </>
