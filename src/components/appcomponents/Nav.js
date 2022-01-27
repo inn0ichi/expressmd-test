@@ -29,48 +29,6 @@ function Nav() {
                     >
                         <img src={Logo} alt='logo' width={64} height={64} />
                     </Typography>
-
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            <NavLink to='/'>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">Home</Typography>
-                                </MenuItem>
-                            </NavLink>
-                            <NavLink to='/faq'>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">FAQ</Typography>
-                                </MenuItem>
-                            </NavLink>
-                        </Menu>
-                    </Box>
                     <Typography
                         variant="h6"
                         noWrap
@@ -98,9 +56,6 @@ function Nav() {
                         </NavLink>
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <AccountModal />
-                    </Box>
                 </Toolbar>
             </Container>
         </AppBar>

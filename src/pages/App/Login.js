@@ -12,11 +12,6 @@ const auth = getAuth();
 function Login() {
     const history = useHistory();
 
-    getAuth().onAuthStateChanged(function (user) {
-        if (user) {
-            history.push("/");
-        }
-    });
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getTheme());

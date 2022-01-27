@@ -307,6 +307,9 @@ export default function ViewRequest() {
                   <Typography variant="subtitle1">
                     Location: {data.location}
                   </Typography>
+                  <Typography variant="subtitle1">
+                    Location: {data.phoneNumber}
+                  </Typography>
                 </Box>
               </Box>
 

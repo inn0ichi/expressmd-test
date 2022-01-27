@@ -15,6 +15,7 @@ import MobileProfileContainer from '../../components/appcomponents/MobileProfile
 import WebProfileContainer from '../../components/appcomponents/WebProfileContainer';
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction";
+import Login from './Login';
 
 const auth = getAuth();
 const user = auth.currentUser;
@@ -66,7 +67,7 @@ export default function Profile() {
     return (
         <Box className='base'>
             <Box>
-                {isLoggedin ? <LoggedIn /> : <NotLoggedIn />}
+                {isLoggedin ? <LoggedIn /> : <Login />}
             </Box>
         </Box >
     )

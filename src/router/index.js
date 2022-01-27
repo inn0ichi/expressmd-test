@@ -51,8 +51,6 @@ function BottomNav() {
 
                     <BottomNavigationAction label="Home" onClick={() => history.push('/')} icon={<HomeIcon color="secondary" />} />
 
-                    <BottomNavigationAction label="Search" onClick={() => history.push('/search')} icon={<SearchIcon color="secondary" />} />
-
                     <BottomNavigationAction label="Profile" onClick={() => history.push('/profile')} icon={<AccountCircleIcon color="secondary" />} />
 
                 </BottomNavigation>
