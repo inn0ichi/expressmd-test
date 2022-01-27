@@ -248,6 +248,11 @@ export default function App() {
             ></Box>
           </Paper>
         </Box>
+
+        <Box className="hospitalNumBox">
+        <Button variant="contained" onClick={() => history.push("/contacts")}>Hospital Hotlines</Button>
+        </Box>
+
         <Box className="schedBox">
           <Container>
             <Paper elevation={3} className="schedPaper">
@@ -277,8 +282,12 @@ export default function App() {
                 }
               </Box>
             </Paper>
+
+           
           </Container>
         </Box>
+
+        
 
         <Box sx={style.label}>
           <Typography variant="h6">Top Rated Doctors</Typography>
@@ -303,7 +312,7 @@ export default function App() {
               </Link>
             )
           })}
-
+  
         </Box>
       </Container>
     </Box>
