@@ -21,6 +21,9 @@ import { getTheme } from "../../redux/actions/uiAction";
 import { Link, useHistory } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { useTranslation } from "react-i18next";
+import Buy from "../../assets/126057.png"
+import Coin from "../../assets/kindpng_7166529.png"
+import { borderRadius, textAlign } from "@mui/system";
 
 const db = firebase.firestore();
 
@@ -89,20 +92,83 @@ export default function BuyCredits() {
         history.push("/sorry");
       });
   };
+
+  const style = {
+    logoContainer : {
+      display : "flex",
+      justifycontent : "center",
+      alignItems : "center",
+      marginTop : "20px",
+      flexDirection : "column",
+      textAlign : "center"
+    },
+    buyLogo : {
+      width : "60px",
+    },
+
+    Label : {
+      fontSize : "24px"
+    },
+
+    card : {
+      marginTop : "20px",
+      marginLeft : "20px",
+      marginRight : "20px"
+    },
+
+    outerContainer : {
+      display : "flex",
+      justifyContent : "space-between",
+      padding : "10px"
+    },
+
+    coinContainer : {
+      display : "flex",
+      flexDirection : "row",
+      justifycontent : "center"
+    },
+
+    innerContainer : {
+      alignItems : "center",
+      justifycontent : "center"
+    },
+
+    coinLogo : {
+      width : "40px",
+      height : "40px"
+    },
+
+    coinLabel : {
+      display : "flex",
+      fontSize : "18px",
+      alignItems : "center",
+      marginLeft : "5px"
+    },
+
+    btn : {
+      width : "50px",
+      borderRadius : "18px",
+      backgroundColor : "#125873",
+      color : "white"
+    }
+  }
   return (
     <Box>
-      <Typography>Buy Credits</Typography>
-      <Card>
+      <Box sx = {style.logoContainer}>
+        <Box component = "img" src = {Buy} alt = "buy" sx = {style.buyLogo}></Box>
+        <Typography sx = {style.Label}>Buy Credits</Typography>
+        
+      </Box>
+      <Card sx = {style.card}>
+        <Box sx = {style.outerContainer}>
         <CardContent>
-          <Box>
-            <Typography>Coin Icon</Typography>
-          </Box>
-          <Box>
-            <Typography>100 Credits</Typography>
+          <Box sx = {style.coinContainer}>
+            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
+            <Typography sx = {style.coinLabel}>100 Credits</Typography>
           </Box>
         </CardContent>
         <CardActions>
-          <Button variant="contained" onClick={() => handleClickOpen(100, 50)}>
+          <Button variant="contained" sx = {style.btn} onClick={() => handleClickOpen(100, 50)}>
             BUY
           </Button>
         </CardActions>
@@ -117,7 +183,7 @@ export default function BuyCredits() {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Please scan the QR Code below and send{" "}
+             Please scan the QR Code below and send{" "}
               {parseInt(localStorage.getItem("coin"))} pesos, then press the
               confirm button.
             </DialogContentText>
@@ -129,18 +195,18 @@ export default function BuyCredits() {
             </Button>
           </DialogActions>
         </Dialog>
+        </Box>
       </Card>
-      <Card>
+      <Card sx = {style.card}>
+      <Box sx = {style.outerContainer}>
         <CardContent>
-          <Box>
-            <Typography>Coin Icon</Typography>
-          </Box>
-          <Box>
-            <Typography>300 Credits</Typography>
+          <Box sx = {style.coinContainer}>
+            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
+            <Typography sx = {style.coinLabel}>300 Credits</Typography>
           </Box>
         </CardContent>
         <CardActions>
-          <Button variant="contained" onClick={() => handleClickOpen(300, 40)}>
+          <Button variant="contained"  sx = {style.btn} onClick={() => handleClickOpen(300, 40)}>
             BUY
           </Button>
         </CardActions>
@@ -166,18 +232,18 @@ export default function BuyCredits() {
             </Button>
           </DialogActions>
         </Dialog>
+        </Box>
       </Card>
-      <Card>
+      <Card sx = {style.card}>
+      <Box sx = {style.outerContainer}>
         <CardContent>
-          <Box>
-            <Typography>Coin Icon</Typography>
-          </Box>
-          <Box>
-            <Typography>500 Credits</Typography>
+          <Box sx = {style.coinContainer}>
+            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
+            <Typography sx = {style.coinLabel}>500 Credits</Typography>
           </Box>
         </CardContent>
         <CardActions>
-          <Button variant="contained" onClick={() => handleClickOpen(500, 30)}>
+          <Button variant="contained" sx = {style.btn}  onClick={() => handleClickOpen(500, 30)}>
             BUY
           </Button>
         </CardActions>
@@ -203,18 +269,18 @@ export default function BuyCredits() {
             </Button>
           </DialogActions>
         </Dialog>
+        </Box>
       </Card>
-      <Card>
+      <Card sx = {style.card}>
+      <Box sx = {style.outerContainer}>
         <CardContent>
-          <Box>
-            <Typography>Coin Icon</Typography>
-          </Box>
-          <Box>
-            <Typography>1000 Credits</Typography>
+          <Box sx = {style.coinContainer}>
+            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
+            <Typography sx = {style.coinLabel}>1000 Credits</Typography>
           </Box>
         </CardContent>
         <CardActions>
-          <Button variant="contained" onClick={() => handleClickOpen(1000, 25)}>
+          <Button variant="contained" sx = {style.btn} onClick={() => handleClickOpen(1000, 25)}>
             BUY
           </Button>
         </CardActions>
@@ -240,18 +306,18 @@ export default function BuyCredits() {
             </Button>
           </DialogActions>
         </Dialog>
+        </Box>
       </Card>
-      <Card>
+      <Card sx = {style.card}>
+      <Box sx = {style.outerContainer}>
         <CardContent>
-          <Box>
-            <Typography>Coin Icon</Typography>
-          </Box>
-          <Box>
-            <Typography>5000 Credits</Typography>
+          <Box sx = {style.coinContainer}>
+            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
+            <Typography sx = {style.coinLabel}>5000 Credits</Typography>
           </Box>
         </CardContent>
         <CardActions>
-          <Button variant="contained" onClick={() => handleClickOpen(5000, 15)}>
+          <Button variant="contained" sx = {style.btn} onClick={() => handleClickOpen(5000, 15)}>
             BUY
           </Button>
         </CardActions>
@@ -277,6 +343,7 @@ export default function BuyCredits() {
             </Button>
           </DialogActions>
         </Dialog>
+        </Box>
       </Card>
     </Box>
   );
