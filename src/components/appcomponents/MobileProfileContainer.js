@@ -7,6 +7,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import firebase from '../../config/firebase';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import {
     getAuth,
     signOut,
@@ -74,9 +75,9 @@ function MobileProfileContainer() {
                                         </ListItemButton>
                                     </ListItem>
                                     <ListItem disablePadding>
-                                        <ListItemButton onClick={() => history.push("/contacts")}>
+                                        <ListItemButton onClick={() => history.push("/buycredits")}>
                                             <ListItemIcon>
-                                                <MedicalServicesIcon color="secondary" />
+                                                <AttachMoneyIcon color="secondary" />
                                             </ListItemIcon>
                                             <ListItemText primary={t("hotlines")} />
                                         </ListItemButton>

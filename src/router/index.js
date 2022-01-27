@@ -30,6 +30,7 @@ import UserRegistration from '../pages/App/UserRegistration';
 import ForgotPassword from '../pages/App/ForgotPassword';
 import EditProfile from '../pages/App/EditProfile';
 import Login from '../pages/App/Login';
+import BuyCredits from '../pages/App/BuyCredits';
 import CreateAccount from '../pages/App/CreateAccount';
 
 
@@ -139,6 +140,7 @@ export default function RouterComponent() {
                     <Route exact component={Settings} path="/settings" />
                     <Route exact component={About} path="/aboutUs" />
                     <Route exact component={Faq} path="/faq" />
+                    <Route exact component={BuyCredits} path="/buycredits" />
                     <Route exact component={IsSuccessful} path="/success/:status" />
                     <Route exact component={IsNotSuccessful} path="/sorry" />
                     <Route exact component={ViewRequest} path="/r/:id/view" />
