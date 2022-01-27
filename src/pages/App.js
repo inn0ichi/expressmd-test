@@ -303,11 +303,8 @@ export default function App() {
                           <Typography>
                             {t("time")}: {setTime}
                           </Typography>
-                          <Typography>
-                            Number of Response:{setappointment.numOfResponse}
-                          </Typography>
                           <Typography variant="subtitle2">
-                            Status:{setappointment.status}
+                            Status: {setappointment.status}
                           </Typography>
                         </Paper>
                       </Link>

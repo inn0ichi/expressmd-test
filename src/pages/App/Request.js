@@ -20,6 +20,7 @@ import { getAuth } from "firebase/auth";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DateTimePicker } from "@mui/lab/";
+import algoliasearch from 'algoliasearch';
 
 const style = {
   parentCon: {
@@ -125,6 +126,8 @@ export default function Request() {
 
   const db = firebase.firestore();
   const history = useHistory();
+  const searchClient = algoliasearch('06RC56CRHD', 'ab83c1717b40e7392fe5a5fc64d01e12');
+  const index = searchClient.initIndex('requests');
 
   useEffect(() => {
     let isSubscribed = true;
@@ -217,11 +220,13 @@ export default function Request() {
                   userID: userID,
                   userFullName: fullname,
                   datetime: specifiedDate,
-                  status: "Pending",
+                  status: "Waiting",
                   gender: gender,
                   location: location,
                   phoneNumber: phoneNumber,
                   photoURL: userProfile.photoURL,
+                  timestamp: new Date(),
+                  numOfResponse: 0,
                 })
                 .then((docReference) => {
                   globalRef
@@ -232,14 +237,32 @@ export default function Request() {
                       userID: userID,
                       userFullName: fullname,
                       datetime: specifiedDate,
-                      status: "Pending",
+                      status: "Waiting",
                       gender: gender,
                       location: location,
                       phoneNumber: phoneNumber,
                       photoURL: userProfile.photoURL,
+                      timestamp: new Date(),
+                      numOfResponse: 0,
                     })
                     .then((docReference) => {
-                      history.push(`/success/${"request"}`);
+                      const records = [
+                        {
+                          feel: payload.feel,
+                          symptoms: payload.symptoms,
+                          others: payload.others,
+                          objectID: userID,
+                          userFullName: fullname,
+                          datetime: specifiedDate,
+                          status: "Waiting",
+                          gender: gender,
+                          location: location,
+                          phoneNumber: phoneNumber,
+                          photoURL: userProfile.photoURL,
+                          timestamp: new Date(),
+                        }
+                      ];
+                      index.saveObjects(records, { autoGenerateObjectIDIfNotExist: true }).then((response) => history.push(`/success/${"request"}`));
                     })
                     .catch((error) => {
                       console.log(error);

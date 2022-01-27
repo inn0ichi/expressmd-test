@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button, Rating } from "@mui/material";
-import { useParams, useHistory } from "react-router-dom";
+import { Typography, Box, TextField, Button, Rating, Paper, Avatar, IconButton } from "@mui/material";
+import { useParams, useHistory, Link } from "react-router-dom";
 import firebase from "../../config/firebase";
 import { getAuth } from "firebase/auth";
 import { loadCSS } from "fg-loadcss";
 import Icon from "@mui/material/Icon";
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 
 const style = {
   parentCon: {
@@ -34,6 +36,7 @@ const style = {
 
 export default function ViewRequest() {
   const { id } = useParams();
+  const [isBidderEmpty, setisBidderEmpty] = useState(true);
 
   const history = useHistory();
 
@@ -55,6 +58,10 @@ export default function ViewRequest() {
     data: [],
   });
 
+  const [fetchBidderData, setfetchBidders] = useState({
+    data: [],
+  });
+
   const fetchData = async () => {
     let isMounted = true;
     const docRef = await db
@@ -64,22 +71,43 @@ export default function ViewRequest() {
       .doc(localStorage.getItem("uid"));
     let rawData = [];
     docRef.get().then((doc) => {
+
       rawData.push(doc.data());
       setappointmentData({ data: rawData });
     });
     isMounted = false;
   };
 
+  const fetchBidders = async () => {
+    let isMounted = true;
+    const dataRef = await db
+      .collection("requests")
+      .doc(id)
+      .collection("bidders");
+    let rawData = [];
+    dataRef.onSnapshot((doc) => {
+      doc.forEach((doc) => {
+        setisBidderEmpty(false);
+
+        rawData.push(doc.data());
+      });
+      setfetchBidders({ data: rawData });
+    });
+    isMounted = false;
+  };
+
+
   useEffect(() => {
+    fetchBidders();
     fetchData();
-  }, [appointmentData]);
+  }, []);
+
 
   function editRequest() {
     history.push(`/r/${id}/edit`);
   }
-  function acceptRequest() {
+  function acceptRequest(docID) {
     appointmentData.data.map((data) => {
-      let docID = data.doctorId;
       let userID = data.userID;
       var docRef = db
         .collection("doctors")
@@ -91,17 +119,41 @@ export default function ViewRequest() {
         .doc(userID)
         .collection("requests")
         .doc(userID);
+      var globalRef = db
+        .collection("requests")
+        .doc(userID);
       userRef
         .update({
           status: "Accepted",
         })
         .then((docReference) => {
-          docRef
+          globalRef
             .update({
               status: "Accepted",
             })
-            .then((docRef) => {
-              history.push(`/success/${"accepted"}`);
+            .then((docRef2) => {
+              docRef
+                .set({
+                  feel: data.feel,
+                  symptoms: data.symptoms,
+                  others: data.others,
+                  userID: data.userID,
+                  userFullName: data.userFullName,
+                  datetime: data.datetime,
+                  status: "Accepted",
+                  gender: data.gender,
+                  location: data.location,
+                  phoneNumber: data.phoneNumber,
+                  photoURL: data.photoURL,
+                  timestamp: new Date(),
+                })
+                .then((docRef) => {
+                  history.push(`/success/${"accepted"}`);
+                })
+                .catch((error) => {
+                  console.log(error);
+                  history.push("/sorry");
+                });
             })
             .catch((error) => {
               console.log(error);
@@ -115,7 +167,7 @@ export default function ViewRequest() {
     });
   }
 
- 
+
 
   function requestCancellation() {
     history.push(`/r/${id}/cancel`);
@@ -151,7 +203,7 @@ export default function ViewRequest() {
       fontSize: "24px",
       marginLeft: "25px",
       marginTop: "20px",
-      marginBottom:"10px",
+      marginBottom: "10px",
     },
 
     inputField: {
@@ -207,7 +259,7 @@ export default function ViewRequest() {
       width: "200px",
       marginBottom: "10px",
       borderRadius: "10px",
-     
+
     },
     hr: {
       width: "70px",
@@ -219,35 +271,35 @@ export default function ViewRequest() {
       marginBottom: "50px",
       marginLeft: "60px",
       fontSize: "18px",
-      marginRight:"20px"
-      
+      marginRight: "20px"
+
     },
     innerSub3: {
       marginBottom: "20px",
       fontSize: "20px",
 
-      
+
     },
-    btnCon : {
+    btnCon: {
       display: "flex",
       justifyContent: "center",
-      alignItems : "center",
-      flexDirection : "column",
-      marginTop : "20px"
+      alignItems: "center",
+      flexDirection: "column",
+      marginTop: "20px"
     },
-    statIconPending :{
+    statIconPending: {
       display: "flex",
       justifyContent: "center",
-      alignItems : "center",
-      flexDirection : "column",
-      color:"info.main"
+      alignItems: "center",
+      flexDirection: "column",
+      color: "info.main"
     },
-    statIconAccepted :{
+    statIconAccepted: {
       display: "flex",
       justifyContent: "center",
-      alignItems : "center",
-      flexDirection : "column",
-      color:"success.main"
+      alignItems: "center",
+      flexDirection: "column",
+      color: "success.main"
     },
   };
 
@@ -346,33 +398,33 @@ export default function ViewRequest() {
                         <Box>
                           <Typography sx={style.innerSub}>Status:</Typography>
                           <Box sx={style.statIconPending}>
-                          <Typography sx={style.innerSub3}>
-                           <Icon
-                              
+                            <Typography sx={style.innerSub3}>
+                              <Icon
+
                                 baseClassName="fas"
                                 className="fas fa-business-time"
                                 sx={{
                                   fontSize: { xs: 40, md: 80 },
                                   width: 50,
-                                  marginLeft:2
-                                 
-                                 
+                                  marginLeft: 2
 
-                                 
+
+
+
                                 }}
                               />
-                           <Typography sx={style.innerSub3}>{data.status}</Typography>
-                           
-                          </Typography>
+                              <Typography sx={style.innerSub3}>{data.status}</Typography>
+
+                            </Typography>
                           </Box>
                         </Box>
                         <Box sx={style.btnCon}>
-                        <Button sx={style.btn}
-                          variant="contained"
-                          onClick={() => requestCancellation()}
-                        >
-                          Request Cancellation
-                        </Button>
+                          <Button sx={style.btn}
+                            variant="contained"
+                            onClick={() => requestCancellation()}
+                          >
+                            Request Cancellation
+                          </Button>
                         </Box>
                       </Box>
                     );
@@ -428,6 +480,43 @@ export default function ViewRequest() {
                         </Box>
                       </Box>
                     );
+                  case "Waiting":
+                    return (
+                      <Box>
+                        <Typography variant="h4">Bidders</Typography>
+                        {isBidderEmpty ? (
+                          <Box>
+                            <Typography>There are no bidders for your request.</Typography>
+                          </Box>
+                        ) : (
+                          fetchBidderData.data.map((data) => {
+                            return (
+                              <Box>
+                                <Paper key={data.docId} elevation={4} sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly", paddingTop: "25px", paddingBottom: "25px" }}>
+                                  <Box>
+                                    <Avatar src={data.photoURL} alt="doc image" />
+                                  </Box>
+                                  <Box>
+                                    <Typography>Dr. {data.lname}</Typography>
+                                  </Box>
+                                  <Box>
+                                    <Typography>Fee: {data.fee}</Typography>
+                                  </Box>
+                                  <Box>
+                                    <IconButton onClick={() => acceptRequest(data.docID)} color="success" aria-label="accept">
+                                      <CheckCircleRoundedIcon />
+                                    </IconButton>
+                                    <IconButton color="error" aria-label="accept">
+                                      <CancelRoundedIcon />
+                                    </IconButton>
+                                  </Box>
+                                </Paper>
+                              </Box>
+                            )
+                          })
+                        )}
+                      </Box>
+                    );
                   case "Accepted":
                     return (
                       <Box>
@@ -459,31 +548,29 @@ export default function ViewRequest() {
                         <Box>
                           <Typography sx={style.innerSub}>Status:</Typography>
                           <Box sx={style.statIconAccepted}>
-                          <Typography sx={style.innerSub3}>
-                           <Icon
-                              
+                            <Typography sx={style.innerSub3}>
+                              <Icon
                                 baseClassName="fas"
                                 className="fas fa-calendar-check"
                                 sx={{
                                   fontSize: { xs: 40, md: 80 },
                                   width: 50,
-                                  marginLeft:2
+                                  marginLeft: 2
 
-                                 
                                 }}
                               />
-                             <Typography sx={style.innerSub3}>{data.status}</Typography>
-                           
-                          </Typography>
+                              <Typography sx={style.innerSub3}>{data.status}</Typography>
+
+                            </Typography>
                           </Box>
                         </Box>
                         <Box sx={style.btnCon}>
-                        <Button sx={style.btn}
-                          variant="contained"
-                          onClick={() => requestCancellation()}
-                        >
-                          Request Cancellation
-                        </Button>
+                          <Button sx={style.btn}
+                            variant="contained"
+                            onClick={() => requestCancellation()}
+                          >
+                            Request Cancellation
+                          </Button>
                         </Box>
                       </Box>
                     );
