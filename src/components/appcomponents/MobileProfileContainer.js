@@ -52,6 +52,29 @@ function MobileProfileContainer() {
             });
     };
 
+    useEffect(() => {
+        let isSubscribed = true;
+        getAuth().onAuthStateChanged(function (user) {
+            if (!user.emailVerified) {
+                signOut(auth)
+                    .then(() => {
+                        localStorage.removeItem("uid");
+                        history.push(`/success/${"unverified"}`);
+                    })
+                    .catch((error) => {
+                        // An error happened.
+                        alert(error);
+                    });
+
+            }
+        });
+        return () => {
+            isSubscribed = false;
+        };
+    }, []);
+
+
+
     return (
         <Box className='profileContainer'>
             {

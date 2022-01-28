@@ -152,6 +152,24 @@ export default function IsSuccessful() {
                 </Button>
               </Paper>
             );
+          case "unverified":
+            return (
+              <Paper sx={style.innerConPaper}>
+                <Typography sx={style.label}>
+                  Unverified Account
+                </Typography>
+                <Typography sx={style.sublabel}>
+                  Please check your email for the verification mail. If you can't see it, please check the spam folder. Thank You
+                </Typography>
+                <Button
+                  variant="filled"
+                  sx={style.btn}
+                  onClick={() => history.push("/login")}
+                >
+                  OK
+                </Button>
+              </Paper>
+            );
           case "buypending":
             return (
               <Paper sx={style.innerConPaper}>

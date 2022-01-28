@@ -60,9 +60,9 @@ const style = {
   },
 
   wrapper: {
-    display : "flex",
+    display: "flex",
     marginTop: "30px",
-    marginBottom : "20px",
+    marginBottom: "20px",
     maxHeight: "1000px",
     overflowX: "auto",
     "-webkit-scrollbar": {
@@ -78,9 +78,9 @@ const style = {
     marginRight: "20px",
     borderRadius: "8px",
     display: "flex",
-    alignItems :"center",
-    padding : "10px",
-    minHeight : "180px"
+    alignItems: "center",
+    padding: "10px",
+    minHeight: "180px"
   },
 
   item: {
@@ -88,7 +88,7 @@ const style = {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    
+
   },
 
   category: {
@@ -112,15 +112,15 @@ const style = {
     borderColor: "#7EB6BC",
     borderWidth: "2px",
   },
-  docName : {
-    fontSize : "14px",
-    textAlign : "center"
+  docName: {
+    fontSize: "14px",
+    textAlign: "center"
   },
-  itemCon : {
-    display : "flex",
-    flexDirection : "column",
-    alignItems : "center",
-    justifyContent : "center"
+  itemCon: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
   }
 };
 
@@ -129,6 +129,8 @@ var database = firebase.database();
 
 export default function App() {
   const dispatch = useDispatch();
+  console.log(user.currentUser);
+  const [verified, setverified] = useState(false);
 
   useEffect(() => {
     dispatch(getTheme());
@@ -156,6 +158,10 @@ export default function App() {
       if (!user) {
         window.location.replace("/login");
         setisEmpty(true);
+      } else {
+        if (user.emailVerified) {
+          setverified(true);
+        }
       }
     });
     return () => {
@@ -164,28 +170,24 @@ export default function App() {
   }, [isEmpty]);
 
   const fetchList = () => {
-    if (user.currentUser) {
-      const userRef = db
-        .collection("users")
-        .doc(localStorage.getItem("uid"))
-        .collection("requests")
-        .doc(localStorage.getItem("uid"));
-      userRef.onSnapshot((doc) => {
-        if (doc.exists) {
-          setisEmpty(false);
-          let getAppointment = [];
-          userRef.get().then((doc) => {
-            getAppointment.push(doc.data());
-            setfetchAppointments({ appointments: getAppointment });
-          });
-        } else {
-          // doc.data() will be undefined in this case
-          setisEmpty(true);
-        }
-      });
-    } else {
-      setisEmpty(true);
-    }
+    const userRef = db
+      .collection("users")
+      .doc(localStorage.getItem("uid"))
+      .collection("requests")
+      .doc(localStorage.getItem("uid"));
+    userRef.onSnapshot((doc) => {
+      if (doc.exists) {
+        setisEmpty(false);
+        let getAppointment = [];
+        userRef.get().then((doc) => {
+          getAppointment.push(doc.data());
+          setfetchAppointments({ appointments: getAppointment });
+        });
+      } else {
+        // doc.data() will be undefined in this case
+        setisEmpty(true);
+      }
+    });
   };
 
   const fetchTopRated = () => {
@@ -333,22 +335,22 @@ export default function App() {
         <Box sx={style.label}>
           <Typography variant="h6">Top Rated Doctors</Typography>
         </Box>
-        <Box sx = {style.wrapper}>
+        <Box sx={style.wrapper}>
           {fetchTopDoc.topdoc.map((data) => {
             return (
               <Link to={`p/${data.uid}`} key={data.uid}>
-                
-                  <Box>
-                <Paper sx = {style.categoryPaper} variant="outlined">
-                  <Box sx = {style.itemCon}>
-                  <img src={data.photoURL} alt={data.firstname} width="50px" height="50px"/>
-                    <Typography sx = {style.docName}>Dr. {data.firstname + " " + data.lastname}</Typography>
-                    <Typography>{data.type}</Typography>
-                    <Rating name="rating" value={data.rating} readOnly />
-                  </Box>
-                </Paper>
+
+                <Box>
+                  <Paper sx={style.categoryPaper} variant="outlined">
+                    <Box sx={style.itemCon}>
+                      <img src={data.photoURL} alt={data.firstname} width="50px" height="50px" />
+                      <Typography sx={style.docName}>Dr. {data.firstname + " " + data.lastname}</Typography>
+                      <Typography>{data.type}</Typography>
+                      <Rating name="rating" value={data.rating} readOnly />
+                    </Box>
+                  </Paper>
                 </Box>
-                
+
               </Link>
             );
           })}

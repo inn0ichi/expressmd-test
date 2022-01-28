@@ -2,7 +2,7 @@ import { Box, Container, TextField, Button, FormGroup, FormControl, Link } from 
 import firebase from '../../config/firebase';
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, sendEmailVerification } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction";
 import Logo from "../../assets/icon-512x512.png";
@@ -46,9 +46,23 @@ function Login() {
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
+                    if (!user.emailVerified) {
+                        signOut(auth)
+                            .then(() => {
+                                localStorage.removeItem("uid");
+                                localStorage.removeItem("email");
+                                history.push(`/success/${"unverified"}`);
+                            })
+                            .catch((error) => {
+                                // An error happened.
+                                alert(error);
+                            });
+                    } else {
+                        localStorage.setItem("uid", user.uid);
+                        localStorage.setItem("email", user.email);
+                        history.push('/');
+                    }
                     // ...
-                    localStorage.setItem("uid", user.uid);
-                    history.push('/');
                 })
                 .catch((error) => {
                     const errorMessage = error.message;

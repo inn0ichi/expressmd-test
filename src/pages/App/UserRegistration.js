@@ -3,13 +3,15 @@ import firebase from '../../config/firebase';
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from "react-router-dom";
 import {
-    getAuth
+    getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut
 } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction";
 import { IconButton } from '@mui/material';
 
 import './Registration.css';
+const auth = getAuth();
+
 
 function UserRegistration() {
     const dispatch = useDispatch();
@@ -22,7 +24,7 @@ function UserRegistration() {
     const history = useHistory();
     const [payload, setPayload] = useState({
         fullname: "",
-        email: "",
+        email: localStorage.getItem("email"),
         gender: "",
         uid: localStorage.getItem("uid"),
         phoneNumber: "",
@@ -69,6 +71,7 @@ function UserRegistration() {
                     gender: payload.gender,
                     uid: payload.uid,
                     phoneNumber: payload.phoneNumber,
+                    coins: 0,
                     location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
                 })
                 .then((docRef) => {
@@ -84,7 +87,12 @@ function UserRegistration() {
                                 .update({
                                     photoURL: url,
                                 })
-                                .then((doc) => { history.push("/") });
+                                .then((doc) => {
+                                    sendEmailVerification(auth.currentUser)
+                                        .then(() => {
+                                            history.push(`/success/${"verifyemail"}`);
+                                        });
+                                });
                         });
                     })
                 })
@@ -143,18 +151,6 @@ function UserRegistration() {
                                 <MenuItem value={'Others'}>Others/Prefer not to say</MenuItem>
                             </Select>
                             <FormHelperText sx={style.textHelp}>*Required</FormHelperText>
-                        </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
-                            <TextField
-                                required
-                                id="filled-required"
-                                label="E-mail"
-                                variant="standard"
-                                InputLabelProps={{
-                                    style: { color: 'black' },
-                                }}
-                                onChange={userInput("email")}
-                            />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
