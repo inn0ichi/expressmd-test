@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import Buy from "../../assets/126057.png"
 import Coin from "../../assets/kindpng_7166529.png"
 import { borderRadius, textAlign } from "@mui/system";
+import QRCode from "../../assets/qrcode.png";
 
 const db = firebase.firestore();
 
@@ -94,257 +95,268 @@ export default function BuyCredits() {
   };
 
   const style = {
-    logoContainer : {
-      display : "flex",
-      justifycontent : "center",
-      alignItems : "center",
-      marginTop : "20px",
-      flexDirection : "column",
-      textAlign : "center"
+    logoContainer: {
+      display: "flex",
+      justifycontent: "center",
+      alignItems: "center",
+      marginTop: "20px",
+      flexDirection: "column",
+      textAlign: "center"
     },
-    buyLogo : {
-      width : "60px",
-    },
-
-    Label : {
-      fontSize : "24px"
+    buyLogo: {
+      width: "60px",
     },
 
-    card : {
-      marginTop : "20px",
-      marginLeft : "20px",
-      marginRight : "20px"
+    Label: {
+      fontSize: "24px"
     },
 
-    outerContainer : {
-      display : "flex",
-      justifyContent : "space-between",
-      padding : "10px"
+    card: {
+      marginTop: "20px",
+      marginLeft: "20px",
+      marginRight: "20px"
     },
 
-    coinContainer : {
-      display : "flex",
-      flexDirection : "row",
-      justifycontent : "center"
+    outerContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "10px"
     },
 
-    innerContainer : {
-      alignItems : "center",
-      justifycontent : "center"
+    coinContainer: {
+      display: "flex",
+      flexDirection: "row",
+      justifycontent: "center"
     },
 
-    coinLogo : {
-      width : "40px",
-      height : "40px"
+    innerContainer: {
+      alignItems: "center",
+      justifycontent: "center"
     },
 
-    coinLabel : {
-      display : "flex",
-      fontSize : "18px",
-      alignItems : "center",
-      marginLeft : "5px"
+    coinLogo: {
+      width: "40px",
+      height: "40px"
     },
 
-    btn : {
-      width : "50px",
-      borderRadius : "18px",
-      backgroundColor : "#125873",
-      color : "white"
+    coinLabel: {
+      display: "flex",
+      fontSize: "18px",
+      alignItems: "center",
+      marginLeft: "5px"
+    },
+
+    btn: {
+      width: "50px",
+      borderRadius: "18px",
+      backgroundColor: "#125873",
+      color: "white"
     }
   }
   return (
     <Box>
-      <Box sx = {style.logoContainer}>
-        <Box component = "img" src = {Buy} alt = "buy" sx = {style.buyLogo}></Box>
-        <Typography sx = {style.Label}>Buy Credits</Typography>
-        
+      <Box sx={style.logoContainer}>
+        <Box component="img" src={Buy} alt="buy" sx={style.buyLogo}></Box>
+        <Typography sx={style.Label}>Buy Credits</Typography>
+
       </Box>
-      <Card sx = {style.card}>
-        <Box sx = {style.outerContainer}>
-        <CardContent>
-          <Box sx = {style.coinContainer}>
-            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
-            <Typography sx = {style.coinLabel}>100 Credits</Typography>
-          </Box>
-        </CardContent>
-        <CardActions>
-          <Button variant="contained" sx = {style.btn} onClick={() => handleClickOpen(100, 50)}>
-            BUY
-          </Button>
-        </CardActions>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Buy ExpressCredits"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-             Please scan the QR Code below and send{" "}
-              {parseInt(localStorage.getItem("coin"))} pesos, then press the
-              confirm button.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => buycoin()} autoFocus>
-              Confirm
+      <Card sx={style.card}>
+        <Box sx={style.outerContainer}>
+          <CardContent>
+            <Box sx={style.coinContainer}>
+              <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
+              <Typography sx={style.coinLabel}>100 Credits</Typography>
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Button variant="contained" sx={style.btn} onClick={() => handleClickOpen(100, 50)}>
+              BUY
             </Button>
-          </DialogActions>
-        </Dialog>
+          </CardActions>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Buy ExpressCredits"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Please scan the QR Code below and send{" "}
+                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                confirm button.
+                <img src={QRCode} alt="qrcode" width={256} height={256} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={() => buycoin()} autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       </Card>
-      <Card sx = {style.card}>
-      <Box sx = {style.outerContainer}>
-        <CardContent>
-          <Box sx = {style.coinContainer}>
-            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
-            <Typography sx = {style.coinLabel}>300 Credits</Typography>
-          </Box>
-        </CardContent>
-        <CardActions>
-          <Button variant="contained"  sx = {style.btn} onClick={() => handleClickOpen(300, 40)}>
-            BUY
-          </Button>
-        </CardActions>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Buy ExpressCredits"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please scan the QR Code below and send{" "}
-              {parseInt(localStorage.getItem("coin"))} pesos.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => buycoin()} autoFocus>
-              Confirm
+
+      <Card sx={style.card}>
+        <Box sx={style.outerContainer}>
+          <CardContent>
+            <Box sx={style.coinContainer}>
+              <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
+              <Typography sx={style.coinLabel}>300 Credits</Typography>
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Button variant="contained" sx={style.btn} onClick={() => handleClickOpen(300, 40)}>
+              BUY
             </Button>
-          </DialogActions>
-        </Dialog>
+          </CardActions>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Buy ExpressCredits"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Please scan the QR Code below and send{" "}
+                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                confirm button.
+                <img src={QRCode} alt="qrcode" width={296} height={296} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={() => buycoin()} autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       </Card>
-      <Card sx = {style.card}>
-      <Box sx = {style.outerContainer}>
-        <CardContent>
-          <Box sx = {style.coinContainer}>
-            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
-            <Typography sx = {style.coinLabel}>500 Credits</Typography>
-          </Box>
-        </CardContent>
-        <CardActions>
-          <Button variant="contained" sx = {style.btn}  onClick={() => handleClickOpen(500, 30)}>
-            BUY
-          </Button>
-        </CardActions>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Buy ExpressCredits"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please scan the QR Code below and send{" "}
-              {parseInt(localStorage.getItem("coin"))} pesos.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => buycoin()} autoFocus>
-              Confirm
+      <Card sx={style.card}>
+        <Box sx={style.outerContainer}>
+          <CardContent>
+            <Box sx={style.coinContainer}>
+              <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
+              <Typography sx={style.coinLabel}>500 Credits</Typography>
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Button variant="contained" sx={style.btn} onClick={() => handleClickOpen(500, 30)}>
+              BUY
             </Button>
-          </DialogActions>
-        </Dialog>
+          </CardActions>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Buy ExpressCredits"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Please scan the QR Code below and send{" "}
+                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                confirm button.
+                <img src={QRCode} alt="qrcode" width={296} height={296} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={() => buycoin()} autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       </Card>
-      <Card sx = {style.card}>
-      <Box sx = {style.outerContainer}>
-        <CardContent>
-          <Box sx = {style.coinContainer}>
-            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
-            <Typography sx = {style.coinLabel}>1000 Credits</Typography>
-          </Box>
-        </CardContent>
-        <CardActions>
-          <Button variant="contained" sx = {style.btn} onClick={() => handleClickOpen(1000, 25)}>
-            BUY
-          </Button>
-        </CardActions>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Buy ExpressCredits"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please scan the QR Code below and send{" "}
-              {parseInt(localStorage.getItem("coin"))} pesos.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => buycoin()} autoFocus>
-              Confirm
+      <Card sx={style.card}>
+        <Box sx={style.outerContainer}>
+          <CardContent>
+            <Box sx={style.coinContainer}>
+              <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
+              <Typography sx={style.coinLabel}>1000 Credits</Typography>
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Button variant="contained" sx={style.btn} onClick={() => handleClickOpen(1000, 25)}>
+              BUY
             </Button>
-          </DialogActions>
-        </Dialog>
+          </CardActions>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Buy ExpressCredits"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Please scan the QR Code below and send{" "}
+                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                confirm button.
+                <img src={QRCode} alt="qrcode" width={296} height={296} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={() => buycoin()} autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       </Card>
-      <Card sx = {style.card}>
-      <Box sx = {style.outerContainer}>
-        <CardContent>
-          <Box sx = {style.coinContainer}>
-            <Box component = "img" src = {Coin} alt ="coinLogo" sx = {style.coinLogo}></Box>
-            <Typography sx = {style.coinLabel}>5000 Credits</Typography>
-          </Box>
-        </CardContent>
-        <CardActions>
-          <Button variant="contained" sx = {style.btn} onClick={() => handleClickOpen(5000, 15)}>
-            BUY
-          </Button>
-        </CardActions>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Buy ExpressCredits"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please scan the QR Code below and send{" "}
-              {parseInt(localStorage.getItem("coin"))} pesos.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={() => buycoin()} autoFocus>
-              Confirm
+      <Card sx={style.card}>
+        <Box sx={style.outerContainer}>
+          <CardContent>
+            <Box sx={style.coinContainer}>
+              <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
+              <Typography sx={style.coinLabel}>5000 Credits</Typography>
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Button variant="contained" sx={style.btn} onClick={() => handleClickOpen(5000, 30)}>
+              BUY
             </Button>
-          </DialogActions>
-        </Dialog>
+          </CardActions>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Buy ExpressCredits"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Please scan the QR Code below and send{" "}
+                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                confirm button.
+                <img src={QRCode} alt="qrcode" width={296} height={296} />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={() => buycoin()} autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       </Card>
+
     </Box>
   );
 }
