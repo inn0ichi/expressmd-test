@@ -95,6 +95,9 @@ export default function BuyCredits() {
   };
 
   const style = {
+    allcon : {
+      marginBottom : "100px"
+    },
     logoContainer: {
       display: "flex",
       justifycontent: "center",
@@ -154,7 +157,7 @@ export default function BuyCredits() {
     }
   }
   return (
-    <Box>
+    <Box sx = {style.allcon}>
       <Box sx={style.logoContainer}>
         <Box component="img" src={Buy} alt="buy" sx={style.buyLogo}></Box>
         <Typography sx={style.Label}>Buy Credits</Typography>
