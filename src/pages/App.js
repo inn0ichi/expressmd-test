@@ -161,6 +161,24 @@ export default function App() {
       } else {
         if (user.emailVerified) {
           setverified(true);
+          const userRef = db
+            .collection("users")
+            .doc(localStorage.getItem("uid"))
+            .collection("requests")
+            .doc(localStorage.getItem("uid"));
+          userRef.onSnapshot((doc) => {
+            if (doc.exists) {
+              setisEmpty(false);
+              let getAppointment = [];
+              userRef.get().then((doc) => {
+                getAppointment.push(doc.data());
+                setfetchAppointments({ appointments: getAppointment });
+              });
+            } else {
+              // doc.data() will be undefined in this case
+              setisEmpty(true);
+            }
+          });
         }
       }
     });
@@ -169,26 +187,27 @@ export default function App() {
     };
   }, [isEmpty]);
 
-  const fetchList = () => {
-    const userRef = db
-      .collection("users")
-      .doc(localStorage.getItem("uid"))
-      .collection("requests")
-      .doc(localStorage.getItem("uid"));
-    userRef.onSnapshot((doc) => {
-      if (doc.exists) {
-        setisEmpty(false);
-        let getAppointment = [];
-        userRef.get().then((doc) => {
-          getAppointment.push(doc.data());
-          setfetchAppointments({ appointments: getAppointment });
-        });
-      } else {
-        // doc.data() will be undefined in this case
-        setisEmpty(true);
-      }
-    });
-  };
+  /*   const fetchList = () => {
+      
+      const userRef = db
+        .collection("users")
+        .doc(localStorage.getItem("uid"))
+        .collection("requests")
+        .doc(localStorage.getItem("uid"));
+      userRef.onSnapshot((doc) => {
+        if (doc.exists) {
+          setisEmpty(false);
+          let getAppointment = [];
+          userRef.get().then((doc) => {
+            getAppointment.push(doc.data());
+            setfetchAppointments({ appointments: getAppointment });
+          });
+        } else {
+          // doc.data() will be undefined in this case
+          setisEmpty(true);
+        }
+      });
+    }; */
 
   const fetchTopRated = () => {
     const docRef = db.collection("doctors").orderBy("rating", "desc").limit(3);
@@ -237,7 +256,7 @@ export default function App() {
           <>
             <Box className="ticker">
               <CampaignIcon />
-              <Typography sx = {{ml : "5px"}} variant="subtitle2">{getAnnouncement}</Typography>
+              <Typography sx={{ ml: "5px" }} variant="subtitle2">{getAnnouncement}</Typography>
             </Box>
           </>
         )}
@@ -246,7 +265,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchList();
+    /* fetchList(); */
     fetchTopRated();
   }, []);
 
