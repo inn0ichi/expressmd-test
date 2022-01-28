@@ -29,8 +29,8 @@ export default function IsSuccessful() {
       minWidth: "100px",
       padding: "20px",
       borderRadius: "10px",
-      marginLeft: "30px",
-      marginRight: "30px",
+      marginLeft: "50px",
+      marginRight: "50px",
       marginTop: "190px",
     },
 

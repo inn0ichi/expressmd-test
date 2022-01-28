@@ -168,7 +168,7 @@ function CreateAccount() {
                 onChange={userInput("confirmpassword")}
               />
             </FormControl>
-            <FormControl required sx={{ m: 1, minWidth: 120 }}>
+            <FormControl required sx={{ m: 1, minWidth: 120 , display : "flex" , justifyContent : "center" , alignItems : "center" }}>
               <Button
                 sx={style.createBtn}
                 onClick={() => createaccount()}

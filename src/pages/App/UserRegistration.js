@@ -117,27 +117,27 @@ function UserRegistration() {
                     </Box> */}
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
-                            <Box className='imageUpload'>
-                                <IconButton color="primary" aria-label="upload picture" component="span">
+                            <Box sx = {{display : "flex" , justifyContent : "center" , alignItems : "center" }}>
+                                <IconButton color="primary" aria-label="upload picture">
                                     <Avatar src={file} sx={{ width: 128, height: 128 }} />
                                 </IconButton>
                                 <input accept="image/*" id="icon-button-file" type="file" accept="image/x-png,image/gif,image/jpeg" onChange={handleChange} />
                             </Box>
-
+                            
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" , marginRight : "50px"  }}>
                             <TextField
                                 required
                                 id="filled-required"
                                 label="Fullname"
-                                variant="standard"
+                                variant="outlined"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInput("fullname")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" ,  marginRight : "50px"}}>
                             <InputLabel sx={{ color: 'black' }} >Gender</InputLabel>
                             <Select
                                 id='gender'
@@ -152,12 +152,12 @@ function UserRegistration() {
                             </Select>
                             <FormHelperText sx={style.textHelp}>*Required</FormHelperText>
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" ,  marginRight : "50px"}}>
                             <TextField
                                 required
                                 id="filled-required"
                                 label="Phone Number"
-                                variant="standard"
+                                variant="outlined"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
@@ -165,12 +165,12 @@ function UserRegistration() {
                                 value={payload.phoneNumber}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" , marginRight : "50px" }}>
                             <TextField
                                 required
                                 id="filled-required"
                                 label="House # and Street"
-                                variant="standard"
+                                variant="outlined"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
@@ -178,12 +178,12 @@ function UserRegistration() {
                                 value={payload.houseNum}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" ,  marginRight : "50px"}}>
                             <TextField
                                 required
                                 id="filled-required"
                                 label="Barangay"
-                                variant="standard"
+                                variant="outlined"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
@@ -192,7 +192,7 @@ function UserRegistration() {
                             />
                         </FormControl>
 
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "20px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "20px" ,  marginRight : "50px"}}>
                             <InputLabel sx={{ color: 'black' }} >Municipality</InputLabel>
                             <Select
                                 id='Municipality'
@@ -206,7 +206,7 @@ function UserRegistration() {
                             </Select>
                             <FormHelperText sx={style.textHelp}>*Required. Bustos and Baliuag only.</FormHelperText>
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120 ,  marginRight : "50px"}}>
                             <Button onClick={() => completeProfile()} variant='outlined' disabled={!file}>Complete</Button>
                             <FormHelperText>By clicking complete, you agree to the Privacy Policy.</FormHelperText>
                         </FormControl>

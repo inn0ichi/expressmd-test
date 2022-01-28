@@ -237,7 +237,7 @@ export default function App() {
           <>
             <Box className="ticker">
               <CampaignIcon />
-              <Typography variant="subtitle2">{getAnnouncement}</Typography>
+              <Typography sx = {{ml : "5px"}} variant="subtitle2">{getAnnouncement}</Typography>
             </Box>
           </>
         )}
