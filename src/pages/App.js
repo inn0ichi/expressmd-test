@@ -141,6 +141,7 @@ export default function App() {
     let isSubscribed = true;
     getAuth().onAuthStateChanged(function (user) {
       if (!user) {
+        window.location.replace("/login");
         setisEmpty(true);
       }
     });
