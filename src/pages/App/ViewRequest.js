@@ -62,6 +62,18 @@ export default function ViewRequest() {
     data: [],
   });
 
+  const [userProfile, setuserProfile] = useState({
+    profile: [],
+  })
+  const fetchUser = async () => {
+    const userRef = db.collection('users').doc(id);
+    let usrProfile = [];
+    userRef.get().then(doc => {
+      usrProfile.push(doc.data());
+      setuserProfile({ profile: usrProfile });
+    })
+  }
+
   const fetchData = async () => {
     let isMounted = true;
     const docRef = await db
@@ -100,6 +112,7 @@ export default function ViewRequest() {
   useEffect(() => {
     fetchBidders();
     fetchData();
+    fetchUser();
   }, []);
 
 
@@ -109,61 +122,83 @@ export default function ViewRequest() {
   function acceptRequest(docID) {
     appointmentData.data.map((data) => {
       let userID = data.userID;
-      var docRef = db
-        .collection("doctors")
-        .doc(docID)
-        .collection("requests")
-        .doc(userID);
-      var userRef = db
-        .collection("users")
-        .doc(userID)
-        .collection("requests")
-        .doc(userID);
-      var globalRef = db
-        .collection("requests")
-        .doc(userID);
-      userRef
-        .update({
-          status: "Accepted",
+      userProfile.profile.map((usr) => {
+        let coins = usr.coins;
+        fetchBidderData.data.map((bid) => {
+          if (coins < bid.fee) {
+            alert("You dont have enough coins to accept this bid. Please top up your account.")
+          } else {
+            var docRef = db
+              .collection("doctors")
+              .doc(docID)
+              .collection("requests")
+              .doc(userID);
+            var userRef = db
+              .collection("users")
+              .doc(userID)
+              .collection("requests")
+              .doc(userID);
+            var globalRef = db
+              .collection("requests")
+              .doc(userID);
+            userRef
+              .update({
+                status: "Accepted",
+                assigned_doctor: bid.docName,
+                doctorId: bid.docID,
+                fee: bid.fee,
+              })
+              .then((docReference) => {
+                globalRef
+                  .update({
+                    status: "Accepted",
+                    assigned_doctor: bid.docName,
+                    doctorId: bid.docID,
+                    fee: bid.fee,
+                  })
+                  .then((docRef2) => {
+                    docRef
+                      .set({
+                        feel: data.feel,
+                        symptoms: data.symptoms,
+                        others: data.others,
+                        userID: data.userID,
+                        userFullName: data.userFullName,
+                        datetime: data.datetime,
+                        status: "Accepted",
+                        gender: data.gender,
+                        location: data.location,
+                        phoneNumber: data.phoneNumber,
+                        photoURL: data.photoURL,
+                        assigned_doctor: bid.docName,
+                        timestamp: new Date(),
+                        fee: bid.fee,
+                        doctorId: bid.docID,
+                      })
+                      .then((docRef) => {
+                        history.push(`/success/${"accepted"}`);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                        history.push("/sorry");
+                      });
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    history.push("/sorry");
+                  });
+              })
+              .catch((error) => {
+                console.log(error);
+                history.push("/sorry");
+              });
+          }
         })
-        .then((docReference) => {
-          globalRef
-            .update({
-              status: "Accepted",
-            })
-            .then((docRef2) => {
-              docRef
-                .set({
-                  feel: data.feel,
-                  symptoms: data.symptoms,
-                  others: data.others,
-                  userID: data.userID,
-                  userFullName: data.userFullName,
-                  datetime: data.datetime,
-                  status: "Accepted",
-                  gender: data.gender,
-                  location: data.location,
-                  phoneNumber: data.phoneNumber,
-                  photoURL: data.photoURL,
-                  timestamp: new Date(),
-                })
-                .then((docRef) => {
-                  history.push(`/success/${"accepted"}`);
-                })
-                .catch((error) => {
-                  console.log(error);
-                  history.push("/sorry");
-                });
-            })
-            .catch((error) => {
-              console.log(error);
-              history.push("/sorry");
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-          history.push("/sorry");
-        });
+
+
+
+      })
+
     });
   }
 

@@ -83,12 +83,6 @@ export default function DocProfile() {
                                         <Typography>Location: {docProfile.location}</Typography>
                                         <Typography>Phone Number: {docProfile.phoneNum}</Typography>
 
-                                        <Link to={`${id}/request`}>
-                                            <Button variant="outlined">
-                                                Request Appointment
-                                            </Button>
-                                        </Link>
-
 
                                     </Box>
                                     <Box className="starsRating">

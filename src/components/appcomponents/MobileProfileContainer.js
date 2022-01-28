@@ -61,6 +61,7 @@ function MobileProfileContainer() {
                             <Box color='primary' className='imgBox' key={userProfile.uid}>
                                 <img className='usrImg' alt='user image' src={userProfile.photoURL} />
                                 <Typography variant="h6">{userProfile.fullname}</Typography>
+                                <Typography variant="subtitle1">{userProfile.coins}</Typography>
                                 <Button variant='contained' onClick={() => history.push("/editprofile")}>Edit Profile</Button>
                             </Box>
                             <Divider orientation="horizontal" flexItem />
