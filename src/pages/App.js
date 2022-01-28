@@ -60,9 +60,10 @@ const style = {
   },
 
   wrapper: {
+    display : "flex",
     marginTop: "30px",
-    maxHeight: "80px",
-    display: "flex",
+    marginBottom : "20px",
+    maxHeight: "1000px",
     overflowX: "auto",
     "-webkit-scrollbar": {
       display: "none",
@@ -71,14 +72,15 @@ const style = {
   },
 
   categoryPaper: {
-    minWidth: "200px",
-    height: "80px",
+    minWidth: "100px",
     borderColor: "#7EB6BC",
     borderWidth: "2px",
     marginRight: "20px",
     borderRadius: "8px",
     display: "flex",
-    justifyContent: "center",
+    alignItems :"center",
+    padding : "10px",
+    minHeight : "180px"
   },
 
   item: {
@@ -86,6 +88,7 @@ const style = {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+    
   },
 
   category: {
@@ -109,6 +112,16 @@ const style = {
     borderColor: "#7EB6BC",
     borderWidth: "2px",
   },
+  docName : {
+    fontSize : "14px",
+    textAlign : "center"
+  },
+  itemCon : {
+    display : "flex",
+    flexDirection : "column",
+    alignItems : "center",
+    justifyContent : "center"
+  }
 };
 
 const user = getAuth();
@@ -320,33 +333,22 @@ export default function App() {
         <Box sx={style.label}>
           <Typography variant="h6">Top Rated Doctors</Typography>
         </Box>
-        <Box>
+        <Box sx = {style.wrapper}>
           {fetchTopDoc.topdoc.map((data) => {
             return (
               <Link to={`p/${data.uid}`} key={data.uid}>
-                <Paper
-                  variant="outlined"
-                  sx={{
-                    display: "flex",
-                    direction: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src={data.photoURL}
-                    alt={data.firstname}
-                    width={128}
-                    height={128}
-                  />
+                
                   <Box>
-                    <Typography>
-                      Dr. {data.firstname + " " + data.lastname}
-                    </Typography>
+                <Paper sx = {style.categoryPaper} variant="outlined">
+                  <Box sx = {style.itemCon}>
+                  <img src={data.photoURL} alt={data.firstname} width="50px" height="50px"/>
+                    <Typography sx = {style.docName}>Dr. {data.firstname + " " + data.lastname}</Typography>
                     <Typography>{data.type}</Typography>
                     <Rating name="rating" value={data.rating} readOnly />
                   </Box>
                 </Paper>
+                </Box>
+                
               </Link>
             );
           })}
