@@ -134,6 +134,24 @@ export default function IsSuccessful() {
                 </Button>
               </Paper>
             );
+          case "verifyemail":
+            return (
+              <Paper sx={style.innerConPaper}>
+                <Typography sx={style.label}>
+                  Verify your Email account
+                </Typography>
+                <Typography sx={style.sublabel}>
+                  Registration successful. Please check your email and visit the verification link. Thank You.
+                </Typography>
+                <Button
+                  variant="filled"
+                  sx={style.btn}
+                  onClick={() => history.push("/login")}
+                >
+                  OK
+                </Button>
+              </Paper>
+            );
           case "buypending":
             return (
               <Paper sx={style.innerConPaper}>

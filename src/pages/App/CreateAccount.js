@@ -15,7 +15,7 @@ import {
 import firebase from "../../config/firebase";
 import React, { useState, useEffect } from "react";
 import { useHistory, withRouter } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { getTheme } from "../../redux/actions/uiAction";
 import Logo from "../../assets/icon-512x512.png";
@@ -124,7 +124,11 @@ function CreateAccount() {
                           photoURL: url,
                         })
                         .then((doc) => {
-                          history.push("/");
+                          sendEmailVerification(auth.currentUser)
+                            .then(() => {
+                              history.push(`/success/${"verifyemail"}`);
+                            });
+
                         });
                     });
                   }
