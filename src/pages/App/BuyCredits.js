@@ -41,7 +41,8 @@ export default function BuyCredits() {
 
   const handleClickOpen = (value, additional) => {
     setOpen(true);
-    localStorage.setItem("coin", value + additional);
+    localStorage.setItem("coin", value);
+    localStorage.setItem("fee", additional);
   };
 
   const handleClose = () => {
@@ -61,31 +62,47 @@ export default function BuyCredits() {
       })
       .then((doc) => {
         localStorage.setItem("transactionID", doc.id);
-        userRef
-          .doc(doc.id)
-          .set({
-            transactionID: localStorage.getItem("transactionID"),
-          })
-          .then((doc2) => {
-            globalRef
+        db.collection("users")
+          .doc(localStorage.getItem("uid"))
+          .get().then(doc => {
+            let userName = doc.data().fullname;
+            userRef
               .doc(localStorage.getItem("transactionID"))
               .set({
                 userID: localStorage.getItem("uid"),
                 amount: localStorage.getItem("coin"),
+                fee: localStorage.getItem("fee"),
                 transactionID: localStorage.getItem("transactionID"),
+                timestamp: new Date(),
+                status: "Pending",
+                userName: userName,
               })
-              .then((doc3) => {
-                history.push(`/success/${"buypending"}`);
+              .then((doc2) => {
+                globalRef
+                  .doc(localStorage.getItem("transactionID"))
+                  .set({
+                    userID: localStorage.getItem("uid"),
+                    amount: localStorage.getItem("coin"),
+                    fee: localStorage.getItem("fee"),
+                    transactionID: localStorage.getItem("transactionID"),
+                    timestamp: new Date(),
+                    status: "Pending",
+                    userName: userName,
+                  })
+                  .then((doc3) => {
+                    history.push(`/success/${"buypending"}`);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    history.push("/sorry");
+                  });
               })
               .catch((error) => {
                 console.log(error);
                 history.push("/sorry");
               });
           })
-          .catch((error) => {
-            console.log(error);
-            history.push("/sorry");
-          });
+
       })
       .catch((error) => {
         console.log(error);
@@ -187,7 +204,7 @@ export default function BuyCredits() {
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Please scan the QR Code below and send{" "}
-                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
                 <img src={QRCode} alt="qrcode" width={256} height={256} />
               </DialogContentText>
@@ -227,7 +244,7 @@ export default function BuyCredits() {
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Please scan the QR Code below and send{" "}
-                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
                 <img src={QRCode} alt="qrcode" width={296} height={296} />
               </DialogContentText>
@@ -266,7 +283,7 @@ export default function BuyCredits() {
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Please scan the QR Code below and send{" "}
-                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
                 <img src={QRCode} alt="qrcode" width={296} height={296} />
               </DialogContentText>
@@ -305,7 +322,7 @@ export default function BuyCredits() {
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Please scan the QR Code below and send{" "}
-                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
                 <img src={QRCode} alt="qrcode" width={296} height={296} />
               </DialogContentText>
@@ -328,7 +345,7 @@ export default function BuyCredits() {
             </Box>
           </CardContent>
           <CardActions>
-            <Button variant="contained" sx={style.btn} onClick={() => handleClickOpen(5000, 30)}>
+            <Button variant="contained" sx={style.btn} onClick={() => handleClickOpen(5000, 10)}>
               BUY
             </Button>
           </CardActions>
@@ -344,7 +361,7 @@ export default function BuyCredits() {
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 Please scan the QR Code below and send{" "}
-                {parseInt(localStorage.getItem("coin"))} pesos, then press the
+                {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
                 <img src={QRCode} alt="qrcode" width={296} height={296} />
               </DialogContentText>
