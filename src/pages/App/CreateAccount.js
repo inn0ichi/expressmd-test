@@ -85,6 +85,14 @@ function CreateAccount() {
             var errorCode = error.code;
             var errorMessage = error.message;
             // ..
+            if (errorCode == "auth/email-already-in-use") {
+              alert("Email already exists.")
+            }
+
+            if (errorCode == "auth/invalid-password") {
+              alert("Password must be 6 characters or more.")
+            }
+
           });
 
       }
@@ -93,7 +101,7 @@ function CreateAccount() {
 
   const style = {
     labelCon: {
-      marginTop : "20px",
+      marginTop: "20px",
       marginLeft: "10px",
     },
     label: {
@@ -118,22 +126,22 @@ function CreateAccount() {
       color: "black",
     },
 
-    textInput : {
+    textInput: {
       [`& fieldset`]: {
-          borderRadius: 4,
-        },
-      
-  },
+        borderRadius: 4,
+      },
 
-  formCon : {
-    marginTop : "30px"
-  },
+    },
 
-  textHelp : {
-    textAlign : "center",
-    marginTop : "10px"
-  }
-    
+    formCon: {
+      marginTop: "30px"
+    },
+
+    textHelp: {
+      textAlign: "center",
+      marginTop: "10px"
+    }
+
   };
 
   return (
@@ -144,10 +152,10 @@ function CreateAccount() {
             <Typography sx={style.label}>Create</Typography>
             <Typography sx={style.label}>Account</Typography>
           </Box>
-          <FormGroup sx = {style.formCon}>
+          <FormGroup sx={style.formCon}>
             <FormControl
               required
-              
+
               sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "10px" }}
             >
               <TextField
@@ -162,11 +170,11 @@ function CreateAccount() {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <EmailIcon/>
+                      <EmailIcon />
                     </InputAdornment>
                   )
                 }}
-                sx = {style.textInput}
+                sx={style.textInput}
                 onChange={userInput("email")}
               />
             </FormControl>
@@ -180,14 +188,14 @@ function CreateAccount() {
                 placeholder="Password"
                 variant="outlined"
                 type="password"
-                sx = {style.textInput}
+                sx={style.textInput}
                 InputLabelProps={{
                   style: { color: "black" },
                 }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <LockIcon/>
+                      <LockIcon />
                     </InputAdornment>
                   )
                 }}
@@ -203,33 +211,33 @@ function CreateAccount() {
                 id="filled-required"
                 variant="outlined"
                 type="password"
-                placeholder = "Confirm password"
-                sx = {style.textInput}
+                placeholder="Confirm password"
+                sx={style.textInput}
                 InputLabelProps={{
                   style: { color: "black" },
                 }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <LockIcon/>
+                      <LockIcon />
                     </InputAdornment>
                   )
                 }}
 
-                
+
                 onChange={userInput("confirmpassword")}
               ></TextField>
             </FormControl>
-            <FormControl required sx={{ m: 1, minWidth: 120 , display : "flex" , justifyContent : "center" , alignItems : "center" }}>
+            <FormControl required sx={{ m: 1, minWidth: 120, display: "flex", justifyContent: "center", alignItems: "center" }}>
               <Button
                 sx={style.createBtn}
                 onClick={() => createaccount()}
                 variant="filled"
-                style = {{backgroundColor : "#167694" , color : "white" , borderRadius : "10px" , marginTop : "50px"}}
+                style={{ backgroundColor: "#167694", color: "white", borderRadius: "10px", marginTop: "50px" }}
               >
                 Create Account
               </Button>
-              <FormHelperText sx = {style.textHelp}>
+              <FormHelperText sx={style.textHelp}>
                 By clicking Create Account, you agree to the Privacy Policy.
               </FormHelperText>
             </FormControl>
