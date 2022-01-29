@@ -21,6 +21,12 @@ import { getTheme } from "../../redux/actions/uiAction";
 import Logo from "../../assets/icon-512x512.png";
 import "./Registration.css";
 import { IconButton } from "@mui/material";
+import password from "../../assets/padlock.png"
+import LockIcon from '@mui/icons-material/Lock';
+import InputAdornment from "@mui/material/InputAdornment";
+import EmailIcon from '@mui/icons-material/Email';
+
+
 
 const auth = getAuth();
 function CreateAccount() {
@@ -87,7 +93,7 @@ function CreateAccount() {
 
   const style = {
     labelCon: {
-      marginTop: "20px",
+      marginTop : "20px",
       marginLeft: "10px",
     },
     label: {
@@ -111,6 +117,23 @@ function CreateAccount() {
       marginTop: "20px",
       color: "black",
     },
+
+    textInput : {
+      [`& fieldset`]: {
+          borderRadius: 4,
+        },
+      
+  },
+
+  formCon : {
+    marginTop : "30px"
+  },
+
+  textHelp : {
+    textAlign : "center",
+    marginTop : "10px"
+  }
+    
   };
   return (
     <Box className="base">
@@ -120,19 +143,29 @@ function CreateAccount() {
             <Typography sx={style.label}>Create</Typography>
             <Typography sx={style.label}>Account</Typography>
           </Box>
-          <FormGroup>
+          <FormGroup sx = {style.formCon}>
             <FormControl
               required
+              
               sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "10px" }}
             >
               <TextField
                 required
                 id="filled-required"
-                label="E-mail"
-                variant="standard"
+                placeholder="E-mail"
+                variant="outlined"
                 InputLabelProps={{
                   style: { color: "black" },
                 }}
+                autoComplete="off"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon/>
+                    </InputAdornment>
+                  )
+                }}
+                sx = {style.textInput}
                 onChange={userInput("email")}
               />
             </FormControl>
@@ -143,11 +176,19 @@ function CreateAccount() {
               <TextField
                 required
                 id="filled-required"
-                label="Password"
-                variant="standard"
+                placeholder="Password"
+                variant="outlined"
                 type="password"
+                sx = {style.textInput}
                 InputLabelProps={{
                   style: { color: "black" },
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon/>
+                    </InputAdornment>
+                  )
                 }}
                 onChange={userInput("password")}
               />
@@ -159,24 +200,35 @@ function CreateAccount() {
               <TextField
                 required
                 id="filled-required"
-                label="Confirm Password"
-                variant="standard"
+                variant="outlined"
                 type="password"
+                placeholder = "Confirm password"
+                sx = {style.textInput}
                 InputLabelProps={{
                   style: { color: "black" },
                 }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon/>
+                    </InputAdornment>
+                  )
+                }}
+
+                
                 onChange={userInput("confirmpassword")}
-              />
+              ></TextField>
             </FormControl>
             <FormControl required sx={{ m: 1, minWidth: 120 , display : "flex" , justifyContent : "center" , alignItems : "center" }}>
               <Button
                 sx={style.createBtn}
                 onClick={() => createaccount()}
-                variant="outlined"
+                variant="filled"
+                style = {{backgroundColor : "#167694" , color : "white" , borderRadius : "10px" , marginTop : "50px"}}
               >
                 Create Account
               </Button>
-              <FormHelperText>
+              <FormHelperText sx = {style.textHelp}>
                 By clicking Create Account, you agree to the Privacy Policy.
               </FormHelperText>
             </FormControl>
