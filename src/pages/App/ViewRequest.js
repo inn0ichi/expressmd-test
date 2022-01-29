@@ -528,12 +528,15 @@ export default function ViewRequest() {
                             return (
                               <Box>
                                 <Paper key={data.docId} elevation={4} sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly", paddingTop: "25px", paddingBottom: "25px" }}>
-                                  <Box>
-                                    <Avatar src={data.photoURL} alt="doc image" />
-                                  </Box>
-                                  <Box>
-                                    <Typography>Dr. {data.lname}</Typography>
-                                  </Box>
+                                  <Link to={`/p/${data.docId}`}>
+                                    <Box>
+                                      <Avatar src={data.photoURL} alt="doc image" />
+                                    </Box>
+                                    <Box>
+                                      <Typography>Dr. {data.lname}</Typography>
+                                      <Typography variant="subtitle2">{data.location}</Typography>
+                                    </Box>
+                                  </Link>
                                   <Box>
                                     <Typography>Fee: {data.fee}</Typography>
                                   </Box>

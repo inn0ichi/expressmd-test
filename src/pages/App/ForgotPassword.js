@@ -45,6 +45,8 @@ export default function ForgotPassword() {
           var errorCode = error.code;
           var errorMessage = error.message;
           // ..
+          if (error.code == "auth/user-not-found")
+            alert("That account doesn't exist.");
         });
     }
   };
@@ -88,18 +90,18 @@ export default function ForgotPassword() {
     },
 
     btn: {
-      marginTop : "10px",
+      marginTop: "10px",
       width: "100px",
-      alignItems : "center",
-      borderRadius : "20px",
+      alignItems: "center",
+      borderRadius: "20px",
       position: "absolute",
       right: "10px",
       top: "5px"
     },
 
-    btnlogo : {
-        width : "30px",
-        marginLeft : "5px"
+    btnlogo: {
+      width: "30px",
+      marginLeft: "5px"
     }
   };
 
@@ -146,9 +148,9 @@ export default function ForgotPassword() {
                 style={{ color: "white" }}
                 variant="contained"
               >
-                Send <Box component="img" src={btnIcon} sx = {style.btnlogo}></Box>
+                Send <Box component="img" src={btnIcon} sx={style.btnlogo}></Box>
               </Button>
-             
+
             </FormControl>
           </FormGroup>
         </Box>
