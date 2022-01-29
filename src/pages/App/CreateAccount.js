@@ -72,8 +72,10 @@ function CreateAccount() {
     } else {
       if (payload.password != payload.confirmpassword) {
         alert("Password mismatch, please check your password.");
+      } else if (payload.password < 6) {
+        alert("Password needs to be 6 characters or more");
       } else {
-        firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        /* firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
           .then((userCredential) => {
             // Signed in 
             var user = userCredential.user;
@@ -94,7 +96,14 @@ function CreateAccount() {
             }
 
           });
-
+ */
+        history.push({
+          pathname: "/register",
+          state: {
+            email: payload.email,
+            password: payload.password
+          }
+        });
       }
     }
   };
