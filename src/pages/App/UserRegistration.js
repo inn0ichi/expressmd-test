@@ -105,6 +105,15 @@ function UserRegistration() {
     const style = {
         textHelp: {
             color: "red"
+        },
+
+        uploadBtn : {
+            width : "80px",
+            padding : "10px",
+            backgroundColor : "#2C84FF",
+            textAlign : "center",
+            borderRadius : "10px",
+            color : "white"
         }
     }
     return (
@@ -117,15 +126,19 @@ function UserRegistration() {
                     </Box> */}
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
-                            <Box sx = {{display : "flex" , justifyContent : "center" , alignItems : "center" }}>
+                            <Box style = {{display : "flex" , justifyContent : "center" , alignItems : "center" , flexDirection : "column" }} >
                                 <IconButton color="primary" aria-label="upload picture">
-                                    <Avatar src={file} sx={{ width: 128, height: 128 }} />
+                                    <Box component = "img" src={file} sx={{ width: 128, height: 128 }} />
                                 </IconButton>
-                                <input accept="image/*" id="icon-button-file" type="file" accept="image/x-png,image/gif,image/jpeg" onChange={handleChange} />
+                                <Box sx = {style.uploadBtn}>
+                                <input accept="image/*" id="icon-button-file" type="file" accept="image/x-png,image/gif,image/jpeg" onChange={handleChange} style = {{display : "none"}} />
+                                <label for = "icon-button-file">Upload</label>
+                                </Box>
+                                
                             </Box>
                             
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" , marginRight : "50px"  }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px"   }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -137,7 +150,7 @@ function UserRegistration() {
                                 onChange={userInput("fullname")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" ,  marginRight : "50px"}}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <InputLabel sx={{ color: 'black' }} >Gender</InputLabel>
                             <Select
                                 id='gender'
@@ -152,7 +165,7 @@ function UserRegistration() {
                             </Select>
                             <FormHelperText sx={style.textHelp}>*Required</FormHelperText>
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" ,  marginRight : "50px"}}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -165,7 +178,7 @@ function UserRegistration() {
                                 value={payload.phoneNumber}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" , marginRight : "50px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -178,7 +191,7 @@ function UserRegistration() {
                                 value={payload.houseNum}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" ,  marginRight : "50px"}}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
                                 id="filled-required"
@@ -192,7 +205,7 @@ function UserRegistration() {
                             />
                         </FormControl>
 
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "20px" ,  marginRight : "50px"}}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "20px" }}>
                             <InputLabel sx={{ color: 'black' }} >Municipality</InputLabel>
                             <Select
                                 id='Municipality'
