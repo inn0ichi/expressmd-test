@@ -74,6 +74,16 @@ function MobileProfileContainer() {
     }, []);
 
 
+    const style = {
+        userProf : {
+            height : "150px",
+            width : "150px",
+            borderRadius : "180px",
+            marginBottom : "20px"
+        }
+    }
+
+
 
     return (
         <Box className='profileContainer'>
@@ -82,7 +92,7 @@ function MobileProfileContainer() {
                     return (
                         <Box key={userProfile.uid}>
                             <Box color='primary' className='imgBox' key={userProfile.uid}>
-                                <img className='usrImg' alt='user image' src={userProfile.photoURL} />
+                                <Box component = "img" alt='user image' src={userProfile.photoURL} sx = {style.userProf} />
                                 <Typography variant="h6">{userProfile.fullname}</Typography>
                                 <Typography variant="subtitle1">{userProfile.coins}</Typography>
                                 <Button variant='contained' onClick={() => history.push("/editprofile")}>Edit Profile</Button>
