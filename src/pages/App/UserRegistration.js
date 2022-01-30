@@ -48,7 +48,6 @@ function UserRegistration() {
         setPayload({ ...payload, [prop]: e.target.value });
     };
     const completeProfile = (e) => {
-        console.log(payload);
         if (
             !payload.fullname ||
             !payload.gender ||
