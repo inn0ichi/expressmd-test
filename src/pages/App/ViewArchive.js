@@ -273,7 +273,10 @@ export default function ViewArchive() {
                                     <Typography variant="subtitle1">Location: {data.location}</Typography>
                                 </Box>
                             </Box>
-
+                            <Box>
+                                <Typography>Doctors Notes</Typography>
+                                <TextField readOnly value={data.notes} />
+                            </Box>
                             {(() => {
                                 switch (data.status) {
                                     case "Completed":
