@@ -65,9 +65,9 @@ function UserRegistration() {
                     console.log("hello1");
                     var user = userCredential.user;
                     localStorage.setItem("uid", user.uid);
-                    localStorage.setItem("email", user.email);
+                    localStorage.setItem("email", location.state.email);
                     db.collection("users")
-                        .doc(payload.uid)
+                        .doc(user.uid)
                         .set({
                             fullname: payload.fullname,
                             email: location.state.email,
