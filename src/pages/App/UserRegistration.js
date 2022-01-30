@@ -48,15 +48,16 @@ function UserRegistration() {
         setPayload({ ...payload, [prop]: e.target.value });
     };
     const completeProfile = (e) => {
+        console.log(payload);
         if (
             !payload.fullname ||
-            !payload.email ||
             !payload.gender ||
             !payload.phoneNumber ||
             !payload.houseNum ||
             !payload.municipality ||
             !payload.barangay
         ) {
+            console.log(payload);
             alert("Please fill out all of the fields");
         } else {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
