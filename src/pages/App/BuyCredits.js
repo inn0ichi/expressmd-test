@@ -23,7 +23,7 @@ import { getAuth } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import Buy from "../../assets/126057.png"
 import Coin from "../../assets/kindpng_7166529.png"
-import { borderRadius, textAlign } from "@mui/system";
+import { borderRadius, textAlign, width } from "@mui/system";
 import QRCode from "../../assets/qrcode.png";
 
 const db = firebase.firestore();
@@ -170,6 +170,18 @@ export default function BuyCredits() {
       borderRadius: "18px",
       backgroundColor: "#125873",
       color: "white"
+    },
+
+    qrCon :{
+      display : "flex",
+      alignItems : "center",
+      justifyContent : "center",
+    },
+
+    qr : {
+      
+      width : "200px",
+      height : "200px"
     }
   }
   return (
@@ -202,19 +214,26 @@ export default function BuyCredits() {
               {"Buy ExpressCredits"}
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">
+              <DialogContentText id="alert-dialog-description" style = {{textAlign : "center"}}>
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-                <img src={QRCode} alt="qrcode" width={256} height={256} />
+                
               </DialogContentText>
+              <Box sx = {style.qrCon}>
+                <Box component = "img" src={QRCode} alt="qrcode" sx = {style.qr} />
+                </Box>
+              
             </DialogContent>
+           
             <DialogActions>
+            
               <Button onClick={handleClose}>Cancel</Button>
               <Button onClick={() => buycoin()} autoFocus>
                 Confirm
               </Button>
             </DialogActions>
+            
           </Dialog>
         </Box>
       </Card>
@@ -242,12 +261,15 @@ export default function BuyCredits() {
               {"Buy ExpressCredits"}
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">
+              <DialogContentText id="alert-dialog-description" style = {{textAlign : "center"}}>
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-                <img src={QRCode} alt="qrcode" width={296} height={296} />
+                
               </DialogContentText>
+              <Box sx = {style.qrCon}>
+                <Box component = "img" src={QRCode} alt="qrcode" sx = {style.qr} />
+                </Box>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
@@ -281,12 +303,15 @@ export default function BuyCredits() {
               {"Buy ExpressCredits"}
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">
+              <DialogContentText id="alert-dialog-description" style = {{textAlign : "center"}}>
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-                <img src={QRCode} alt="qrcode" width={296} height={296} />
+               
               </DialogContentText>
+              <Box sx = {style.qrCon}>
+                <Box component = "img" src={QRCode} alt="qrcode" sx = {style.qr} />
+                </Box>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
@@ -320,12 +345,15 @@ export default function BuyCredits() {
               {"Buy ExpressCredits"}
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">
+              <DialogContentText id="alert-dialog-description" style = {{textAlign : "center"}}>
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-                <img src={QRCode} alt="qrcode" width={296} height={296} />
+               
               </DialogContentText>
+              <Box sx = {style.qrCon}>
+                <Box component = "img" src={QRCode} alt="qrcode" sx = {style.qr} />
+                </Box>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
@@ -359,12 +387,15 @@ export default function BuyCredits() {
               {"Buy ExpressCredits"}
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">
+              <DialogContentText id="alert-dialog-description" style = {{textAlign : "center"}}>
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-                <img src={QRCode} alt="qrcode" width={296} height={296} />
+                
               </DialogContentText>
+              <Box sx = {style.qrCon}>
+                <Box component = "img" src={QRCode} alt="qrcode" sx = {style.qr} />
+                </Box>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>

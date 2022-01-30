@@ -25,6 +25,8 @@ import password from "../../assets/padlock.png"
 import LockIcon from '@mui/icons-material/Lock';
 import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from '@mui/icons-material/Email';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 
@@ -48,6 +50,7 @@ function CreateAccount() {
     houseNum: "",
     municipality: "",
     barangay: "",
+    
   });
 
   /* getAuth().onAuthStateChanged(function (user) {
@@ -153,6 +156,16 @@ function CreateAccount() {
 
   };
 
+  
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword (!showConfirmPassword)
+
+  
+
   return (
     <Box className="base">
       <Container className="registerContainer">
@@ -196,7 +209,7 @@ function CreateAccount() {
                 id="filled-required"
                 placeholder="Password"
                 variant="outlined"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 sx={style.textInput}
                 InputLabelProps={{
                   style: { color: "black" },
@@ -205,6 +218,17 @@ function CreateAccount() {
                   startAdornment: (
                     <InputAdornment position="start">
                       <LockIcon />
+                    </InputAdornment>
+                  ),
+                  endAdornment : (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
                     </InputAdornment>
                   )
                 }}
@@ -219,7 +243,7 @@ function CreateAccount() {
                 required
                 id="filled-required"
                 variant="outlined"
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm password"
                 sx={style.textInput}
                 InputLabelProps={{
@@ -229,6 +253,18 @@ function CreateAccount() {
                   startAdornment: (
                     <InputAdornment position="start">
                       <LockIcon />
+                    </InputAdornment>
+                  ),
+
+                  endAdornment : (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowConfirmPassword}
+                        edge="end"
+                      >
+                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
                     </InputAdornment>
                   )
                 }}

@@ -7,6 +7,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import firebase from '../../config/firebase';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Coin from "../../assets/kindpng_7166529.png"
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import {
     getAuth,
@@ -74,6 +75,34 @@ function MobileProfileContainer() {
     }, []);
 
 
+    const style = {
+        userProf : {
+            height : "150px",
+            width : "150px",
+            borderRadius : "180px",
+            marginBottom : "20px"
+        },
+        coinLogo: {
+            width: "30px",
+            height: "30px"
+          },
+          coinContainer: {
+            display: "flex",
+            flexDirection: "row",
+            justifycontent: "center",
+            alignItems : "center",
+            marginBottom : "10px"
+            
+          },
+          coinLabel: {
+            display: "flex",
+            fontSize: "18px",
+            alignItems: "center",
+            marginLeft: "5px"
+          },
+    }
+
+
 
     return (
         <Box className='profileContainer'>
@@ -82,9 +111,12 @@ function MobileProfileContainer() {
                     return (
                         <Box key={userProfile.uid}>
                             <Box color='primary' className='imgBox' key={userProfile.uid}>
-                                <img className='usrImg' alt='user image' src={userProfile.photoURL} />
+                                <Box component = "img" alt='user image' src={userProfile.photoURL} sx = {style.userProf} />
                                 <Typography variant="h6">{userProfile.fullname}</Typography>
-                                <Typography variant="subtitle1">{userProfile.coins}</Typography>
+                                <Box sx = {style.coinContainer}>
+                                <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
+                                <Typography sx = {style.coinLabel} variant="subtitle1">{userProfile.coins}</Typography>
+                                </Box>
                                 <Button variant='contained' onClick={() => history.push("/editprofile")}>Edit Profile</Button>
                             </Box>
                             <Divider orientation="horizontal" flexItem />

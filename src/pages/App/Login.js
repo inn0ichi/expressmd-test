@@ -1,4 +1,4 @@
-import { Box, Container, TextField, Button, FormGroup, FormControl, Link } from '@mui/material'
+import { Box, Container, TextField, Button, FormGroup, FormControl, Link , FormHelperText, } from '@mui/material'
 import firebase from '../../config/firebase';
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from "react-router-dom";
@@ -8,6 +8,16 @@ import { getTheme } from "../../redux/actions/uiAction";
 import Logo from "../../assets/icon-512x512.png";
 import './Registration.css';
 import { borderColor, width } from '@mui/system';
+import LockIcon from '@mui/icons-material/Lock';
+import InputAdornment from "@mui/material/InputAdornment";
+import EmailIcon from '@mui/icons-material/Email';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { IconButton } from "@mui/material";
+import validator from 'validator'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 
 const auth = getAuth();
 function Login() {
@@ -33,9 +43,23 @@ function Login() {
             }
         })
     }); */
+    const [emailError, setEmailError] = useState("")
     const userInput = (prop) => (e) => {
         setPayload({ ...payload, [prop]: e.target.value });
+        var email = e.target.value
+  
+        if (validator.isEmail(email)) {
+            setEmailError(true)
+            e.preventDefault();
+        }  else {
+        setEmailError(false)
+        e.preventDefault();
+        
+    }
+    
     };
+
+    const [passwordError, setpasswordError] = useState('')
     const login = (e) => {
         if (
             !payload.email ||
@@ -67,7 +91,7 @@ function Login() {
                 })
                 .catch((error) => {
                     if (error.code == "auth/wrong-password")
-                        alert("Wrong Password.");
+                        setpasswordError('Wrong Password')
                     if (error.code == "auth/user-not-found")
                         alert("That account doesn't exist.");
                 });
@@ -90,6 +114,13 @@ function Login() {
 
     }
 
+    
+ 
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
     return (
         <Box className='base'>
             <Container className='registerContainer'>
@@ -103,29 +134,72 @@ function Login() {
                             <TextField
                                 required
                                 id="filled-required"
-                                label="E-mail"
+                                placeholder="E-mail"
                                 variant="outlined"
                                 sx={style.textInput}
+                                autoComplete="off"
+                                InputProps={{
+                                    startAdornment: (
+                                <InputAdornment position="start">
+                                <EmailIcon />
+                                </InputAdornment>
+                                ),
+
+                                endAdornment : (
+                                    <InputAdornment position="end">
+                                     
+                                        {emailError ? <CheckCircle/> :  <CancelIcon /> }
+                                      
+                                    </InputAdornment>
+                                  )
+
+                                
+
+                                }}
+
+                                
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInput("email")}
                                 autoComplete="off"
-                            />
+                            ></TextField>
+                            
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
                                 required
                                 id="filled-required"
-                                label="Password"
+                                placeholder="Password"
                                 variant="outlined"
-                                type="password"
+                                type={showPassword ? "text" : "password"}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockIcon />
+                                      </InputAdornment>
+                                    ),
+                                    endAdornment : (
+                                      <InputAdornment position="end">
+                                        <IconButton
+                                          aria-label="toggle password visibility"
+                                          onClick={handleClickShowPassword}
+                                          edge="end"
+                                        >
+                                          {showPassword ? <Visibility /> :  <VisibilityOff />}
+                                        </IconButton>
+                                      </InputAdornment>
+                                    )
+                                  }}
                                 sx={style.textInput}
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInput("password")}
                             />
+                            <FormHelperText sx={style.textHelp}>
+                               {passwordError}
+                            </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, mt: 5 }}>
                             <Button onClick={() => login()} variant='contained' style={{ color: "white", borderRadius: "10px" }}>Login</Button>
