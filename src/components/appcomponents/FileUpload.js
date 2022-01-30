@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Box, TextField, Button, IconButton, Avatar } from "@mui/material";
+import "./css/FileUpload.css";
+import Toolbar from '@mui/material/Toolbar';
+
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
-import '../../App.css';
-import "./EditProfile.css"
+
 import { useDispatch } from "react-redux";
 import { getTheme } from "../../redux/actions/uiAction";
-
-import FileUpload from '../../components/appcomponents/FileUpload.js';
-
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 
-const user = getAuth().currentUser;
-
-export default function EditProfile() {
+export default function FileUpload() {
 
     const dispatch = useDispatch();
 
@@ -117,64 +115,63 @@ export default function EditProfile() {
 
     }
 
+
     return (
+
+        // <div class="upload">
+        //     <img src="noprofil.jpg" >
+        //     <div class="round">
+        //         <input type="file">
+        //             <i class="fa fa-camera" style="color: #fff;"></i>
+        //     </div>
+        // </div>
         <Box className="base">
             {
                 userProfile && userProfile.profile.map((userProfile) => {
                     return (
-                        <Box>
-                            <FileUpload />
-                            {/* <Box className="avatarChange">
-                                
-                                <Box className="avatarContainer">
-                                    <IconButton color="primary" aria-label="upload picture" component="span">
-                                        <Avatar src={userProfile.photoURL} sx={{ width: 128, height: 128 }} />
-                                    </IconButton>
-                                    <input accept="image/*" id="icon-button-file" type="file" accept="image/x-png,image/gif,image/jpeg" onChange={handleChange} />
-                                </Box>
-                                <Box>
-                                    <Button onClick={() => uploadImage()} variant='outlined' disabled={!file}>Upload</Button>
-                                </Box>
-                            </Box> */}
-                            <Box className="nameChange">
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    label="Fullname"
-                                    defaultValue={userProfile.fullname}
-                                    disabled={nameField}
-                                    onChange={userInput("name")}
-                                />
-                                {
-                                    nameField ? (
-                                        <Button onClick={() => setnameField(false)}>Edit Name</Button>
-                                    ) : (
-                                        <Button onClick={() => changename()}>Save</Button>
-                                    )
-                                }
-                            </Box>
+                        <Box 
+                        sx={{ width: "100%" }}
+                        >
+                            <Toolbar></Toolbar>
+                            <Box className="upload" sx={{
+                                width: "100%",
+                                display: "flex",
+                                direction: "column",
+                                justifyContent: "center",
+                                alignItems: "center"
+                            }}
+                            >
 
-                            <Box className="phoneChange">
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    label="Phone Number"
-                                    defaultValue={userProfile.phoneNumber}
-                                    disabled={phoneField}
-                                    onChange={userInput("phoneNumber")}
-                                />
-                                {
-                                    phoneField ? (
-                                        <Button onClick={() => setphoneField(false)}>Edit Number</Button>
-                                    ) : (
-                                        <Button onClick={() => changephone()}>Save</Button>
-                                    )
-                                }
+
+                                <IconButton color="primary" aria-label="upload picture" component="span">
+                                    <Avatar src={userProfile.photoURL} sx={{ width: "100px", height: "100px" }} />
+                                    <Box className="round" sx={{
+                                        display: "flex",
+                                        direction: "column",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        mr: "7px",
+                                        mb: "7px"
+                                    }}>
+                                        <input accept="image/*" id="icon-button-file" type="file" accept="image/x-png,image/gif,image/jpeg" onChange={handleChange} />
+
+                                        <CameraAltIcon sx={{ color: '#fff' }} />
+                                    </Box>
+
+                                </IconButton>
+
+
+
+
                             </Box>
+                            <Button onClick={() => uploadImage()} variant='outlined' disabled={!file} sx={{ margin: "0px auto" }}>Upload</Button>
                         </Box>
                     )
                 })
             }
         </Box >
-    );
-}
+
+
+    )
+
+}          
