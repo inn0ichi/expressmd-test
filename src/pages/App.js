@@ -63,7 +63,7 @@ const style = {
     display: "flex",
     marginTop: "30px",
     marginBottom: "20px",
-    maxHeight: "1000px",
+    minHeight: "100px",
     overflowX: "auto",
     "-webkit-scrollbar": {
       display: "none",
@@ -80,7 +80,10 @@ const style = {
     display: "flex",
     alignItems: "center",
     padding: "10px",
-    minHeight: "180px"
+    minHeight: "180px",
+    marginBottom : "10px",
+    marginTop : "10px",
+    marginLeft : "5px"
   },
 
   item: {
@@ -121,6 +124,13 @@ const style = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center"
+  },
+  btn : {
+    display : "flex",
+    width : "250px",
+    alignItems : "center",
+    justifyContent : "center",
+    textAlign : "center"
   }
 };
 
@@ -311,7 +321,7 @@ export default function App() {
                     <Typography className="schedText" variant="subtitle2">
                       {t("no_appointment")}
                     </Typography>
-                    <Button
+                    <Button sx = {style.btn}
                       variant="contained"
                       onClick={() => history.push("/request")}
                     >
@@ -360,7 +370,7 @@ export default function App() {
               <Link to={`p/${data.uid}`} key={data.uid}>
 
                 <Box>
-                  <Paper sx={style.categoryPaper} variant="outlined">
+                  <Paper sx={style.categoryPaper} elevation = {3}>
                     <Box sx={style.itemCon}>
                       <img src={data.photoURL} alt={data.firstname} width="50px" height="50px" />
                       <Typography sx={style.docName}>Dr. {data.firstname + " " + data.lastname}</Typography>

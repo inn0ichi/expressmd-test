@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction";
 import Logo from "../../assets/icon-512x512.png";
 import './Registration.css';
+import { borderColor, width } from '@mui/system';
 
 const auth = getAuth();
 function Login() {
@@ -65,8 +66,10 @@ function Login() {
                     // ...
                 })
                 .catch((error) => {
-                    const errorMessage = error.message;
-                    alert(errorMessage);
+                    if (error.code == "auth/wrong-password")
+                        alert("Wrong Password.");
+                    if (error.code == "auth/user-not-found")
+                        alert("That account doesn't exist.");
                 });
 
         }
@@ -74,9 +77,17 @@ function Login() {
 
     const style = {
         logo: {
-            width: "200px",
-            height: "150px"
+            width: "130px",
+            height: "100px",
+        },
+
+        textInput: {
+            [`& fieldset`]: {
+                borderRadius: 4,
+            },
         }
+
+
     }
 
     return (
@@ -88,16 +99,18 @@ function Login() {
                         <Box component="img" src={Logo} alt="logo" sx={style.logo}></Box>
                     </Box>
                     <FormGroup>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "50px" }} >
                             <TextField
                                 required
                                 id="filled-required"
                                 label="E-mail"
-                                variant="standard"
+                                variant="outlined"
+                                sx={style.textInput}
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInput("email")}
+                                autoComplete="off"
                             />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
@@ -105,28 +118,29 @@ function Login() {
                                 required
                                 id="filled-required"
                                 label="Password"
-                                variant="standard"
+                                variant="outlined"
                                 type="password"
+                                sx={style.textInput}
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInput("password")}
                             />
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120 }}>
-                            <Button onClick={() => login()} variant='contained'>Login</Button>
+                        <FormControl required sx={{ m: 1, minWidth: 120, mt: 5 }}>
+                            <Button onClick={() => login()} variant='contained' style={{ color: "white", borderRadius: "10px" }}>Login</Button>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120 }}>
-                            <Button onClick={() => history.push("/createaccount")} variant='outlined'>Create an Account</Button>
+                            <Button onClick={() => history.push("/createaccount")} style={{ borderRadius: "10px" }} variant='outlined'>Create an Account</Button>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120 }}>
                             <Link
                                 component="button"
                                 variant="body2"
                                 onClick={() => history.push("/resetpassword")}
-                                color="error"
+                                style={{ color: "#808080" }}
                             >
-                                I Forgot My Password
+                                Forgot your password ?
                             </Link>
                         </FormControl>
 
