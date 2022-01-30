@@ -8,6 +8,12 @@ import { getTheme } from "../../redux/actions/uiAction";
 import Logo from "../../assets/icon-512x512.png";
 import './Registration.css';
 import { borderColor, width } from '@mui/system';
+import LockIcon from '@mui/icons-material/Lock';
+import InputAdornment from "@mui/material/InputAdornment";
+import EmailIcon from '@mui/icons-material/Email';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { IconButton } from "@mui/material";
 
 const auth = getAuth();
 function Login() {
@@ -90,6 +96,10 @@ function Login() {
 
     }
 
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
     return (
         <Box className='base'>
             <Container className='registerContainer'>
@@ -103,9 +113,17 @@ function Login() {
                             <TextField
                                 required
                                 id="filled-required"
-                                label="E-mail"
+                                placeholder="E-mail"
                                 variant="outlined"
                                 sx={style.textInput}
+                                autoComplete="off"
+                                InputProps={{
+                                    startAdornment: (
+                                <InputAdornment position="start">
+                                <EmailIcon />
+                                </InputAdornment>
+                                )
+                                }}
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
@@ -117,9 +135,27 @@ function Login() {
                             <TextField
                                 required
                                 id="filled-required"
-                                label="Password"
+                                placeholder="Password"
                                 variant="outlined"
-                                type="password"
+                                type={showPassword ? "text" : "password"}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockIcon />
+                                      </InputAdornment>
+                                    ),
+                                    endAdornment : (
+                                      <InputAdornment position="end">
+                                        <IconButton
+                                          aria-label="toggle password visibility"
+                                          onClick={handleClickShowPassword}
+                                          edge="end"
+                                        >
+                                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                      </InputAdornment>
+                                    )
+                                  }}
                                 sx={style.textInput}
                                 InputLabelProps={{
                                     style: { color: 'black' },
