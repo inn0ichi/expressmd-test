@@ -235,7 +235,7 @@ function UserRegistration() {
                             </Select>
                             <FormHelperText sx={style.textHelp}>*Required. Bustos and Baliuag only.</FormHelperText>
                         </FormControl>
-                        <FormControl required sx={{ m: 1, minWidth: 120, marginRight: "50px" }}>
+                        <FormControl required sx={{ m: 1, minWidth: 120, display : "flex" , alignItems : "center", justifyContent : "center" }}>
                             <Button onClick={() => completeProfile()} variant='outlined' disabled={!file}>Complete</Button>
                             <FormHelperText>By clicking complete, you agree to the Privacy Policy.</FormHelperText>
                         </FormControl>
