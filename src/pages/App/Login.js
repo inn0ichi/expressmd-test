@@ -43,7 +43,7 @@ function Login() {
             }
         })
     }); */
-    const [emailError, setEmailError] = useState('')
+    const [emailError, setEmailError] = useState("")
     const userInput = (prop) => (e) => {
         setPayload({ ...payload, [prop]: e.target.value });
         var email = e.target.value
@@ -52,8 +52,10 @@ function Login() {
             setEmailError(true)
         }  else {
         setEmailError(false)
+        e.preventDefault();
         
     }
+    
     };
 
     const [passwordError, setpasswordError] = useState('')
@@ -145,7 +147,7 @@ function Login() {
                                 endAdornment : (
                                     <InputAdornment position="end">
                                      
-                                        {emailError ? <CheckCircle /> :  <CancelIcon /> }
+                                        {emailError ? <CheckCircle/> :  <CancelIcon /> }
                                       
                                     </InputAdornment>
                                   )
