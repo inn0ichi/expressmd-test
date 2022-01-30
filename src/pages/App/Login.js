@@ -59,7 +59,8 @@ function Login() {
     
     };
 
-    const [passwordError, setpasswordError] = useState('')
+    const [passwordError, setpasswordError] = useState('');
+    const [accountError , setAccountError] = useState ('');
     const login = (e) => {
         if (
             !payload.email ||
@@ -93,7 +94,7 @@ function Login() {
                     if (error.code == "auth/wrong-password")
                         setpasswordError('Wrong Password')
                     if (error.code == "auth/user-not-found")
-                        alert("That account doesn't exist.");
+                        setAccountError("Account does not exist")
                 });
 
         }
@@ -164,7 +165,9 @@ function Login() {
                                 onChange={userInput("email")}
                                 autoComplete="off"
                             ></TextField>
-                            
+                             <FormHelperText sx={style.textHelp}>
+                               {accountError}
+                            </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField

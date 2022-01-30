@@ -114,6 +114,7 @@ const style = {
     padding: "20px",
     borderColor: "#7EB6BC",
     borderWidth: "2px",
+    minWidth : "250px"
   },
   docName: {
     fontSize: "14px",

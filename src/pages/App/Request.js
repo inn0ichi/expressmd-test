@@ -329,6 +329,20 @@ export default function Request() {
                   control={
                     <Checkbox name="checks" onChange={userInput("symptoms")} />
                   }
+                  label="Asthma"
+                  value="Asthma"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox name="checks" onChange={userInput("symptoms")} />
+                  }
+                  label="Bronchitis"
+                  value="Bronchitis"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox name="checks" onChange={userInput("symptoms")} />
+                  }
                   label="Cough"
                   value="Cough"
                 />
@@ -336,8 +350,17 @@ export default function Request() {
                   control={
                     <Checkbox name="checks" onChange={userInput("symptoms")} />
                   }
-                  label="Fever"
+                  value="Diarrhea"
+                  label="Diarrhea"
+                />
+              </Box>
+              <Box sx={style.checkBox}>
+                <FormControlLabel
+                  control={
+                    <Checkbox name="checks" onChange={userInput("symptoms")} />
+                  }
                   value="Fever"
+                  label="Fever"
                 />
                 <FormControlLabel
                   control={
@@ -350,31 +373,8 @@ export default function Request() {
                   control={
                     <Checkbox name="checks" onChange={userInput("symptoms")} />
                   }
-                  value="Muscle or Body Aches"
-                  label="Muscle or Body Aches"
-                />
-              </Box>
-              <Box sx={style.checkBox}>
-                <FormControlLabel
-                  control={
-                    <Checkbox name="checks" onChange={userInput("symptoms")} />
-                  }
-                  value="Shortness of Breath"
-                  label="Shortness of Breath"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox name="checks" onChange={userInput("symptoms")} />
-                  }
-                  label="Headache"
-                  value="Headache"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox name="checks" onChange={userInput("symptoms")} />
-                  }
-                  value="Sore Throat"
-                  label="Sore Throat"
+                  value="Hypertension"
+                  label="Hypertension"
                 />
                 <FormControlLabel
                   control={
