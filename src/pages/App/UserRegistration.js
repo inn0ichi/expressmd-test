@@ -48,6 +48,7 @@ function UserRegistration() {
         setPayload({ ...payload, [prop]: e.target.value });
     };
     const completeProfile = (e) => {
+        console.log("hello1");
         if (
             !payload.fullname ||
             !payload.gender ||
@@ -61,6 +62,7 @@ function UserRegistration() {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
                 .then((userCredential) => {
                     // Signed in 
+                    console.log("hello1");
                     var user = userCredential.user;
                     localStorage.setItem("uid", user.uid);
                     localStorage.setItem("email", user.email);
@@ -68,7 +70,7 @@ function UserRegistration() {
                         .doc(payload.uid)
                         .set({
                             fullname: payload.fullname,
-                            email: payload.email,
+                            email: location.state.email,
                             gender: payload.gender,
                             uid: payload.uid,
                             phoneNumber: payload.phoneNumber,
@@ -140,7 +142,7 @@ function UserRegistration() {
                         <img className='usrImg' alt='profileImg' src={localStorage.getItem("photoURL")} />
                     </Box> */}
                     <FormGroup>
-                        <FormControl  sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        <FormControl sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }} >
                                 <IconButton color="primary" aria-label="upload picture">
                                     <Avatar src={file} sx={{ width: 128, height: 128 }} />
