@@ -141,10 +141,10 @@ function UserRegistration() {
                         <img className='usrImg' alt='profileImg' src={localStorage.getItem("photoURL")} />
                     </Box> */}
                     <FormGroup>
-                        <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        <FormControl  sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }} >
                                 <IconButton color="primary" aria-label="upload picture">
-                                    <Box component="img" src={file} sx={{ width: 128, height: 128 }} />
+                                    <Avatar src={file} sx={{ width: 128, height: 128 }} />
                                 </IconButton>
                                 <Box sx={style.uploadBtn}>
                                     <input accept="image/*" id="icon-button-file" type="file" accept="image/x-png,image/gif,image/jpeg" onChange={handleChange} style={{ display: "none" }} />
