@@ -67,12 +67,12 @@ function UserRegistration() {
                     localStorage.setItem("uid", user.uid);
                     localStorage.setItem("email", location.state.email);
                     db.collection("users")
-                        .doc(user.uid)
+                        .doc(localStorage.getItem("uid"))
                         .set({
                             fullname: payload.fullname,
                             email: location.state.email,
                             gender: payload.gender,
-                            uid: payload.uid,
+                            uid: localStorage.getItem("uid"),
                             phoneNumber: payload.phoneNumber,
                             coins: 0,
                             location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
@@ -86,7 +86,7 @@ function UserRegistration() {
                                     setURL(url);
                                     db
                                         .collection("users")
-                                        .doc(location.state.email)
+                                        .doc(localStorage.getItem("uid"))
                                         .update({
                                             photoURL: url,
                                         })
