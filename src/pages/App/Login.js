@@ -50,6 +50,7 @@ function Login() {
   
         if (validator.isEmail(email)) {
             setEmailError(true)
+            e.preventDefault();
         }  else {
         setEmailError(false)
         e.preventDefault();
