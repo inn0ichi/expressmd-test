@@ -187,7 +187,6 @@ export default function App() {
         setisLoggedOut(true);
       } else {
         if (user.emailVerified) {
-          localStorage.setItem("uid", user.uid);
           setisLoggedOut(false);
           setverified(true);
           const userRef = db
