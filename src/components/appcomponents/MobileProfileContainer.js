@@ -30,7 +30,10 @@ function MobileProfileContainer() {
         profile: [],
     })
     const fetchList = async () => {
-        localStorage.setItem("uid", user.uid);
+        if (!localStorage.getItem("uid")) {
+            history.push("/login");
+        }
+        console.log(user.uid);
         const userRef = db.collection('users').doc(localStorage.getItem("uid"));
         let usrProfile = [];
         userRef.get().then(doc => {

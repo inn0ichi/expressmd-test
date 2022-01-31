@@ -107,13 +107,11 @@ function Login() {
         else {
             setFill(false)
             setValidate(false)//valid
-
-            signInWithEmailAndPassword(auth, payload.email, payload.password)
+            firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user);
-                    localStorage.setItem("uid", user.uid);
                     if (!user.emailVerified) {
                         signOut(auth)
                             .then(() => {
@@ -225,7 +223,7 @@ function Login() {
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
-                                error = { passwordError , fill}
+                                error={passwordError, fill}
                                 required
                                 id="filled-required"
                                 placeholder="Password"
