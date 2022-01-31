@@ -7,6 +7,7 @@ import {
   Rating,
 } from "@mui/material";
 import TopPhoto from "../assets/Drawkit-Vector-Illustration-Medical-01 1.png";
+import Ambulance from "../assets/ambulance.png";
 import React, { useEffect, useState, Suspense } from "react";
 import { useDispatch } from "react-redux";
 import { getTheme } from "../redux/actions/uiAction";
@@ -42,6 +43,13 @@ const style = {
     marginRight: "10px",
   },
 
+  topPhoto2: {
+    height: "65px",
+    width: "80px",
+    marginLeft: "10px",
+    marginRight: "10px",
+  },
+
   topContainer: {
     display: "flex",
     justifyContent: "center",
@@ -57,6 +65,15 @@ const style = {
     width: "400px",
     height: "170px",
     backgroundColor: "#16C2D5",
+  },
+
+  paperContainer2: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "400px",
+    height: "110px",
+    backgroundColor: "#ed3949",
   },
 
   wrapper: {
@@ -81,9 +98,9 @@ const style = {
     alignItems: "center",
     padding: "10px",
     minHeight: "180px",
-    marginBottom : "10px",
-    marginTop : "10px",
-    marginLeft : "5px"
+    marginBottom: "10px",
+    marginTop: "10px",
+    marginLeft: "5px"
   },
 
   item: {
@@ -114,7 +131,7 @@ const style = {
     padding: "20px",
     borderColor: "#7EB6BC",
     borderWidth: "2px",
-    minWidth : "250px"
+    minWidth: "250px"
   },
   docName: {
     fontSize: "14px",
@@ -126,12 +143,12 @@ const style = {
     alignItems: "center",
     justifyContent: "center"
   },
-  btn : {
-    display : "flex",
-    width : "250px",
-    alignItems : "center",
-    justifyContent : "center",
-    textAlign : "center"
+  btn: {
+    display: "flex",
+    width: "250px",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center"
   }
 };
 
@@ -151,6 +168,7 @@ export default function App() {
   const { t, i18n } = useTranslation();
 
   const [isEmpty, setisEmpty] = useState(false);
+  const [isLoggedOut, setisLoggedOut] = useState(true);
   const history = useHistory();
   const db = firebase.firestore();
   const [fetchAppointments, setfetchAppointments] = useState({
@@ -167,9 +185,10 @@ export default function App() {
     let isSubscribed = true;
     getAuth().onAuthStateChanged(function (user) {
       if (!user) {
-        setisEmpty(true);
+        setisLoggedOut(true);
       } else {
         if (user.emailVerified) {
+          setisLoggedOut(false);
           setverified(true);
           const userRef = db
             .collection("users")
@@ -297,18 +316,26 @@ export default function App() {
             <Box
               component="img"
               src={TopPhoto}
-              alt=""
+              alt="top photo"
               sx={style.topPhoto}
             ></Box>
           </Paper>
         </Box>
 
-        <Box className="hospitalNumBox">
-          <Button variant="contained" onClick={() => history.push("/contacts")}>
-            Hospital Hotlines
-          </Button>
+        <Box sx={style.topContainer}>
+          <Paper sx={style.paperContainer2} elevation={5} onClick={() => history.push("/contacts")}>
+            <Button disabled sx={style.requestBtn} variant="outlined">
+              <Typography sx={style.textBtn}>Emergency Hotlines</Typography>
+            </Button>
+            <Box
+              component="img"
+              src={Ambulance}
+              alt="ambulance logo"
+              sx={style.topPhoto2}
+            ></Box>
+          </Paper>
         </Box>
-
+        
         <Box className="schedBox">
           <Container>
             <Paper elevation={3} className="schedPaper">
@@ -316,46 +343,79 @@ export default function App() {
                 {t("scheduled_appointment")}
               </Typography>
               <Box className="schedDetails">
-                {isEmpty ? (
-                  <Box>
-                    <Typography className="schedText" variant="subtitle2">
-                      {t("no_appointment")}
-                    </Typography>
-                    <Button sx = {style.btn}
-                      variant="contained"
-                      onClick={() => history.push("/request")}
-                    >
-                      Request Appointment
-                    </Button>
-                  </Box>
-                ) : (
-                  fetchAppointments.appointments.map((setappointment) => {
-                    let setDate = setappointment.datetime
-                      .toDate()
-                      .toLocaleDateString();
-                    let setTime = setappointment.datetime
-                      .toDate()
-                      .toLocaleTimeString();
-                    return (
-                      <Link
-                        to={`/r/${setappointment.userID}/view`}
-                        key={setappointment.globalID}
-                      >
-                        <Paper variant="outlined" sx={style.appointmentSched}>
-                          <Typography>
-                            {t("date")}: {setDate}
+                {(() => {
+                  switch (isLoggedOut) {
+                    case true:
+                      return (
+                        <Box>
+                          <Typography className="schedText" variant="subtitle2">
+                            Please Login to view you appointments.
                           </Typography>
-                          <Typography>
-                            {t("time")}: {setTime}
-                          </Typography>
-                          <Typography variant="subtitle2">
-                            Status: {setappointment.status}
-                          </Typography>
-                        </Paper>
-                      </Link>
-                    );
-                  })
-                )}
+                          <Button sx={style.btn}
+                            variant="contained"
+                            onClick={() => history.push("/login")}
+                          >
+                            Login
+                          </Button>
+                        </Box>
+                      );
+                    case false:
+                      return (
+                        <Box>
+                          {(() => {
+                            switch (isEmpty) {
+                              case true:
+                                return (
+                                  <Box>
+                                    <Typography className="schedText" variant="subtitle2">
+                                      {t("no_appointment")}
+                                    </Typography>
+                                    <Button sx={style.btn}
+                                      variant="contained"
+                                      onClick={() => history.push("/request")}
+                                    >
+                                      Request Appointment
+                                    </Button>
+                                  </Box>
+                                );
+                              case false:
+                                fetchAppointments.appointments.map((setappointment) => {
+                                  let setDate = setappointment.datetime
+                                    .toDate()
+                                    .toLocaleDateString();
+                                  let setTime = setappointment.datetime
+                                    .toDate()
+                                    .toLocaleTimeString();
+                                  return (
+                                    <Link
+                                      to={`/r/${setappointment.userID}/view`}
+                                      key={setappointment.globalID}
+                                    >
+                                      <Paper variant="outlined" sx={style.appointmentSched}>
+                                        <Typography>
+                                          {t("date")}: {setDate}
+                                        </Typography>
+                                        <Typography>
+                                          {t("time")}: {setTime}
+                                        </Typography>
+                                        <Typography variant="subtitle2">
+                                          Status: {setappointment.status}
+                                        </Typography>
+                                      </Paper>
+                                    </Link>
+                                  );
+                                })
+                              default:
+                                return null;
+                            }
+                          })()}
+                        </Box>
+                      )
+                    default:
+                      return null;
+                  }
+                })()}
+
               </Box>
             </Paper>
           </Container>
@@ -370,7 +430,7 @@ export default function App() {
               <Link to={`p/${data.uid}`} key={data.uid}>
 
                 <Box>
-                  <Paper sx={style.categoryPaper} elevation = {3}>
+                  <Paper sx={style.categoryPaper} elevation={3}>
                     <Box sx={style.itemCon}>
                       <img src={data.photoURL} alt={data.firstname} width="50px" height="50px" />
                       <Typography sx={style.docName}>Dr. {data.firstname + " " + data.lastname}</Typography>
