@@ -1,4 +1,4 @@
-import { Box, Container, TextField, Button, FormGroup, FormControl, Link , FormHelperText, } from '@mui/material'
+import { Box, Container, TextField, Button, FormGroup, FormControl, Link, FormHelperText, } from '@mui/material'
 import firebase from '../../config/firebase';
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter } from "react-router-dom";
@@ -49,26 +49,26 @@ function Login() {
         var email = e.target.value
         if (validator.isEmail(email)) {
             setEmailError(true)
-            
-           
-          
-        }  else {
-        setEmailError(false)
-        setAccountError("")
-        
-    }
-  
-        
-   
+
+
+
+        } else {
+            setEmailError(false)
+            setAccountError("")
+
+        }
+
+
+
     };
     const userInputPassword = (prop) => (e) => {
         setPayload({ ...payload, [prop]: e.target.value });
     };
 
-    
+
 
     const [passwordError, setpasswordError] = useState('');
-    const [accountError , setAccountError] = useState ('');
+    const [accountError, setAccountError] = useState('');
     const [validate, setValidate] = useState(false);
     const [fill, setFill] = useState('');
     const login = (e) => {
@@ -80,38 +80,40 @@ function Login() {
             !payload.email && !payload.password
         ) {
             setFill(true)
-            
-            
-            
-        } 
 
-        
+
+
+        }
+
+
 
         else if (
             payload.email && payload.password
         ) {
             setFill(false)
-            
-            
-            
-            
-        } 
 
-       if (!emailError)//invalid
-       {
-           setValidate(true)
-       }
 
-       
-        
+
+
+        }
+
+        if (!emailError)//invalid
+        {
+            setValidate(true)
+        }
+
+
+
         else {
             setFill(false)
             setValidate(false)//valid
-            
+
             signInWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
+                    console.log(user);
+                    localStorage.setItem("uid", user.uid);
                     if (!user.emailVerified) {
                         signOut(auth)
                             .then(() => {
@@ -131,18 +133,17 @@ function Login() {
                     // ...
                 })
                 .catch((error) => {
-                    if (error.code == "auth/wrong-password")
-                    {
+                    if (error.code == "auth/wrong-password") {
                         setpasswordError(true)
                     }
 
                     else if (!error.code == "auth/wrong-password") {
                         setpasswordError(false)
                     }
-                        
-                    if (error.code == "auth/user-not-found")
-                        {
-                        setAccountError(true)}
+
+                    if (error.code == "auth/user-not-found") {
+                        setAccountError(true)
+                    }
                     else {
                         setAccountError(false)
                     }
@@ -166,8 +167,8 @@ function Login() {
 
     }
 
-    
- 
+
+
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -184,7 +185,7 @@ function Login() {
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "50px" }} >
                             <TextField
-                                error = {fill,validate}
+                                error={fill, validate}
                                 required
                                 id="filled-required"
                                 placeholder="E-mail"
@@ -193,38 +194,38 @@ function Login() {
                                 autoComplete="off"
                                 InputProps={{
                                     startAdornment: (
-                                <InputAdornment position="start">
-                                <EmailIcon />
-                                </InputAdornment>
-                                ),
+                                        <InputAdornment position="start">
+                                            <EmailIcon />
+                                        </InputAdornment>
+                                    ),
 
-                                endAdornment : (
-                                    <InputAdornment position="end">
-                                     
-                                        {emailError ? <CheckCircle/> :  <CancelIcon /> }
-                                      
-                                    </InputAdornment>
-                                  )
+                                    endAdornment: (
+                                        <InputAdornment position="end">
 
-                                
+                                            {emailError ? <CheckCircle /> : <CancelIcon />}
+
+                                        </InputAdornment>
+                                    )
+
+
 
                                 }}
 
-                                
+
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInputEmail("email")}
                                 autoComplete="off"
                             ></TextField>
-                             <FormHelperText sx={style.textHelp}>
-                               {validate ? "Please enter valid a email" : ""}
-                               {accountError ? "Account does not exist" : ""}
+                            <FormHelperText sx={style.textHelp}>
+                                {validate ? "Please enter valid a email" : ""}
+                                {accountError ? "Account does not exist" : ""}
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
-                                error = {fill , passwordError}
+                                error={fill, passwordError}
                                 required
                                 id="filled-required"
                                 placeholder="Password"
@@ -232,22 +233,22 @@ function Login() {
                                 type={showPassword ? "text" : "password"}
                                 InputProps={{
                                     startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LockIcon />
-                                      </InputAdornment>
+                                        <InputAdornment position="start">
+                                            <LockIcon />
+                                        </InputAdornment>
                                     ),
-                                    endAdornment : (
-                                      <InputAdornment position="end">
-                                        <IconButton
-                                          aria-label="toggle password visibility"
-                                          onClick={handleClickShowPassword}
-                                          edge="end"
-                                        >
-                                          {showPassword ? <Visibility /> :  <VisibilityOff />}
-                                        </IconButton>
-                                      </InputAdornment>
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton>
+                                        </InputAdornment>
                                     )
-                                  }}
+                                }}
                                 sx={style.textInput}
                                 InputLabelProps={{
                                     style: { color: 'black' },
@@ -255,8 +256,8 @@ function Login() {
                                 onChange={userInputPassword("password")}
                             />
                             <FormHelperText sx={style.textHelp}>
-                               {fill ? "Please enter password" : ""}
-                               {passwordError ?  "Wrong password " : ""}
+                                {fill ? "Please enter password" : ""}
+                                {passwordError ? "Wrong password " : ""}
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, mt: 5 }}>

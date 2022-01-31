@@ -30,6 +30,7 @@ function MobileProfileContainer() {
         profile: [],
     })
     const fetchList = async () => {
+        localStorage.setItem("uid", user.uid);
         const userRef = db.collection('users').doc(localStorage.getItem("uid"));
         let usrProfile = [];
         userRef.get().then(doc => {
@@ -76,30 +77,30 @@ function MobileProfileContainer() {
 
 
     const style = {
-        userProf : {
-            height : "150px",
-            width : "150px",
-            borderRadius : "180px",
-            marginBottom : "20px"
+        userProf: {
+            height: "150px",
+            width: "150px",
+            borderRadius: "180px",
+            marginBottom: "20px"
         },
         coinLogo: {
             width: "30px",
             height: "30px"
-          },
-          coinContainer: {
+        },
+        coinContainer: {
             display: "flex",
             flexDirection: "row",
             justifycontent: "center",
-            alignItems : "center",
-            marginBottom : "10px"
-            
-          },
-          coinLabel: {
+            alignItems: "center",
+            marginBottom: "10px"
+
+        },
+        coinLabel: {
             display: "flex",
             fontSize: "18px",
             alignItems: "center",
             marginLeft: "5px"
-          },
+        },
     }
 
 
@@ -111,11 +112,11 @@ function MobileProfileContainer() {
                     return (
                         <Box key={userProfile.uid}>
                             <Box color='primary' className='imgBox' key={userProfile.uid}>
-                                <Box component = "img" alt='user image' src={userProfile.photoURL} sx = {style.userProf} />
+                                <Box component="img" alt='user image' src={userProfile.photoURL} sx={style.userProf} />
                                 <Typography variant="h6">{userProfile.fullname}</Typography>
-                                <Box sx = {style.coinContainer}>
-                                <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
-                                <Typography sx = {style.coinLabel} variant="subtitle1">{userProfile.coins}</Typography>
+                                <Box sx={style.coinContainer}>
+                                    <Box component="img" src={Coin} alt="coinLogo" sx={style.coinLogo}></Box>
+                                    <Typography sx={style.coinLabel} variant="subtitle1">{userProfile.coins}</Typography>
                                 </Box>
                                 <Button variant='contained' onClick={() => history.push("/editprofile")}>Edit Profile</Button>
                             </Box>
