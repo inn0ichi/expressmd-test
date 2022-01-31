@@ -180,34 +180,45 @@ export default function App() {
     topdoc: [],
   });
 
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      var uid = user.uid;
+      localStorage.setItem("uid", uid);
+      setisLoggedOut(false);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      setisLoggedOut(true);
+    }
+  });
+
   useEffect(() => {
     let isSubscribed = true;
     getAuth().onAuthStateChanged(function (user) {
       if (!user) {
         setisLoggedOut(true);
       } else {
-        if (user.emailVerified) {
-          setisLoggedOut(false);
-          setverified(true);
-          const userRef = db
-            .collection("users")
-            .doc(localStorage.getItem("uid"))
-            .collection("requests")
-            .doc(localStorage.getItem("uid"));
-          userRef.onSnapshot((doc) => {
-            if (doc.exists) {
-              setisEmpty(false);
-              let getAppointment = [];
-              userRef.get().then((doc) => {
-                getAppointment.push(doc.data());
-                setfetchAppointments({ appointments: getAppointment });
-              });
-            } else {
-              // doc.data() will be undefined in this case
-              setisEmpty(true);
-            }
-          });
-        }
+        const userRef = db
+          .collection("users")
+          .doc(localStorage.getItem("uid"))
+          .collection("requests")
+          .doc(localStorage.getItem("uid"));
+        userRef.onSnapshot((doc) => {
+          if (doc.exists) {
+            setisEmpty(false);
+            let getAppointment = [];
+            userRef.get().then((doc) => {
+              getAppointment.push(doc.data());
+              setfetchAppointments({ appointments: getAppointment });
+            });
+          } else {
+            // doc.data() will be undefined in this case
+            setisEmpty(true);
+          }
+        });
       }
     });
     return () => {
