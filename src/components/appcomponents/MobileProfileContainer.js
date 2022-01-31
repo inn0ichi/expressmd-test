@@ -40,7 +40,7 @@ function MobileProfileContainer() {
     }
     useEffect(() => {
         fetchList();
-    }, []);
+    }, [userProfile]);
 
     function logout() {
         signOut(auth)
