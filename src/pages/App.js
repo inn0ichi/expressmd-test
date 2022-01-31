@@ -201,26 +201,24 @@ export default function App() {
       if (!user) {
         setisLoggedOut(true);
       } else {
-        if (user.emailVerified) {
-          const userRef = db
-            .collection("users")
-            .doc(localStorage.getItem("uid"))
-            .collection("requests")
-            .doc(localStorage.getItem("uid"));
-          userRef.onSnapshot((doc) => {
-            if (doc.exists) {
-              setisEmpty(false);
-              let getAppointment = [];
-              userRef.get().then((doc) => {
-                getAppointment.push(doc.data());
-                setfetchAppointments({ appointments: getAppointment });
-              });
-            } else {
-              // doc.data() will be undefined in this case
-              setisEmpty(true);
-            }
-          });
-        }
+        const userRef = db
+          .collection("users")
+          .doc(localStorage.getItem("uid"))
+          .collection("requests")
+          .doc(localStorage.getItem("uid"));
+        userRef.onSnapshot((doc) => {
+          if (doc.exists) {
+            setisEmpty(false);
+            let getAppointment = [];
+            userRef.get().then((doc) => {
+              getAppointment.push(doc.data());
+              setfetchAppointments({ appointments: getAppointment });
+            });
+          } else {
+            // doc.data() will be undefined in this case
+            setisEmpty(true);
+          }
+        });
       }
     });
     return () => {
