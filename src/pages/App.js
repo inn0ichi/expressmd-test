@@ -157,7 +157,6 @@ var database = firebase.database();
 
 export default function App() {
   const dispatch = useDispatch();
-  console.log(user.currentUser);
   const [verified, setverified] = useState(false);
 
   useEffect(() => {
@@ -200,7 +199,6 @@ export default function App() {
               setisEmpty(false);
               let getAppointment = [];
               userRef.get().then((doc) => {
-                console.log(doc.data());
                 getAppointment.push(doc.data());
                 setfetchAppointments({ appointments: getAppointment });
               });
