@@ -29,9 +29,23 @@ function MobileProfileContainer() {
     const [userProfile, setuserProfile] = useState({
         profile: [],
     })
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            var uid = user.uid;
+            localStorage.setItem("uid", uid);
+            // ...
+        } else {
+            // User is signed out
+            // ...
+            history.push("/login");
+        }
+    });
+
     const fetchList = async () => {
-        console.log(user.uid);
-        const userRef = db.collection('users').doc(user.uid);
+        const userRef = db.collection('users').doc(localStorage.getItem("uid"));
         let usrProfile = [];
         userRef.get().then(doc => {
             usrProfile.push(doc.data());
@@ -47,7 +61,7 @@ function MobileProfileContainer() {
             .then(() => {
                 localStorage.removeItem("uid");
                 localStorage.removeItem("email");
-                history.push("/");
+                window.location.replace("/");
             })
             .catch((error) => {
                 // An error happened.
@@ -55,9 +69,8 @@ function MobileProfileContainer() {
             });
     };
 
-    useEffect(() => {
-        let isSubscribed = true;
-        getAuth().onAuthStateChanged(function (user) {
+
+    /*     getAuth().onAuthStateChanged(function (user) {
             if (!user.emailVerified) {
                 signOut(auth)
                     .then(() => {
@@ -69,13 +82,9 @@ function MobileProfileContainer() {
                         // An error happened.
                         alert(error);
                     });
-
             }
-        });
-        return () => {
-            isSubscribed = false;
-        };
-    }, []);
+        }); */
+
 
 
     const style = {

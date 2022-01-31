@@ -141,6 +141,8 @@ export default function Request() {
     };
   }, []);
 
+  const auth = getAuth();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -189,7 +191,10 @@ export default function Request() {
     if (!payload.feel) {
       alert("Please enter the required fields!");
       console.log(payload);
-    } else {
+    } else if (!auth.currentUser.emailVerified) {
+      alert("You have to be verified to be able to post.");
+    }
+    else {
       var userRef = db
         .collection("users")
         .doc(localStorage.getItem("uid"))
