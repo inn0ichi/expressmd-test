@@ -82,6 +82,18 @@ function Login() {
             setFill(true)
             
             
+            
+        } 
+
+        else if (
+            payload.email ||
+            payload.password
+        ) {
+            setFill(false)
+            
+            
+            
+            
         } 
 
        if (!emailError)//invalid
