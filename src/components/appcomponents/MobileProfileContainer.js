@@ -49,6 +49,7 @@ function MobileProfileContainer() {
         signOut(auth)
             .then(() => {
                 localStorage.removeItem("uid");
+                localStorage.removeItem("email");
                 history.push("/");
             })
             .catch((error) => {
@@ -64,6 +65,7 @@ function MobileProfileContainer() {
                 signOut(auth)
                     .then(() => {
                         localStorage.removeItem("uid");
+                        localStorage.removeItem("email");
                         history.push(`/success/${"unverified"}`);
                     })
                     .catch((error) => {
