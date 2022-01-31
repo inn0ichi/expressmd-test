@@ -225,11 +225,7 @@ function Login() {
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
-<<<<<<< Updated upstream
-                                error={fill, passwordError}
-=======
                                 error = { passwordError , fill}
->>>>>>> Stashed changes
                                 required
                                 id="filled-required"
                                 placeholder="Password"
