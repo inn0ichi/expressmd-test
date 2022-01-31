@@ -65,7 +65,7 @@ export default function ViewArchive() {
 
     const fetchData = async () => {
         let isMounted = true
-        const docRef = await db.collection("users").doc(localStorage.getItem("uid")).collection("archive").doc(id);
+        const docRef = db.collection("users").doc(localStorage.getItem("uid")).collection("archive").doc(id);
         let rawData = [];
         docRef.get().then((doc) => {
             rawData.push(doc.data());
@@ -76,7 +76,7 @@ export default function ViewArchive() {
     };
     const fetchDoc = async () => {
         let isMounted = true
-        const docRef = await db.collection("doctors").doc(localStorage.getItem("docID"));
+        const docRef = db.collection("doctors").doc(localStorage.getItem("docID"));
         let rawData = [];
         docRef.get().then((doc) => {
             rawData.push(doc.data());
@@ -191,6 +191,8 @@ export default function ViewArchive() {
                         review: payload.review,
                         rating: rating,
                         fullname: data.userFullName,
+                        userDocID: data.documentId,
+                        userID: data.userID,
                     })
                     .then((docReference) => {
                         docRef
@@ -199,9 +201,12 @@ export default function ViewArchive() {
                                 review: payload.review,
                                 rating: rating,
                                 fullname: data.userFullName,
+                                userDocID: data.documentId,
+                                userID: data.userID,
                             })
                             .then((docRef) => {
                                 docRef = db.collection("doctors").doc(data.doctorId).collection("usrrating").doc(docRef.id);
+                                localStorage.setItem("reviewID", docRef.id);
                                 docRef
                                     .update({
                                         documentId: docRef.id,
@@ -222,7 +227,18 @@ export default function ViewArchive() {
                                                     rating: roundedrate,
                                                 })
                                                 .then((docRef) => {
-                                                    history.push(`/success/${"rating"}`);
+                                                    db.collection("doctors").doc(data.doctorId).collection("archive").doc(data.documentId)
+                                                        .set({
+                                                            rated: true,
+                                                            reviewID: localStorage.getItem("reviewID"),
+                                                        })
+                                                        .then((docRef) => {
+                                                            history.push(`/success/${"rating"}`);
+                                                        })
+                                                        .catch((error) => {
+                                                            console.log(error);
+                                                            history.push("/sorry");
+                                                        });
                                                 })
                                                 .catch((error) => {
                                                     console.log(error);
@@ -274,7 +290,7 @@ export default function ViewArchive() {
                                 </Box>
                             </Box>
                             <Box>
-                                <Typography>Doctors Notes</Typography>
+                                <Typography>Doctor's Notes</Typography>
                                 <TextField readOnly value={data.notes} />
                             </Box>
                             {(() => {
