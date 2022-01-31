@@ -61,7 +61,7 @@ function MobileProfileContainer() {
             .then(() => {
                 localStorage.removeItem("uid");
                 localStorage.removeItem("email");
-                history.push("/");
+                window.location.replace("/");
             })
             .catch((error) => {
                 // An error happened.
@@ -69,9 +69,8 @@ function MobileProfileContainer() {
             });
     };
 
-    useEffect(() => {
-        let isSubscribed = true;
-        getAuth().onAuthStateChanged(function (user) {
+
+    /*     getAuth().onAuthStateChanged(function (user) {
             if (!user.emailVerified) {
                 signOut(auth)
                     .then(() => {
@@ -83,13 +82,9 @@ function MobileProfileContainer() {
                         // An error happened.
                         alert(error);
                     });
-
             }
-        });
-        return () => {
-            isSubscribed = false;
-        };
-    }, []);
+        }); */
+
 
 
     const style = {

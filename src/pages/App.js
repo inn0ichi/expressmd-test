@@ -186,6 +186,7 @@ export default function App() {
       // https://firebase.google.com/docs/reference/js/firebase.User
       var uid = user.uid;
       localStorage.setItem("uid", uid);
+      setisLoggedOut(false);
       // ...
     } else {
       // User is signed out
@@ -201,8 +202,6 @@ export default function App() {
         setisLoggedOut(true);
       } else {
         if (user.emailVerified) {
-          setisLoggedOut(false);
-          setverified(true);
           const userRef = db
             .collection("users")
             .doc(localStorage.getItem("uid"))
