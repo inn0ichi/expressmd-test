@@ -49,11 +49,13 @@ function Login() {
         var email = e.target.value
         if (validator.isEmail(email)) {
             setEmailError(true)
+            
            
           
         }  else {
         setEmailError(false)
         setAccountError("")
+        
     }
   
         
@@ -66,15 +68,33 @@ function Login() {
     
 
     const [passwordError, setpasswordError] = useState('');
-    const [accountError , setAccountError] = useState (false);
+    const [accountError , setAccountError] = useState ('');
+    const [validate, setValidate] = useState(true);
+    const [fill, setFill] = useState('');
     const login = (e) => {
         console.log(payload)
+        console.log(validate)
+        console.log(fill)
         if (
             !payload.email ||
             !payload.password
         ) {
-            alert("Please fill out all of the fields");
-        } else {
+            setFill(true)
+            
+            
+        } 
+
+       if (!emailError)//invalid
+       {
+           setValidate(false)
+       }
+
+       
+        
+        else {
+            setFill(false)
+            setValidate(true)//valid
+            
             signInWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
                     // Signed in 
@@ -101,7 +121,11 @@ function Login() {
                     if (error.code == "auth/wrong-password")
                         setpasswordError('Wrong Password')
                     if (error.code == "auth/user-not-found")
-                        setAccountError(true)
+                        {
+                        setAccountError(true)}
+                    else {
+                        setAccountError(false)
+                    }
                 });
 
         }
@@ -174,7 +198,7 @@ function Login() {
                                 autoComplete="off"
                             ></TextField>
                              <FormHelperText sx={style.textHelp}>
-                               {emailError ? "" : "please Enter Valid email"}
+                               {validate ? "" : "Please enter valid a email"}
                                {accountError ? "Account does not exist" : ""}
                             </FormHelperText>
                         </FormControl>
@@ -210,6 +234,7 @@ function Login() {
                                 onChange={userInputPassword("password")}
                             />
                             <FormHelperText sx={style.textHelp}>
+                               {fill ? "Please fill all fields" : ""}
                                {passwordError}
                             </FormHelperText>
                         </FormControl>
