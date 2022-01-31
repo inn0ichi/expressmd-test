@@ -200,6 +200,7 @@ export default function App() {
               setisEmpty(false);
               let getAppointment = [];
               userRef.get().then((doc) => {
+                console.log(doc.data());
                 getAppointment.push(doc.data());
                 setfetchAppointments({ appointments: getAppointment });
               });
@@ -335,7 +336,7 @@ export default function App() {
             ></Box>
           </Paper>
         </Box>
-        
+
         <Box className="schedBox">
           <Container>
             <Paper elevation={3} className="schedPaper">
@@ -379,32 +380,39 @@ export default function App() {
                                   </Box>
                                 );
                               case false:
-                                fetchAppointments.appointments.map((setappointment) => {
-                                  let setDate = setappointment.datetime
-                                    .toDate()
-                                    .toLocaleDateString();
-                                  let setTime = setappointment.datetime
-                                    .toDate()
-                                    .toLocaleTimeString();
-                                  return (
-                                    <Link
-                                      to={`/r/${setappointment.userID}/view`}
-                                      key={setappointment.globalID}
-                                    >
-                                      <Paper variant="outlined" sx={style.appointmentSched}>
-                                        <Typography>
-                                          {t("date")}: {setDate}
-                                        </Typography>
-                                        <Typography>
-                                          {t("time")}: {setTime}
-                                        </Typography>
-                                        <Typography variant="subtitle2">
-                                          Status: {setappointment.status}
-                                        </Typography>
-                                      </Paper>
-                                    </Link>
-                                  );
-                                })
+                                return (
+                                  <Box>
+                                    {
+                                      fetchAppointments.appointments.map((setappointment) => {
+                                        let setDate = setappointment.datetime
+                                          .toDate()
+                                          .toLocaleDateString();
+                                        let setTime = setappointment.datetime
+                                          .toDate()
+                                          .toLocaleTimeString();
+                                        return (
+                                          <Link
+                                            to={`/r/${setappointment.userID}/view`}
+                                            key={setappointment.globalID}
+                                          >
+                                            <Paper variant="outlined" sx={style.appointmentSched}>
+                                              <Typography>
+                                                {t("date")}: {setDate}
+                                              </Typography>
+                                              <Typography>
+                                                {t("time")}: {setTime}
+                                              </Typography>
+                                              <Typography variant="subtitle2">
+                                                Status: {setappointment.status}
+                                              </Typography>
+                                            </Paper>
+                                          </Link>
+                                        );
+                                      })
+                                    }
+                                  </Box>
+                                )
+
                               default:
                                 return null;
                             }
