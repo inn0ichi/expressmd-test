@@ -17,9 +17,14 @@ import { Link, useHistory } from "react-router-dom";
 import firebase from "../config/firebase";
 import { getAuth } from "firebase/auth";
 import { useTranslation } from "react-i18next";
-
+import Fab from '@mui/material/Fab';
 import BarLoader from "react-spinners/BarLoader";
 import { css } from "@emotion/react";
+import Icon from "@mui/material/Icon";
+import { loadCSS } from "fg-loadcss";
+import Badge from '@mui/material/Badge';
+import Modal from '@mui/material/Modal';
+
 
 const style = {
   requestBtn: {
@@ -149,13 +154,45 @@ const style = {
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center"
+  },
+  notifButton:{
+    position: 'fixed',
+    bottom: 70,
+    right: 16,
+  },
+  notifmodal:{
+    position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 330,
+  bgcolor: 'background.paper',
+ elevation: 5,
+  boxShadow: 24,
+  p: 4,
   }
 };
+
 
 const user = getAuth();
 var database = firebase.database();
 
 export default function App() {
+
+//notif
+
+const [open, setOpen] = React.useState(false);
+const [count, setCount] = useState(0); 
+function handleOpen(e) {
+  e.preventDefault();
+setCount(0);
+  setOpen(true);
+}
+const handleClose = () => setOpen(false);
+
+
+
+
   const dispatch = useDispatch();
   const [verified, setverified] = useState(false);
 
@@ -163,6 +200,22 @@ export default function App() {
     dispatch(getTheme());
     i18n.changeLanguage(localStorage.getItem("locale"));
   }, [dispatch]);
+
+//icons
+  useEffect(() => {
+    dispatch(getTheme());
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    const node = loadCSS(
+      "https://use.fontawesome.com/releases/v5.14.0/css/all.css",
+      // Inject before JSS
+      document.querySelector("#font-awesome-css") || document.head.firstChild
+    );
+    return () => {
+      node.parentNode.removeChild(node);
+    };
+  }, []);
 
   const { t, i18n } = useTranslation();
 
@@ -437,7 +490,7 @@ export default function App() {
             </Paper>
           </Container>
         </Box>
-
+     
         <Box sx={style.label}>
           <Typography variant="h6">Top Rated Doctors</Typography>
         </Box>
@@ -460,8 +513,57 @@ export default function App() {
               </Link>
             );
           })}
+          <Box sx={style.notifButton}>
+          <Badge badgeContent={count} color="success">
+        <Fab size="secondary" color="secondary" onClick={handleOpen}>
+        <Typography>
+        <Icon
+          baseClassName="fas"
+          className="fas fa-bell"
+          sx={{
+            fontSize: { xs: 30, md: 50 },
+            color: "white",
+            width: 300,
+            marginTop: 1,
+          }}
+        />
+      </Typography>
+      </Fab>
+      </Badge>
+      </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style.notifmodal}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Notifications
+          </Typography>
+          <Box className='transactionBox'>
+                {isEmpty ?
+                    <Typography variant="subtitle2">
+                        You have no Notifications.
+                    </Typography>
+                    :
+                                        <Box>
+                                            <Paper sx={style.paperCon} elevation="5">
+                                                
+                                            </Paper>
+                                        </Box>
+                                   
+                            
+                        
+                       
+                }
+            </Box>
+        </Box>
+      </Modal>
         </Box>
       </Container>
+      
     </Box>
   );
 }
