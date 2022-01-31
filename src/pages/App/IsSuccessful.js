@@ -141,7 +141,7 @@ export default function IsSuccessful() {
                   Verify your Email account
                 </Typography>
                 <Typography sx={style.sublabel}>
-                  Registration successful. Please check your email and visit the verification link. Thank You.
+                  Registration successful. Please check your email and visit the verification link. You have to verify your email before you are able to use out services. Thank You.
                 </Typography>
                 <Button
                   variant="filled"

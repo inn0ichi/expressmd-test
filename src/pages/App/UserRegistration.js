@@ -62,8 +62,9 @@ function UserRegistration() {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
                 .then((userCredential) => {
                     // Signed in 
-                    console.log("hello1");
+
                     var user = userCredential.user;
+                    user.sendEmailVerification();
                     localStorage.setItem("uid", user.uid);
                     localStorage.setItem("email", location.state.email);
                     db.collection("users")
@@ -91,10 +92,9 @@ function UserRegistration() {
                                             photoURL: url,
                                         })
                                         .then((doc) => {
-                                            sendEmailVerification(auth.currentUser)
-                                                .then(() => {
-                                                    history.push(`/success/${"verifyemail"}`);
-                                                });
+
+                                            history.push(`/success/${"verifyemail"}`);
+
                                         });
                                 });
                             })
@@ -188,9 +188,9 @@ function UserRegistration() {
                                 id="filled-required"
                                 label="Phone Number"
                                 variant="outlined"
-                                type = "tel"
-                                pattern = "[0-9]"
-                                inputProps={{maxLength : 12}}
+                                type="tel"
+                                pattern="[0-9]"
+                                inputProps={{ maxLength: 12 }}
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
