@@ -69,15 +69,15 @@ function Login() {
 
     const [passwordError, setpasswordError] = useState('');
     const [accountError , setAccountError] = useState ('');
-    const [validate, setValidate] = useState(true);
+    const [validate, setValidate] = useState(false);
     const [fill, setFill] = useState('');
     const login = (e) => {
         console.log(payload)
         console.log(validate)
         console.log(fill)
+        console.log(passwordError)
         if (
-            !payload.email ||
-            !payload.password
+            !payload.email && !payload.password
         ) {
             setFill(true)
             
@@ -85,9 +85,10 @@ function Login() {
             
         } 
 
+        
+
         else if (
-            payload.email ||
-            payload.password
+            payload.email && payload.password
         ) {
             setFill(false)
             
@@ -98,14 +99,14 @@ function Login() {
 
        if (!emailError)//invalid
        {
-           setValidate(false)
+           setValidate(true)
        }
 
        
         
         else {
             setFill(false)
-            setValidate(true)//valid
+            setValidate(false)//valid
             
             signInWithEmailAndPassword(auth, payload.email, payload.password)
                 .then((userCredential) => {
@@ -131,7 +132,14 @@ function Login() {
                 })
                 .catch((error) => {
                     if (error.code == "auth/wrong-password")
-                        setpasswordError('Wrong Password')
+                    {
+                        setpasswordError(true)
+                    }
+
+                    else if (!error.code == "auth/wrong-password") {
+                        setpasswordError(false)
+                    }
+                        
                     if (error.code == "auth/user-not-found")
                         {
                         setAccountError(true)}
@@ -176,7 +184,7 @@ function Login() {
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "50px" }} >
                             <TextField
-                                
+                                error = {fill,validate}
                                 required
                                 id="filled-required"
                                 placeholder="E-mail"
@@ -210,12 +218,13 @@ function Login() {
                                 autoComplete="off"
                             ></TextField>
                              <FormHelperText sx={style.textHelp}>
-                               {validate ? "" : "Please enter valid a email"}
+                               {validate ? "Please enter valid a email" : ""}
                                {accountError ? "Account does not exist" : ""}
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
                             <TextField
+                                error = {fill , passwordError}
                                 required
                                 id="filled-required"
                                 placeholder="Password"
@@ -246,8 +255,8 @@ function Login() {
                                 onChange={userInputPassword("password")}
                             />
                             <FormHelperText sx={style.textHelp}>
-                               {fill ? "Please fill all fields" : ""}
-                               {passwordError}
+                               {fill ? "Please enter password" : ""}
+                               {passwordError ?  "Wrong password " : ""}
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, mt: 5 }}>
