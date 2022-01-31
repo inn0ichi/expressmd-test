@@ -188,6 +188,8 @@ function UserRegistration() {
                                 id="filled-required"
                                 label="Phone Number"
                                 variant="outlined"
+                                type = "number"
+                                pattern = "[0-9]"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}

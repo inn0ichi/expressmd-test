@@ -44,24 +44,30 @@ function Login() {
         })
     }); */
     const [emailError, setEmailError] = useState("")
-    const userInput = (prop) => (e) => {
+    const userInputEmail = (prop) => (e) => {
         setPayload({ ...payload, [prop]: e.target.value });
         var email = e.target.value
   
         if (validator.isEmail(email)) {
             setEmailError(true)
-            e.preventDefault();
+            e.preventDefault()
         }  else {
         setEmailError(false)
-        e.preventDefault();
+        e.preventDefault()
         
     }
-    
+   
     };
+    const userInputPassword = (prop) => (e) => {
+        setPayload({ ...payload, [prop]: e.target.value });
+    };
+
+    
 
     const [passwordError, setpasswordError] = useState('');
     const [accountError , setAccountError] = useState ('');
     const login = (e) => {
+        console.log(payload)
         if (
             !payload.email ||
             !payload.password
@@ -94,7 +100,7 @@ function Login() {
                     if (error.code == "auth/wrong-password")
                         setpasswordError('Wrong Password')
                     if (error.code == "auth/user-not-found")
-                        setAccountError("Account does not exist")
+                        setAccountError(true)
                 });
 
         }
@@ -162,11 +168,12 @@ function Login() {
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
-                                onChange={userInput("email")}
+                                onChange={userInputEmail("email")}
                                 autoComplete="off"
                             ></TextField>
                              <FormHelperText sx={style.textHelp}>
-                               {accountError}
+                               {emailError ? "" : "please Enter Valid email"}
+                               {accountError ? "Account does not exist" : ""}
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0 }}>
@@ -198,7 +205,7 @@ function Login() {
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
-                                onChange={userInput("password")}
+                                onChange={userInputPassword("password")}
                             />
                             <FormHelperText sx={style.textHelp}>
                                {passwordError}
