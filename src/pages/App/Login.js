@@ -47,15 +47,16 @@ function Login() {
     const userInputEmail = (prop) => (e) => {
         setPayload({ ...payload, [prop]: e.target.value });
         var email = e.target.value
-  
         if (validator.isEmail(email)) {
             setEmailError(true)
-            e.preventDefault()
+           
+          
         }  else {
         setEmailError(false)
-        e.preventDefault()
-        
+        setAccountError("")
     }
+  
+        
    
     };
     const userInputPassword = (prop) => (e) => {
@@ -65,7 +66,7 @@ function Login() {
     
 
     const [passwordError, setpasswordError] = useState('');
-    const [accountError , setAccountError] = useState ('');
+    const [accountError , setAccountError] = useState (false);
     const login = (e) => {
         console.log(payload)
         if (
@@ -139,6 +140,7 @@ function Login() {
                     <FormGroup>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "50px" }} >
                             <TextField
+                                
                                 required
                                 id="filled-required"
                                 placeholder="E-mail"
