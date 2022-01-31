@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import TransactionHistory from '../appcomponents/TransactionHistory';
 import Settings from '../appcomponents/Settings';
 import EmergencyContact from './HospitalContact';
+import { useHistory } from "react-router-dom";
 
 
 const auth = getAuth();
@@ -50,12 +51,30 @@ function a11yProps(index) {
 
 export default function WebProfileContainer() {
 
+
+
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     const db = firebase.firestore();
+
+    const history = useHistory();
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            var uid = user.uid;
+            localStorage.setItem("uid", uid);
+            // ...
+        } else {
+            // User is signed out
+            // ...
+            history.push("/login");
+        }
+    });
     const [userProfile, setuserProfile] = useState({
         profile: [],
     })
