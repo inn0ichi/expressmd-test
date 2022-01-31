@@ -31,7 +31,7 @@ function MobileProfileContainer() {
     })
     const fetchList = async () => {
         console.log(user.uid);
-        const userRef = db.collection('users').doc(localStorage.getItem("uid"));
+        const userRef = db.collection('users').doc(user.uid);
         let usrProfile = [];
         userRef.get().then(doc => {
             usrProfile.push(doc.data());
