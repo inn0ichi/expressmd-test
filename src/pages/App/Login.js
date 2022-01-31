@@ -112,23 +112,9 @@ function Login() {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user);
-                    if (!user.emailVerified) {
-                        signOut(auth)
-                            .then(() => {
-                                localStorage.removeItem("uid");
-                                localStorage.removeItem("email");
-                                history.push(`/success/${"unverified"}`);
-                            })
-                            .catch((error) => {
-                                // An error happened.
-                                alert(error);
-                            });
-                    } else {
-                        localStorage.setItem("uid", user.uid);
-                        localStorage.setItem("email", user.email);
-                        history.push('/');
-                    }
-                    // ...
+                    localStorage.setItem("uid", user.uid);
+                    localStorage.setItem("email", user.email);
+                    history.push('/');
                 })
                 .catch((error) => {
                     if (error.code == "auth/wrong-password") {
