@@ -313,7 +313,7 @@ export default function App() {
 
   const FetchNotif = () => {
     const notifRef = firebase.database().ref('/users/' + localStorage.getItem("uid") + "/request/" + localStorage.getItem("uid") + '/status');
-    notifRef.once('value', (snapshot) => {
+    notifRef.on('value', (snapshot) => {
       if (snapshot.exists) {
         const data = snapshot.val();
         console.log(data);

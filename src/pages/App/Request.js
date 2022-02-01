@@ -203,7 +203,7 @@ export default function Request() {
         .then((doc) => {
           if (doc.exists) {
             alert(
-              "You can only request once. Please wait for your doctor to accept your request"
+              "You can only request once. Please wait for a doctor to bid your request and accept them."
             );
           } else {
             userProfile.profile.map((userProfile) => {
@@ -262,7 +262,13 @@ export default function Request() {
                           timestamp: new Date(),
                         }
                       ];
-                      index.saveObjects(records, { autoGenerateObjectIDIfNotExist: true }).then((response) => history.push(`/success/${"request"}`));
+                      index.saveObjects(records, { autoGenerateObjectIDIfNotExist: true }).then((response) => {
+                        firebase.database().ref('users/' + localStorage.getItem("uid") + '/request/' + localStorage.getItem("uid")).update({
+                          status: "Request Successful"
+                        }).then((doc6) => {
+                          history.push(`/success/${"request"}`)
+                        })
+                      });
                     })
                     .catch((error) => {
                       console.log(error);
