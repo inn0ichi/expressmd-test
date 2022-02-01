@@ -406,7 +406,7 @@ export default function Request() {
             value={specifiedDate}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
-            minDate={specifiedDate}
+            minDate={new Date()}
           />
         </LocalizationProvider>
       </Box>
