@@ -44,6 +44,7 @@ function UserRegistration() {
 
     const [file, setFile] = useState(null);
     const [url, setURL] = useState("");
+    const [field, setField] = useState("");
 
     function handleChange(e) {
         setFile(e.target.files[0]);
@@ -55,14 +56,15 @@ function UserRegistration() {
     const completeProfile = (e) => {
         console.log("hello1");
         if (
-            !payload.fullname ||
-            !payload.gender ||
-            !payload.phoneNumber ||
-            !payload.houseNum ||
-            !payload.municipality ||
+            !payload.fullname &&
+            !payload.gender &&
+            !payload.phoneNumber &&
+            !payload.houseNum &&
+            !payload.municipality &&
             !payload.barangay
         ) {
-            alert("Please fill out all of the fields");
+            
+            setField(true)
         } else {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
                 .then((userCredential) => {
@@ -286,7 +288,9 @@ function UserRegistration() {
                                 <MenuItem value={'Bustos'}>Bustos</MenuItem>
                                 <MenuItem value={'Baliuag'}>Baliuag</MenuItem>
                             </Select>
-                            <FormHelperText sx={style.textHelp}>*Required. Bustos and Baliuag only.</FormHelperText>
+                            <FormHelperText sx={style.textHelp}>
+                                {field ? "Please fill out all of the fields" : ""}
+                                </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
                             <Button onClick={() => completeProfile()} variant='outlined' disabled={!file}>Complete</Button>
