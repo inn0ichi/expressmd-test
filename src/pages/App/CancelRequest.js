@@ -35,64 +35,64 @@ const style = {
         flexDirection: "row",
         marginLeft: "30px",
         alignItems: "center",
-  
-      },
-      patientProf: {
+
+    },
+    patientProf: {
         width: "90px",
         height: "90px",
         borderRadius: "90px"
-      },
-      superInnerCon: {
+    },
+    superInnerCon: {
         marginLeft: "30px"
-      },
+    },
 
-      Label : {
-          fontSize : "24px"
-      },
+    Label: {
+        fontSize: "24px"
+    },
 
-      subLabel : {
-          fontSize : "18px"
-      },
+    subLabel: {
+        fontSize: "18px"
+    },
 
-      mainCon : {
-          marginLeft : "20px",
-          marginRight : "20px"
-      },
+    mainCon: {
+        marginLeft: "20px",
+        marginRight: "20px"
+    },
 
-      subLabelCon : {
-          display : "flex",
-          flexdirection : "column",
-          alignItems : "center",
-          marginTop : "20px"
-      },
+    subLabelCon: {
+        display: "flex",
+        flexdirection: "column",
+        alignItems: "center",
+        marginTop: "20px"
+    },
 
-      inputField: {
+    inputField: {
         display: "flex",
         marginLeft: "30px",
         marginRight: "30px",
         justifyContent: "center",
         marginTop: "10px",
-        
-      },
 
-      textField: {
+    },
+
+    textField: {
         width: "350px",
-      },
+    },
 
-      btnCon : {
+    btnCon: {
         display: "flex",
         justifyContent: "center",
-        alignItems : "center",
-        flexDirection : "column",
-        marginTop : "20px"
-      },
+        alignItems: "center",
+        flexDirection: "column",
+        marginTop: "20px"
+    },
 
 
-      btn : {
-          marginBottom : "10px",
-          width : "200px",
-          borderRadius : "10px"
-      }
+    btn: {
+        marginBottom: "10px",
+        width: "200px",
+        borderRadius: "10px"
+    }
 }
 
 export default function CancelRequest() {
@@ -143,7 +143,7 @@ export default function CancelRequest() {
                     .collection("requests")
                     .doc(data.userID);
                 var globalRef = db.collection("requests")
-                    .doc(data.globalID);
+                    .doc(data.userID);
                 userRef
                     .update({
                         reason: payload.reason,
@@ -156,7 +156,18 @@ export default function CancelRequest() {
                                 status: "Requested Cancellation",
                             })
                             .then((docRef) => {
-                                history.push(`/success/${"cancellation"}`);
+                                globalRef
+                                    .update({
+                                        reason: payload.reason,
+                                        status: "Requested Cancellation",
+                                    })
+                                    .then((docRef) => {
+                                        history.push(`/success/${"cancellation"}`);
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        history.push("/sorry");
+                                    });
                             })
                             .catch((error) => {
                                 console.log(error);
@@ -181,22 +192,22 @@ export default function CancelRequest() {
                     let setDate = data.datetime.toDate().toLocaleDateString();
                     let setTime = data.datetime.toDate().toLocaleTimeString();
                     return (
-                        <Box key={data.userID} sx = {style.mainCon}>
-                            <Typography sx = {style.Label}>Request Cancellation</Typography>
+                        <Box key={data.userID} sx={style.mainCon}>
+                            <Typography sx={style.Label}>Request Cancellation</Typography>
                             <Box sx={style.innerCon}>
                                 <Box>
-                                <Box component="img" alt="Image of Patient" sx={style.patientProf} src={data.photoURL}/>
+                                    <Box component="img" alt="Image of Patient" sx={style.patientProf} src={data.photoURL} />
                                 </Box>
                                 <Box sx={style.superInnerCon}>
-                                <Typography>Name: {data.userFullName}</Typography>
-                                <Typography>Date: {setDate}</Typography>
-                                <Typography>Time: {setTime}</Typography>
-                                <Typography>Location: {data.location}</Typography>
+                                    <Typography>Name: {data.userFullName}</Typography>
+                                    <Typography>Date: {setDate}</Typography>
+                                    <Typography>Time: {setTime}</Typography>
+                                    <Typography>Location: {data.location}</Typography>
                                 </Box>
                             </Box>
-                            <Box sx = {style.subLabelCon}>
-                                <Typography sx = {style.subLabel}>Reason for Cancellation </Typography>
-                                <Typography sx = {{color :"red" , marginLeft : "10px" , fontStyle : "Italic"}}>*Required</Typography>
+                            <Box sx={style.subLabelCon}>
+                                <Typography sx={style.subLabel}>Reason for Cancellation </Typography>
+                                <Typography sx={{ color: "red", marginLeft: "10px", fontStyle: "Italic" }}>*Required</Typography>
                             </Box>
                             <Box sx={style.inputField} >
                                 <TextField
@@ -210,9 +221,9 @@ export default function CancelRequest() {
                                 />
 
                             </Box>
-                            <Box sx = {style.btnCon}>
-                                <Button variant="contained" sx = {style.btn} onClick={() => submitForm()}>Continue</Button>
-                                <Button variant="contained" sx = {style.btn} style={{ backgroundColor: "#FF5956" }} onClick={() => history.goBack()}>Cancel</Button>
+                            <Box sx={style.btnCon}>
+                                <Button variant="contained" sx={style.btn} onClick={() => submitForm()}>Continue</Button>
+                                <Button variant="contained" sx={style.btn} style={{ backgroundColor: "#FF5956" }} onClick={() => history.goBack()}>Cancel</Button>
                             </Box>
                         </Box>
                     );

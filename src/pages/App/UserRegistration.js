@@ -92,9 +92,11 @@ function UserRegistration() {
                                             photoURL: url,
                                         })
                                         .then((doc) => {
-
-                                            history.push(`/success/${"verifyemail"}`);
-
+                                            firebase.database().ref('users/' + localStorage.getItem("uid")).set({
+                                                message: "Welcome To ExpressMD"
+                                            }).then((doc6) => {
+                                                history.push(`/success/${"verifyemail"}`);
+                                            })
                                         });
                                 });
                             })
