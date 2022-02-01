@@ -88,7 +88,7 @@ export default function TransactionHistory() {
                             let setDate = transactions.datetime.toDate().toLocaleDateString();
                             let setTime = transactions.datetime.toDate().toLocaleTimeString();
                             return (
-                                <ListItem sx={style.outerCon}>
+                                <ListItem sx={style.outerCon} key={transactions.documentId}>
                                     <Link to={`/a/${transactions.documentId}/view`}>
                                         <Box>
                                             <Paper sx={style.paperCon} elevation="5">

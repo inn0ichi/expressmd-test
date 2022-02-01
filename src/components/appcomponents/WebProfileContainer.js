@@ -91,8 +91,8 @@ export default function WebProfileContainer() {
                 {
                     userProfile && userProfile.profile.map((userProfile) => {
                         return (
-                            <Box className='profileBox'>
-                                <Box className='imgBox' key={userProfile.uid}>
+                            <Box className='profileBox' key={userProfile.uid}>
+                                <Box className='imgBox' >
                                     <img className='usrImg' alt='user image' src={userProfile.photoURL} />
                                     <Typography variant="subtitle1">{userProfile.fullname}</Typography>
                                     <Button variant='outlined'>Edit Profile</Button>

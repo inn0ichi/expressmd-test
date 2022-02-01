@@ -24,7 +24,10 @@ import Icon from "@mui/material/Icon";
 import { loadCSS } from "fg-loadcss";
 import Badge from '@mui/material/Badge';
 import Modal from '@mui/material/Modal';
-
+import ErrorIcon from '@mui/icons-material/Error';
+import addNotification from 'react-push-notification';
+import { ToastContainer, toast } from 'material-react-toastify';
+import 'material-react-toastify/dist/ReactToastify.css';
 
 const style = {
   requestBtn: {
@@ -155,21 +158,21 @@ const style = {
     justifyContent: "center",
     textAlign: "center"
   },
-  notifButton:{
+  notifButton: {
     position: 'fixed',
     bottom: 70,
     right: 16,
   },
-  notifmodal:{
+  notifmodal: {
     position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 330,
-  bgcolor: 'background.paper',
- elevation: 5,
-  boxShadow: 24,
-  p: 4,
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 330,
+    bgcolor: 'background.paper',
+    elevation: 5,
+    boxShadow: 24,
+    p: 4,
   }
 };
 
@@ -179,32 +182,25 @@ var database = firebase.database();
 
 export default function App() {
 
-//notif
+  //notif
 
-const [open, setOpen] = React.useState(false);
-const [count, setCount] = useState(0); 
-function handleOpen(e) {
-  e.preventDefault();
-setCount(0);
-  setOpen(true);
-}
-const handleClose = () => setOpen(false);
-
-
-
+  const [open, setOpen] = React.useState(false);
+  const [count, setCount] = useState(0);
+  function handleOpen(e) {
+    e.preventDefault();
+    setCount(0);
+    setOpen(true);
+  }
+  const handleClose = () => setOpen(false);
 
   const dispatch = useDispatch();
-  const [verified, setverified] = useState(false);
 
   useEffect(() => {
     dispatch(getTheme());
     i18n.changeLanguage(localStorage.getItem("locale"));
   }, [dispatch]);
 
-//icons
-  useEffect(() => {
-    dispatch(getTheme());
-  }, [dispatch]);
+  //icons
 
   React.useEffect(() => {
     const node = loadCSS(
@@ -223,11 +219,13 @@ const handleClose = () => setOpen(false);
   const [isLoggedOut, setisLoggedOut] = useState(true);
   const history = useHistory();
   const db = firebase.firestore();
+  const database = firebase.database();
   const [fetchAppointments, setfetchAppointments] = useState({
     appointments: [],
   });
 
   const [getAnnouncement, setgetAnnouncement] = useState("");
+  const [getNotif, setNotif] = useState("");
 
   const [fetchTopDoc, setfetchTopDoc] = useState({
     topdoc: [],
@@ -312,6 +310,22 @@ const handleClose = () => setOpen(false);
     });
   };
 
+
+  const FetchNotif = () => {
+    const notifRef = firebase.database().ref('/users/' + localStorage.getItem("uid") + "/request/" + localStorage.getItem("uid") + '/status');
+    notifRef.once('value', (snapshot) => {
+      if (snapshot.exists) {
+        const data = snapshot.val();
+        console.log(data);
+        setNotif(data);
+        const customId = data;
+        toast.info(data, {
+          toastId: customId
+        });
+      }
+    });
+  };
+
   const override = css`
     display: block;
     margin: 0 auto;
@@ -357,12 +371,13 @@ const handleClose = () => setOpen(false);
   };
 
   useEffect(() => {
-    /* fetchList(); */
+    FetchNotif();
     fetchTopRated();
   }, []);
 
   return (
     <Box className="base">
+      <ToastContainer />
       <Container>
         <Box className="tickerBox">
           <Paper>
@@ -490,7 +505,7 @@ const handleClose = () => setOpen(false);
             </Paper>
           </Container>
         </Box>
-     
+
         <Box sx={style.label}>
           <Typography variant="h6">Top Rated Doctors</Typography>
         </Box>
@@ -514,56 +529,45 @@ const handleClose = () => setOpen(false);
             );
           })}
           <Box sx={style.notifButton}>
-          <Badge badgeContent={count} color="success">
-        <Fab size="secondary" color="secondary" onClick={handleOpen}>
-        <Typography>
-        <Icon
-          baseClassName="fas"
-          className="fas fa-bell"
-          sx={{
-            fontSize: { xs: 30, md: 50 },
-            color: "white",
-            width: 300,
-            marginTop: 1,
-          }}
-        />
-      </Typography>
-      </Fab>
-      </Badge>
-      </Box>
+            <Badge badgeContent={count} color="success">
+              <Fab size="secondary" color="secondary" onClick={handleOpen}>
+                <Typography>
+                  <Icon
+                    baseClassName="fas"
+                    className="fas fa-bell"
+                    sx={{
+                      fontSize: { xs: 30, md: 50 },
+                      color: "white",
+                      width: 300,
+                      marginTop: 1,
+                    }}
+                  />
+                </Typography>
+              </Fab>
+            </Badge>
+          </Box>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style.notifmodal}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Notifications
-          </Typography>
-          <Box className='transactionBox'>
-                {isEmpty ?
-                    <Typography variant="subtitle2">
-                        You have no Notifications.
-                    </Typography>
-                    :
-                                        <Box>
-                                            <Paper sx={style.paperCon} elevation="5">
-                                                
-                                            </Paper>
-                                        </Box>
-                                   
-                            
-                        
-                       
-                }
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style.notifmodal}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Notifications
+              </Typography>
+              <Box className='transactionBox'>
+                <Paper sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                  <ErrorIcon />
+                  <Typography>{getNotif}</Typography>
+                </Paper>
+              </Box>
             </Box>
-        </Box>
-      </Modal>
+          </Modal>
         </Box>
       </Container>
-      
+
     </Box>
   );
 }

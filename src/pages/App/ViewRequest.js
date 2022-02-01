@@ -40,17 +40,20 @@ export default function ViewRequest() {
 
   const history = useHistory();
 
-  useEffect(() => {
-    let isSubscribed = true;
-    getAuth().onAuthStateChanged(function (user) {
-      if (!user) {
-        history.push("/login");
-      }
-    });
-    return () => {
-      isSubscribed = false;
-    };
-  }, []);
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      var uid = user.uid;
+      localStorage.setItem("uid", uid);
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      history.push("/login");
+    }
+  });
+
 
   const db = firebase.firestore();
   const [specifiedDate, setSpecifiedDate] = useState(new Date());
@@ -345,7 +348,7 @@ export default function ViewRequest() {
           let setDate = data.datetime.toDate().toLocaleDateString();
           let setTime = data.datetime.toDate().toLocaleTimeString();
           return (
-            <Box>
+            <Box key={data.userID}>
               <Box sx={{ paddingBottom: "10px" }}>
                 <Typography className="headerStyle">
                   <Icon
