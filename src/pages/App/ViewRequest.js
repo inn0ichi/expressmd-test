@@ -445,10 +445,6 @@ export default function ViewRequest() {
                                   fontSize: { xs: 40, md: 80 },
                                   width: 50,
                                   marginLeft: 2
-
-
-
-
                                 }}
                               />
                               <Typography sx={style.innerSub3}>{data.status}</Typography>
