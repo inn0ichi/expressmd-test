@@ -29,15 +29,18 @@ const style = {
     alignItems: "center",
     marginTop: "40px",
     marginBottom: "10px",
+    flexDirection : "column"
+    
   },
   label: {
-    fontSize: "24px",
+    textAlign : "center",
+    fontSize: "20px",
     marginRight: "10px",
     fontWeight: 100,
   },
 
   subLabel: {
-    fontSize: "18px",
+    fontSize: "12px",
     fontStyle: "italic",
     color: "#E34343",
     fontWeight: 100,
@@ -305,7 +308,7 @@ export default function Request() {
   return (
     <Box className="base">
       <Box sx={style.parentCon}>
-        <Typography sx={style.label}>What do you feel ? </Typography>
+        <Typography sx={style.label}>What health or medical problems you want to discuss during you consultation? </Typography>
         <Typography sx={style.subLabel}>*Required</Typography>
       </Box>
       <Box sx={style.inputField}>
