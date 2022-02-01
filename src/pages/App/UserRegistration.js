@@ -63,7 +63,7 @@ function UserRegistration() {
             !payload.municipality &&
             !payload.barangay
         ) {
-            
+
             setField(true)
         } else {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
@@ -171,7 +171,7 @@ function UserRegistration() {
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
-                                sx= {style.textInput}
+                                sx={style.textInput}
                                 required
                                 autoComplete='off'
                                 id="filled-required"
@@ -182,22 +182,22 @@ function UserRegistration() {
                                 }}
                                 InputProps={{
                                     startAdornment: (
-                                      <InputAdornment position="start">
-                                        <PersonIcon/>
-                                      </InputAdornment>
+                                        <InputAdornment position="start">
+                                            <PersonIcon />
+                                        </InputAdornment>
                                     )
-                                  }}
+                                }}
                                 onChange={userInput("fullname")}
                             />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
-                        <InputLabel sx={{ color: '#BEBEBE' }} >Gender</InputLabel>
-                        
+                            <InputLabel sx={{ color: '#BEBEBE' }} >Gender</InputLabel>
+
                             <Select
-                            sx= {style.textInput}
+                                sx={style.textInput}
                                 id='gender'
-                                label = "Gender"
-                                value = {'Male'}
+                                label="Gender"
+                                value={'Male'}
                                 onChange={userInput("gender")}
                                 value={payload.gender}
                             >
@@ -211,30 +211,30 @@ function UserRegistration() {
                             <TextField
                                 required
                                 autoComplete='off'
-                                sx= {style.textInput}
+                                sx={style.textInput}
                                 id="filled-required"
                                 placeholder='Phone Number'
                                 variant="outlined"
                                 type="tel"
                                 pattern="[0-9]"
-                                inputProps={{ maxLength: 11 , minLength : 11 }}
+                                inputProps={{ maxLength: 11, minLength: 11 }}
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
                                 InputProps={{
                                     startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LocalPhoneIcon/>
-                                      </InputAdornment>
+                                        <InputAdornment position="start">
+                                            <LocalPhoneIcon />
+                                        </InputAdornment>
                                     )
-                                  }}
+                                }}
                                 onChange={userInput("phoneNumber")}
                                 value={payload.phoneNumber}
                             />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
-                            sx= {style.textInput}
+                                sx={style.textInput}
                                 required
                                 id="filled-required"
                                 placeholder="House # and Street"
@@ -244,18 +244,18 @@ function UserRegistration() {
                                 }}
                                 InputProps={{
                                     startAdornment: (
-                                      <InputAdornment position="start">
-                                        <HomeIcon/>
-                                      </InputAdornment>
+                                        <InputAdornment position="start">
+                                            <HomeIcon />
+                                        </InputAdornment>
                                     )
-                                  }}
+                                }}
                                 onChange={userInput("houseNum")}
                                 value={payload.houseNum}
                             />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
-                            sx= {style.textInput}
+                                sx={style.textInput}
                                 required
                                 id="filled-required"
                                 placeholder="Barangay"
@@ -265,11 +265,11 @@ function UserRegistration() {
                                 }}
                                 InputProps={{
                                     startAdornment: (
-                                      <InputAdornment position="start">
-                                        <HomeIcon/>
-                                      </InputAdornment>
+                                        <InputAdornment position="start">
+                                            <HomeIcon />
+                                        </InputAdornment>
                                     )
-                                  }}
+                                }}
                                 onChange={userInput("barangay")}
                                 value={payload.barangay}
                             />
@@ -278,7 +278,7 @@ function UserRegistration() {
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "20px" }}>
                             <InputLabel sx={{ color: '#BEBEBE' }} >Municipality</InputLabel>
                             <Select
-                            sx= {style.textInput}
+                                sx={style.textInput}
                                 id='Municipality'
                                 label="Municipality *"
                                 value={'Bustos'}
@@ -287,10 +287,11 @@ function UserRegistration() {
                             >
                                 <MenuItem value={'Bustos'}>Bustos</MenuItem>
                                 <MenuItem value={'Baliuag'}>Baliuag</MenuItem>
+                                <MenuItem value={'Angat'}>Angat</MenuItem>
                             </Select>
                             <FormHelperText sx={style.textHelp}>
                                 {field ? "Please fill out all of the fields" : ""}
-                                </FormHelperText>
+                            </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
                             <Button onClick={() => completeProfile()} variant='outlined' disabled={!file}>Complete</Button>
