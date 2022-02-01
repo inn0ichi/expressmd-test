@@ -289,10 +289,7 @@ export default function ViewArchive() {
                                     <Typography variant="subtitle1">Location: {data.location}</Typography>
                                 </Box>
                             </Box>
-                            <Box>
-                                <Typography>Doctor's Notes</Typography>
-                                <TextField readOnly value={data.notes} />
-                            </Box>
+
                             {(() => {
                                 switch (data.status) {
                                     case "Completed":
@@ -340,11 +337,21 @@ export default function ViewArchive() {
                                                 </Box>
                                             );
                                         } else {
-                                            return null;
+                                            return (
+                                                <Box>
+                                                    <Typography>Doctor's Notes</Typography>
+                                                    <TextField readOnly value={data.notes} />
+                                                </Box>
+                                            );
                                         }
 
                                     case "Declined":
-                                        return null;
+                                        return (
+                                            <Box>
+                                                <Typography>Reason for Cancellation</Typography>
+                                                <TextField readOnly value={data.reason} />
+                                            </Box>
+                                        );
                                     default:
                                         return null;
                                 }
