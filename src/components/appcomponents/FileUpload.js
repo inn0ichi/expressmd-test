@@ -164,7 +164,9 @@ export default function FileUpload() {
 
 
                             </Box>
-                            <Button onClick={() => uploadImage()} variant='outlined' disabled={!file} sx={{ margin: "0px auto" }}>Upload</Button>
+                            <Box sx = {{display : "flex", alignItems : "center" , justifyContent : "center"}}>
+                            <Button onClick={() => uploadImage()} variant='outlined' disabled={!file}>Upload</Button>
+                            </Box>
                         </Box>
                     )
                 })

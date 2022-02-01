@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, TextField, Button, IconButton, Avatar } from "@mui/material";
+import { Box, TextField, Button, IconButton, Avatar, FormGroup, FormControl, FormHelperText } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -81,11 +81,12 @@ export default function EditProfile() {
             });
         })
     }
-
+    const [nameError, setNameError] = useState("");
+    const [phoneError, setPhoneError] = useState("");
     const changename = (e) => {
         setnameField(true);
         if (!credentials.name) {
-            alert("Please enter your name!");
+            setNameError(true);
             setnameField(true);
         } else {
             db
@@ -103,7 +104,7 @@ export default function EditProfile() {
     const changephone = (e) => {
         setphoneField(true);
         if (!credentials.phoneNumber) {
-            alert("Please enter your phone number!");
+            setPhoneError(true)
             setnameField(true);
         } else {
             db
@@ -117,13 +118,47 @@ export default function EditProfile() {
 
     }
 
+    const style = {
+        fileupCon : {
+            display : "flex",
+            alignItems : "center",
+            justifyContent : "center",
+            
+        },
+
+        Con : {
+            display : "flex",
+            marginBottom : "20px"
+
+        },
+
+        btn : {
+            
+            fontSize : "12px"
+        },
+
+        innerCon : {
+            alignItems : "center",
+            display : "flex",
+            justifyContent : "space-between",
+            marginLeft : "20px",
+            marginRight : "20px"
+        },
+        helperText : {
+            marginLeft : "20px"
+        }
+
+
+    }
     return (
         <Box className="base">
             {
                 userProfile && userProfile.profile.map((userProfile) => {
                     return (
                         <Box>
+                            <Box sx = {style.fileupCon}>
                             <FileUpload />
+                            </Box>
                             {/* <Box className="avatarChange">
                                 
                                 <Box className="avatarContainer">
@@ -136,9 +171,12 @@ export default function EditProfile() {
                                     <Button onClick={() => uploadImage()} variant='outlined' disabled={!file}>Upload</Button>
                                 </Box>
                             </Box> */}
-                            <Box className="nameChange">
+                            <FormGroup>
+                                <FormControl sx = {style.Con}>
+                            <Box sx = {style.innerCon}>
                                 <TextField
                                     required
+                                    error = {nameError}
                                     id="outlined-required"
                                     label="Fullname"
                                     defaultValue={userProfile.fullname}
@@ -147,15 +185,21 @@ export default function EditProfile() {
                                 />
                                 {
                                     nameField ? (
-                                        <Button onClick={() => setnameField(false)}>Edit Name</Button>
+                                        <Button sx = {style.btn} onClick={() => setnameField(false)}>Edit Name</Button>
                                     ) : (
                                         <Button onClick={() => changename()}>Save</Button>
                                     )
                                 }
                             </Box>
+                            <FormHelperText sx = {style.helperText}>
+                                {nameError ? "Please enter your name" : "" }
+                            </FormHelperText>
+                            </FormControl>
 
-                            <Box className="phoneChange">
+                            <FormControl sx = {style.Con}>
+                            <Box sx = {style.innerCon}>
                                 <TextField
+                                error = {phoneError}
                                     required
                                     id="outlined-required"
                                     label="Phone Number"
@@ -165,12 +209,17 @@ export default function EditProfile() {
                                 />
                                 {
                                     phoneField ? (
-                                        <Button onClick={() => setphoneField(false)}>Edit Number</Button>
+                                        <Button sx = {style.btn} onClick={() => setphoneField(false)}>Edit Number</Button>
                                     ) : (
                                         <Button onClick={() => changephone()}>Save</Button>
                                     )
                                 }
                             </Box>
+                            <FormHelperText sx = {style.helperText}>
+                                {phoneError ? "Please enter your phone number" : "" }
+                            </FormHelperText>
+                            </FormControl>
+                            </FormGroup>
                         </Box>
                     )
                 })
