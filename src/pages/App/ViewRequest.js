@@ -517,10 +517,10 @@ export default function ViewRequest() {
                   case "Waiting":
                     return (
                       <Box>
-                        <Typography variant="h5" sx={{marginTop: "30px"}}>Doctor Requests:</Typography>
+                        <Typography variant="h5" sx={{marginTop: "30px", marginLeft:"20px"}}>Doctor Requests:</Typography>
                         {isBidderEmpty ? (
                           <Box>
-                            <Typography>There are no Doctor request.</Typography>
+                            <Typography sx={{marginTop: "30px", textAlign:"center"}}>Wait for a Doctor to accept your request</Typography>
                           </Box>
                         ) : (
                           fetchBidderData.data.map((data) => {
