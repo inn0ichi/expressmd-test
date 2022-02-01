@@ -8,6 +8,11 @@ import {
 import { useDispatch } from 'react-redux';
 import { getTheme } from "../../redux/actions/uiAction";
 import { IconButton } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import InputAdornment from "@mui/material/InputAdornment";
+import WcIcon from '@mui/icons-material/Wc';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import HomeIcon from '@mui/icons-material/Home';
 
 import './Registration.css';
 
@@ -133,6 +138,11 @@ function UserRegistration() {
             textAlign: "center",
             borderRadius: "10px",
             color: "white"
+        },
+        textInput: {
+            [`& fieldset`]: {
+                borderRadius: 4,
+            },
         }
     }
     return (
@@ -159,22 +169,33 @@ function UserRegistration() {
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
+                                sx= {style.textInput}
                                 required
+                                autoComplete='off'
                                 id="filled-required"
-                                label="Fullname"
+                                placeholder='Fullname'
                                 variant="outlined"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <PersonIcon/>
+                                      </InputAdornment>
+                                    )
+                                  }}
                                 onChange={userInput("fullname")}
                             />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
-                            <InputLabel sx={{ color: 'black' }} >Gender</InputLabel>
+                        <InputLabel sx={{ color: '#BEBEBE' }} >Gender</InputLabel>
+                        
                             <Select
+                            sx= {style.textInput}
                                 id='gender'
-                                label="Gender *"
-                                value={'Male'}
+                                label = "Gender"
+                                value = {'Male'}
                                 onChange={userInput("gender")}
                                 value={payload.gender}
                             >
@@ -187,49 +208,75 @@ function UserRegistration() {
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 required
+                                autoComplete='off'
+                                sx= {style.textInput}
                                 id="filled-required"
-                                label="Phone Number"
+                                placeholder='Phone Number'
                                 variant="outlined"
                                 type="tel"
                                 pattern="[0-9]"
-                                inputProps={{ maxLength: 12 }}
+                                inputProps={{ maxLength: 11 , minLength : 11 }}
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LocalPhoneIcon/>
+                                      </InputAdornment>
+                                    )
+                                  }}
                                 onChange={userInput("phoneNumber")}
                                 value={payload.phoneNumber}
                             />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
+                            sx= {style.textInput}
                                 required
                                 id="filled-required"
-                                label="House # and Street"
+                                placeholder="House # and Street"
                                 variant="outlined"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <HomeIcon/>
+                                      </InputAdornment>
+                                    )
+                                  }}
                                 onChange={userInput("houseNum")}
                                 value={payload.houseNum}
                             />
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
+                            sx= {style.textInput}
                                 required
                                 id="filled-required"
-                                label="Barangay"
+                                placeholder="Barangay"
                                 variant="outlined"
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <HomeIcon/>
+                                      </InputAdornment>
+                                    )
+                                  }}
                                 onChange={userInput("barangay")}
                                 value={payload.barangay}
                             />
                         </FormControl>
 
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "20px" }}>
-                            <InputLabel sx={{ color: 'black' }} >Municipality</InputLabel>
+                            <InputLabel sx={{ color: '#BEBEBE' }} >Municipality</InputLabel>
                             <Select
+                            sx= {style.textInput}
                                 id='Municipality'
                                 label="Municipality *"
                                 value={'Bustos'}
