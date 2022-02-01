@@ -190,8 +190,11 @@ export default function App() {
     e.preventDefault();
     setCount(0);
     setOpen(true);
+
   }
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const dispatch = useDispatch();
 
@@ -231,6 +234,7 @@ export default function App() {
     topdoc: [],
   });
 
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
@@ -238,6 +242,26 @@ export default function App() {
       var uid = user.uid;
       localStorage.setItem("uid", uid);
       setisLoggedOut(false);
+      const notifRef = firebase.database().ref('/users/' + localStorage.getItem("uid") + "/request/" + localStorage.getItem("uid") + '/status');
+      notifRef.on('value', (snapshot) => {
+        if (snapshot.exists) {
+          const data = snapshot.val();
+          console.log(data);
+          setNotif(data);
+          const customId = data;
+
+          toast.info(data, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: customId,
+          });
+        }
+      });
       // ...
     } else {
       // User is signed out
@@ -252,6 +276,7 @@ export default function App() {
       if (!user) {
         setisLoggedOut(true);
       } else {
+
         const userRef = db
           .collection("users")
           .doc(localStorage.getItem("uid"))
@@ -311,21 +336,6 @@ export default function App() {
   };
 
 
-  const FetchNotif = () => {
-    const notifRef = firebase.database().ref('/users/' + localStorage.getItem("uid") + "/request/" + localStorage.getItem("uid") + '/status');
-    notifRef.on('value', (snapshot) => {
-      if (snapshot.exists) {
-        const data = snapshot.val();
-        console.log(data);
-        setNotif(data);
-        const customId = data;
-        toast.info(data, {
-          toastId: customId
-        });
-      }
-    });
-  };
-
   const override = css`
     display: block;
     margin: 0 auto;
@@ -371,13 +381,23 @@ export default function App() {
   };
 
   useEffect(() => {
-    FetchNotif();
+
     fetchTopRated();
   }, []);
 
   return (
     <Box className="base">
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Container>
         <Box className="tickerBox">
           <Paper>

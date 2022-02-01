@@ -266,6 +266,7 @@ export default function Request() {
                         firebase.database().ref('users/' + localStorage.getItem("uid") + '/request/' + localStorage.getItem("uid")).update({
                           status: "Request Successful"
                         }).then((doc6) => {
+                          localStorage.setItem("isLoaded", false);
                           history.push(`/success/${"request"}`)
                         })
                       });
