@@ -58,14 +58,14 @@ function MobileProfileContainer() {
         return () => {
             isSubscribed = false;
         };
-    }, [userProfile]);
+    }, [userProfile, t]);
 
     function logout() {
         firebase.auth().signOut()
             .then(() => {
                 localStorage.removeItem("uid");
                 localStorage.removeItem("email");
-                window.location.replace("/");
+                history.push("/");
             })
             .catch((error) => {
                 // An error happened.
@@ -73,21 +73,6 @@ function MobileProfileContainer() {
             });
     };
 
-
-    /*     getAuth().onAuthStateChanged(function (user) {
-            if (!user.emailVerified) {
-                signOut(auth)
-                    .then(() => {
-                        localStorage.removeItem("uid");
-                        localStorage.removeItem("email");
-                        history.push(`/success/${"unverified"}`);
-                    })
-                    .catch((error) => {
-                        // An error happened.
-                        alert(error);
-                    });
-            }
-        }); */
 
 
 
