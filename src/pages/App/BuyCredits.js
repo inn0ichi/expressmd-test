@@ -222,7 +222,7 @@ export default function BuyCredits() {
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-
+                <Typography color="red" variant="h6">IMPORTANT: Please enter your account e-mail as Message when sending on GCash.</Typography>
               </DialogContentText>
               <Box sx={style.qrCon}>
                 <Box component="img" src={QRCode} alt="qrcode" sx={style.qr} />
@@ -269,7 +269,7 @@ export default function BuyCredits() {
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-
+                <Typography color="red" variant="h6">IMPORTANT: Please enter your account e-mail as Message when sending on GCash.</Typography>
               </DialogContentText>
               <Box sx={style.qrCon}>
                 <Box component="img" src={QRCode} alt="qrcode" sx={style.qr} />
@@ -311,7 +311,7 @@ export default function BuyCredits() {
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-
+                <Typography color="red" variant="h6">IMPORTANT: Please enter your account e-mail as Message when sending on GCash.</Typography>
               </DialogContentText>
               <Box sx={style.qrCon}>
                 <Box component="img" src={QRCode} alt="qrcode" sx={style.qr} />
@@ -353,7 +353,7 @@ export default function BuyCredits() {
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-
+                <Typography color="red" variant="h6">IMPORTANT: Please enter your account e-mail as Message when sending on GCash.</Typography>
               </DialogContentText>
               <Box sx={style.qrCon}>
                 <Box component="img" src={QRCode} alt="qrcode" sx={style.qr} />
@@ -395,7 +395,7 @@ export default function BuyCredits() {
                 Please scan the QR Code below and send{" "}
                 {parseInt(localStorage.getItem("coin")) + parseInt(localStorage.getItem("fee"))} pesos, then press the
                 confirm button.
-
+                <Typography color="red" variant="h6">IMPORTANT: Please enter your account e-mail as Message when sending on GCash.</Typography>
               </DialogContentText>
               <Box sx={style.qrCon}>
                 <Box component="img" src={QRCode} alt="qrcode" sx={style.qr} />
