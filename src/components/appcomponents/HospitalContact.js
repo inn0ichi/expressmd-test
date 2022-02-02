@@ -52,7 +52,11 @@ export default function HospitalContact() {
   }
 
   useEffect(() => {
+    let isSubscribed = true;
     getData();
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   const [open, setOpen] = React.useState(false);

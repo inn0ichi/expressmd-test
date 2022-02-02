@@ -29,11 +29,11 @@ const style = {
     alignItems: "center",
     marginTop: "40px",
     marginBottom: "10px",
-    flexDirection : "column"
-    
+    flexDirection: "column"
+
   },
   label: {
-    textAlign : "center",
+    textAlign: "center",
     fontSize: "20px",
     marginRight: "10px",
     fontWeight: 100,
@@ -131,6 +131,7 @@ export default function Request() {
   const history = useHistory();
   const searchClient = algoliasearch('06RC56CRHD', 'ab83c1717b40e7392fe5a5fc64d01e12');
   const index = searchClient.initIndex('requests');
+  var batch = db.batch();
 
   useEffect(() => {
     let isSubscribed = true;
@@ -146,9 +147,7 @@ export default function Request() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getTheme());
-  }, [dispatch]);
+
   /*fetch doc*/
 
   const [userProfile, setuserProfile] = useState({
@@ -166,7 +165,6 @@ export default function Request() {
       .doc(localStorage.getItem("uid"));
     let userProfile = [];
     docRef.get().then((doc) => {
-      console.log(doc.data());
       userProfile.push(doc.data());
       setuserProfile({ profile: userProfile });
     });
@@ -174,8 +172,13 @@ export default function Request() {
   };
 
   useEffect(() => {
+    let isSubscribed = true;
+    dispatch(getTheme());
     fetchUserData();
-  }, []);
+    return () => {
+      isSubscribed = false;
+    };
+  }, [dispatch]);
   /*fetch doc*/
 
   const [payload, setPayload] = useState({
@@ -191,7 +194,6 @@ export default function Request() {
     getValue();
     if (!payload.feel) {
       alert("Please enter the required fields!");
-      console.log(payload);
     } else {
       var userRef = db
         .collection("users")
@@ -215,74 +217,44 @@ export default function Request() {
               var location = userProfile.location;
               var phoneNumber = userProfile.phoneNumber;
               var userID = localStorage.getItem("uid");
-              userRef
-                .set({
-                  feel: payload.feel,
-                  symptoms: payload.symptoms,
-                  others: payload.others,
-                  userID: userID,
-                  userFullName: fullname,
-                  datetime: specifiedDate,
-                  status: "Waiting",
-                  gender: gender,
-                  location: location,
-                  phoneNumber: phoneNumber,
-                  photoURL: userProfile.photoURL,
-                  timestamp: new Date(),
-                  numOfResponse: 0,
+              batch.set(userRef, {
+                feel: payload.feel,
+                symptoms: payload.symptoms,
+                others: payload.others,
+                userID: userID,
+                userFullName: fullname,
+                datetime: specifiedDate,
+                status: "Waiting",
+                gender: gender,
+                location: location,
+                phoneNumber: phoneNumber,
+                photoURL: userProfile.photoURL,
+                timestamp: new Date(),
+                numOfResponse: 0,
+              });
+              batch.set(globalRef, {
+                feel: payload.feel,
+                symptoms: payload.symptoms,
+                others: payload.others,
+                userID: userID,
+                userFullName: fullname,
+                datetime: specifiedDate,
+                status: "Waiting",
+                gender: gender,
+                location: location,
+                phoneNumber: phoneNumber,
+                photoURL: userProfile.photoURL,
+                timestamp: new Date(),
+                numOfResponse: 0,
+              });
+              batch.commit().then((document) => {
+                firebase.database().ref('users/' + localStorage.getItem("uid") + '/request/' + localStorage.getItem("uid")).update({
+                  status: "Request Successful"
+                }).then((doc6) => {
+                  localStorage.setItem("isLoaded", false);
+                  history.push(`/success/${"request"}`)
                 })
-                .then((docReference) => {
-                  globalRef
-                    .set({
-                      feel: payload.feel,
-                      symptoms: payload.symptoms,
-                      others: payload.others,
-                      userID: userID,
-                      userFullName: fullname,
-                      datetime: specifiedDate,
-                      status: "Waiting",
-                      gender: gender,
-                      location: location,
-                      phoneNumber: phoneNumber,
-                      photoURL: userProfile.photoURL,
-                      timestamp: new Date(),
-                      numOfResponse: 0,
-                    })
-                    .then((docReference) => {
-                      const records = [
-                        {
-                          feel: payload.feel,
-                          symptoms: payload.symptoms,
-                          others: payload.others,
-                          objectID: userID,
-                          userFullName: fullname,
-                          datetime: specifiedDate,
-                          status: "Waiting",
-                          gender: gender,
-                          location: location,
-                          phoneNumber: phoneNumber,
-                          photoURL: userProfile.photoURL,
-                          timestamp: new Date(),
-                        }
-                      ];
-                      index.saveObjects(records, { autoGenerateObjectIDIfNotExist: true }).then((response) => {
-                        firebase.database().ref('users/' + localStorage.getItem("uid") + '/request/' + localStorage.getItem("uid")).update({
-                          status: "Request Successful"
-                        }).then((doc6) => {
-                          localStorage.setItem("isLoaded", false);
-                          history.push(`/success/${"request"}`)
-                        })
-                      });
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                      history.push("/sorry");
-                    });
-                })
-                .catch((error) => {
-                  console.log(error);
-                  history.push("/sorry");
-                });
+              })
             });
           }
         })

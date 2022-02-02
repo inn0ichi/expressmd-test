@@ -64,6 +64,7 @@ export default function ViewArchive() {
     };
 
     const fetchData = async () => {
+        
         let isMounted = true
         const docRef = db.collection("users").doc(localStorage.getItem("uid")).collection("archive").doc(id);
         let rawData = [];
@@ -218,7 +219,6 @@ export default function ViewArchive() {
                                     .then((docRef) => {
                                         docRef = db.collection("doctors").doc(data.doctorId);
                                         docData.data.map((doc) => {
-                                            console.log(doc);
                                             let currentrev = doc.numReviews;
                                             let currentrate = doc.rating;
 

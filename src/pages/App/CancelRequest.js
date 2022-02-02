@@ -124,8 +124,12 @@ export default function CancelRequest() {
 
 
     useEffect(() => {
-
+        let isSubscribed = true;
         fetchData();
+        return () => {
+            isSubscribed = false;
+        };
+
     }, []);
 
     const submitForm = (e) => {

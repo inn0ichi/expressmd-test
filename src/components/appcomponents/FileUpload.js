@@ -17,7 +17,11 @@ export default function FileUpload() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
 
 
@@ -44,7 +48,11 @@ export default function FileUpload() {
         })
     }
     useEffect(() => {
+        let isSubscribed = true;
         fetchList();
+        return () => {
+            isSubscribed = false;
+        };
     }, []);
 
     const [credentials, setCredentials] = useState({
@@ -129,8 +137,8 @@ export default function FileUpload() {
             {
                 userProfile && userProfile.profile.map((userProfile) => {
                     return (
-                        <Box 
-                        sx={{ width: "100%" }}
+                        <Box
+                            sx={{ width: "100%" }}
                         >
                             <Toolbar></Toolbar>
                             <Box className="upload" sx={{
@@ -164,8 +172,8 @@ export default function FileUpload() {
 
 
                             </Box>
-                            <Box sx = {{display : "flex", alignItems : "center" , justifyContent : "center"}}>
-                            <Button onClick={() => uploadImage()} variant='outlined' disabled={!file}>Upload</Button>
+                            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <Button onClick={() => uploadImage()} variant='outlined' disabled={!file}>Upload</Button>
                             </Box>
                         </Box>
                     )

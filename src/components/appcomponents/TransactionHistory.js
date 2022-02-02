@@ -26,7 +26,11 @@ export default function TransactionHistory() {
     }, []);
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
 
     const db = firebase.firestore();
@@ -49,21 +53,24 @@ export default function TransactionHistory() {
 
     }
     useEffect(() => {
+        let isSubscribed = true;
         fetchData();
-        console.log(isEmpty);
+        return () => {
+            isSubscribed = false;
+        };
     }, []);
 
     //fontawesome
     React.useEffect(() => {
         const node = loadCSS(
-          "https://use.fontawesome.com/releases/v5.14.0/css/all.css",
-          // Inject before JSS
-          document.querySelector("#font-awesome-css") || document.head.firstChild
+            "https://use.fontawesome.com/releases/v5.14.0/css/all.css",
+            // Inject before JSS
+            document.querySelector("#font-awesome-css") || document.head.firstChild
         );
         return () => {
-          node.parentNode.removeChild(node);
+            node.parentNode.removeChild(node);
         };
-      }, []);
+    }, []);
 
     const style = {
         outerCon: {
@@ -89,18 +96,18 @@ export default function TransactionHistory() {
     }
     return (
         <Box>
-<Typography className="headerStyle">
-        <Icon
-          baseClassName="fas"
-          className="fas fa-notes-medical"
-          sx={{
-            fontSize: { xs: 30, md: 50 },
-            color: "primary",
-            width: 300,
-            marginTop: 2,
-          }}
-        />
-      </Typography>
+            <Typography className="headerStyle">
+                <Icon
+                    baseClassName="fas"
+                    className="fas fa-notes-medical"
+                    sx={{
+                        fontSize: { xs: 30, md: 50 },
+                        color: "primary",
+                        width: 300,
+                        marginTop: 2,
+                    }}
+                />
+            </Typography>
             <Box sx={style.LabelCon}>
                 <Typography sx={style.Label}>Transaction History</Typography>
             </Box>

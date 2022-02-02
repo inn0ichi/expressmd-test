@@ -49,11 +49,13 @@ export default function DocProfile() {
     };
 
     useEffect(() => {
+        let isSubscribed = true;
         fetchTopRated();
         fetchData();
+        return () => {
+            isSubscribed = false;
+        };
     }, []);
-
-    console.log(isEmpty);
 
     return (
         <Box className='base'>
@@ -113,7 +115,7 @@ export default function DocProfile() {
                                 :
                                 fetchTopDoc.topdoc.map((data) => {
                                     return (
-                                        <Box>
+                                        <Box key={data.uid}>
                                             <ListItem alignItems="flex-start">
                                                 <ListItemAvatar>
                                                     <Avatar alt={data.fullname} src={data.fullname} />

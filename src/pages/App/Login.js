@@ -28,25 +28,30 @@ import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton } from "@mui/material";
-import validator from "validator";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CancelIcon from "@mui/icons-material/Cancel";
-import CheckCircle from "@mui/icons-material/CheckCircle";
+import validator from 'validator'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircle from '@mui/icons-material/CheckCircle';
+import { useTranslation } from "react-i18next";
 
 const auth = getAuth();
 function Login() {
   const history = useHistory();
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTheme());
-  }, [dispatch]);
-  const db = firebase.firestore();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getTheme());
+        i18n.changeLanguage(localStorage.getItem("locale"));
+    }, [dispatch]);
+    const db = firebase.firestore();
 
-  const [payload, setPayload] = useState({
-    email: "",
-    password: "",
-  });
+
+    const { t, i18n } = useTranslation();
+
+    const [payload, setPayload] = useState({
+        email: "",
+        password: "",
+    });
 
   /* getAuth().onAuthStateChanged(function (user) {
         var userRef = db.collection("users").doc(localStorage.getItem('uid'));

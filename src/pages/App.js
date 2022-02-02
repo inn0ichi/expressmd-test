@@ -25,7 +25,6 @@ import { loadCSS } from "fg-loadcss";
 import Badge from '@mui/material/Badge';
 import Modal from '@mui/material/Modal';
 import ErrorIcon from '@mui/icons-material/Error';
-import addNotification from 'react-push-notification';
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -200,8 +199,12 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let isSubscribed = true;
     dispatch(getTheme());
     i18n.changeLanguage(localStorage.getItem("locale"));
+    return () => {
+      isSubscribed = false;
+    };
   }, [dispatch]);
 
   //icons
@@ -247,7 +250,6 @@ export default function App() {
       notifRef.on('value', (snapshot) => {
         if (snapshot.exists) {
           const data = snapshot.val();
-          console.log(data);
           setNotif(data);
           const customId = data;
 
@@ -303,27 +305,6 @@ export default function App() {
     };
   }, [isEmpty]);
 
-  /*   const fetchList = () => {
-      
-      const userRef = db
-        .collection("users")
-        .doc(localStorage.getItem("uid"))
-        .collection("requests")
-        .doc(localStorage.getItem("uid"));
-      userRef.onSnapshot((doc) => {
-        if (doc.exists) {
-          setisEmpty(false);
-          let getAppointment = [];
-          userRef.get().then((doc) => {
-            getAppointment.push(doc.data());
-            setfetchAppointments({ appointments: getAppointment });
-          });
-        } else {
-          // doc.data() will be undefined in this case
-          setisEmpty(true);
-        }
-      });
-    }; */
 
   const fetchTopRated = () => {
     const docRef = db.collection("doctors").orderBy("rating", "desc").limit(3);
@@ -359,7 +340,6 @@ export default function App() {
           setgetAnnouncement(snapshot.val());
           setisLoading(false);
         } else {
-          console.log("No data available");
           setisLoading(true);
         }
       })
@@ -382,8 +362,11 @@ export default function App() {
   };
 
   useEffect(() => {
-
+    let isSubscribed = true;
     fetchTopRated();
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return (
@@ -448,13 +431,13 @@ export default function App() {
                       return (
                         <Box>
                           <Typography className="schedText" variant="subtitle2">
-                            Please Login to view you appointments.
+                            {t("pleaseLogin")}
                           </Typography>
                           <Button sx={style.btn}
                             variant="contained"
                             onClick={() => history.push("/login")}
                           >
-                            Login
+                            {t("login")}
                           </Button>
                         </Box>
                       );
@@ -473,7 +456,7 @@ export default function App() {
                                       variant="contained"
                                       onClick={() => history.push("/request")}
                                     >
-                                      Request Appointment
+                                      {t("requestAppointment")}
                                     </Button>
                                   </Box>
                                 );
@@ -551,9 +534,9 @@ export default function App() {
           })}
           <Box sx={style.notifButton}>
             <Badge badgeContent={count} color="success">
-              <Fab  color="secondary" onClick={handleOpen}>
-                
-                  {/* <Icon
+              <Fab color="secondary" onClick={handleOpen}>
+
+                {/* <Icon
                     baseClassName="fas"
                     className="fas fa-bell"
                     sx={{
@@ -564,8 +547,8 @@ export default function App() {
                     }}
                   /> */}
 
-                    <NotificationsIcon/>
-                
+                <NotificationsIcon />
+
               </Fab>
             </Badge>
           </Box>

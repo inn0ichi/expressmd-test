@@ -94,6 +94,7 @@ export default function ViewRequest() {
   };
 
   const fetchBidders = async () => {
+
     let isMounted = true;
     const dataRef = await db
       .collection("requests")
@@ -113,6 +114,7 @@ export default function ViewRequest() {
 
 
   useEffect(() => {
+    console.log("hello")
     let isSubscribed = true;
     fetchBidders();
     fetchData();
@@ -148,57 +150,39 @@ export default function ViewRequest() {
             var globalRef = db
               .collection("requests")
               .doc(userID);
-            userRef
-              .update({
-                status: "Accepted",
-                assigned_doctor: bid.docName,
-                doctorId: bid.docID,
-                fee: bid.fee,
-              })
-              .then((docReference) => {
-                globalRef
-                  .update({
-                    status: "Accepted",
-                    assigned_doctor: bid.docName,
-                    doctorId: bid.docID,
-                    fee: bid.fee,
-                  })
-                  .then((docRef2) => {
-                    docRef
-                      .set({
-                        feel: data.feel,
-                        symptoms: data.symptoms,
-                        others: data.others,
-                        userID: data.userID,
-                        userFullName: data.userFullName,
-                        datetime: data.datetime,
-                        status: "Accepted",
-                        gender: data.gender,
-                        location: data.location,
-                        phoneNumber: data.phoneNumber,
-                        photoURL: data.photoURL,
-                        assigned_doctor: bid.docName,
-                        timestamp: new Date(),
-                        fee: bid.fee,
-                        doctorId: bid.docID,
-                      })
-                      .then((docRef) => {
-                        history.push(`/success/${"accepted"}`);
-                      })
-                      .catch((error) => {
-                        console.log(error);
-                        history.push("/sorry");
-                      });
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                    history.push("/sorry");
-                  });
-              })
-              .catch((error) => {
-                console.log(error);
-                history.push("/sorry");
-              });
+            var batch = db.batch();
+            batch.update(userRef, {
+              status: "Accepted",
+              assigned_doctor: bid.docName,
+              doctorId: bid.docID,
+              fee: bid.fee,
+            })
+            batch.update(globalRef, {
+              status: "Accepted",
+              assigned_doctor: bid.docName,
+              doctorId: bid.docID,
+              fee: bid.fee,
+            })
+            batch.set(docRef, {
+              feel: data.feel,
+              symptoms: data.symptoms,
+              others: data.others,
+              userID: data.userID,
+              userFullName: data.userFullName,
+              datetime: data.datetime,
+              status: "Accepted",
+              gender: data.gender,
+              location: data.location,
+              phoneNumber: data.phoneNumber,
+              photoURL: data.photoURL,
+              assigned_doctor: bid.docName,
+              timestamp: new Date(),
+              fee: bid.fee,
+              doctorId: bid.docID,
+            })
+            batch.commit().then((docReference) => {
+              history.push(`/success/${"accepted"}`);
+            })
           }
         })
 

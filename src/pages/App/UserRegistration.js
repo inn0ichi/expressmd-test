@@ -26,7 +26,11 @@ function UserRegistration() {
     const location = useLocation();
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
     const db = firebase.firestore();
     const store = firebase.storage();
@@ -41,6 +45,7 @@ function UserRegistration() {
         municipality: "",
         barangay: "",
     });
+    var batch = db.batch();
 
     const [file, setFile] = useState(null);
     const [url, setURL] = useState("");
@@ -54,7 +59,6 @@ function UserRegistration() {
         setPayload({ ...payload, [prop]: e.target.value });
     };
     const completeProfile = (e) => {
-        console.log("hello1");
         if (
             !payload.fullname ||
             !payload.gender ||
@@ -69,48 +73,44 @@ function UserRegistration() {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
                 .then((userCredential) => {
                     // Signed in 
-
+                    const userRef = db.collection("users").doc(localStorage.getItem("uid"));
                     var user = userCredential.user;
                     user.sendEmailVerification();
                     localStorage.setItem("uid", user.uid);
                     localStorage.setItem("email", location.state.email);
-                    db.collection("users")
-                        .doc(localStorage.getItem("uid"))
-                        .set({
-                            fullname: payload.fullname,
-                            email: location.state.email,
-                            gender: payload.gender,
-                            uid: localStorage.getItem("uid"),
-                            phoneNumber: payload.phoneNumber,
-                            coins: 0,
-                            location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
-                        })
-                        .then((docRef) => {
-                            const ref = store.ref(`/images/${localStorage.getItem("uid")}/${file.name}`);
-                            const uploadTask = ref.put(file);
-                            uploadTask.on("state_changed", console.log, console.error, () => {
-                                ref.getDownloadURL().then((url) => {
-                                    setFile(null);
-                                    setURL(url);
-                                    db
-                                        .collection("users")
-                                        .doc(localStorage.getItem("uid"))
-                                        .update({
-                                            photoURL: url,
+                    batch.set(userRef, {
+                        fullname: payload.fullname,
+                        email: location.state.email,
+                        gender: payload.gender,
+                        uid: localStorage.getItem("uid"),
+                        phoneNumber: payload.phoneNumber,
+                        coins: 0,
+                        location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
+                    })
+
+                    batch.commit().then((doc) => {
+                        const ref = store.ref(`/images/${localStorage.getItem("uid")}/${file.name}`);
+                        const uploadTask = ref.put(file);
+                        uploadTask.on("state_changed", console.log, console.error, () => {
+                            ref.getDownloadURL().then((url) => {
+                                setFile(null);
+                                setURL(url);
+                                db
+                                    .collection("users")
+                                    .doc(localStorage.getItem("uid"))
+                                    .update({
+                                        photoURL: url,
+                                    })
+                                    .then((doc) => {
+                                        firebase.database().ref('users/' + localStorage.getItem("uid")).set({
+                                            message: "Welcome To ExpressMD"
+                                        }).then((doc6) => {
+                                            history.push(`/success/${"verifyemail"}`);
                                         })
-                                        .then((doc) => {
-                                            firebase.database().ref('users/' + localStorage.getItem("uid")).set({
-                                                message: "Welcome To ExpressMD"
-                                            }).then((doc6) => {
-                                                history.push(`/success/${"verifyemail"}`);
-                                            })
-                                        });
-                                });
-                            })
+                                    });
+                            });
                         })
-                        .catch((error) => {
-                            console.error("Error adding document: ", error);
-                        });
+                    })
                 })
                 .catch((error) => {
                     var errorCode = error.code;
@@ -194,7 +194,7 @@ function UserRegistration() {
                             <InputLabel sx={{ color: '#BEBEBE' }} >Gender</InputLabel>
 
                             <Select
-                                
+
                                 sx={style.textInput}
                                 id='gender'
                                 label="Gender"

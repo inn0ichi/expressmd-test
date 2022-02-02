@@ -5,10 +5,15 @@
     "date": "Petsa",
     "time": "Oras",
     "settings": "Mga Settings",
-    "hotlines": "Buy Credits",
+    "hotlines": "Bumili ng Credits",
     "settinglist": {
         "dmode": "I-on ang Dark Mode",
         "changeLang": "Palitan ang Lengguwahe",
         "langLabel": "Pumili"
-    }
+    },
+    "login": "Mag-login",
+    "pleaseLogin": "Mangyaring Mag-login upang tingnan ang iyong appointment.",
+    "createAccount": "Gumawa ng Account",
+    "forgotPassword": "Nakalimutan ang Password?",
+    "requestAppointment": "Mag-post ng Appointment"
 }

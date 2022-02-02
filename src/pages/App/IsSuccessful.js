@@ -12,7 +12,11 @@ export default function IsSuccessful() {
   const { status } = useParams();
 
   useEffect(() => {
+    let isSubscribed = true;
     dispatch(getTheme());
+    return () => {
+      isSubscribed = false;
+    };
   }, [dispatch]);
 
   const style = {

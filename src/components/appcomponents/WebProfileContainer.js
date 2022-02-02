@@ -68,7 +68,11 @@ export default function WebProfileContainer() {
         })
     }
     useEffect(() => {
+        let isSubscribed = true;
         fetchList();
+        return () => {
+            isSubscribed = false;
+        };
     }, []);
 
     function logout() {
