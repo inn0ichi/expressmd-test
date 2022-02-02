@@ -65,6 +65,7 @@ function Login() {
         } else {
             setEmailError(false)
             setAccountError("")
+            setValidate(false)
 
         }
 
@@ -205,7 +206,6 @@ function Login() {
 
                                 }}
 
-
                                 InputLabelProps={{
                                     style: { color: 'black' },
                                 }}
@@ -248,6 +248,7 @@ function Login() {
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInputPassword("password")}
+                               
                             />
                             <FormHelperText sx={style.textHelp}>
                                 {fill ? "Please enter password" : ""}
