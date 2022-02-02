@@ -74,8 +74,6 @@ function MobileProfileContainer() {
     };
 
 
-
-
     const style = {
         userProf: {
             height: "150px",
