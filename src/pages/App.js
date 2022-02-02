@@ -27,6 +27,7 @@ import Modal from '@mui/material/Modal';
 import ErrorIcon from '@mui/icons-material/Error';
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const style = {
   requestBtn: {
@@ -556,9 +557,9 @@ export default function App() {
           })}
           <Box sx={style.notifButton}>
             <Badge badgeContent={count} color="success">
-              <Fab size="secondary" color="secondary" onClick={handleOpen}>
-                <Typography>
-                  <Icon
+              <Fab  color="secondary" onClick={handleOpen}>
+                
+                  {/* <Icon
                     baseClassName="fas"
                     className="fas fa-bell"
                     sx={{
@@ -567,8 +568,10 @@ export default function App() {
                       width: 300,
                       marginTop: 1,
                     }}
-                  />
-                </Typography>
+                  /> */}
+
+                    <NotificationsIcon/>
+                
               </Fab>
             </Badge>
           </Box>

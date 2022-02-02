@@ -60,11 +60,11 @@ function UserRegistration() {
     const completeProfile = (e) => {
         console.log("hello1");
         if (
-            !payload.fullname &&
-            !payload.gender &&
-            !payload.phoneNumber &&
-            !payload.houseNum &&
-            !payload.municipality &&
+            !payload.fullname ||
+            !payload.gender ||
+            !payload.phoneNumber ||
+            !payload.houseNum ||
+            !payload.municipality ||
             !payload.barangay
         ) {
 
@@ -198,6 +198,7 @@ function UserRegistration() {
                             <InputLabel sx={{ color: '#BEBEBE' }} >Gender</InputLabel>
 
                             <Select
+                                
                                 sx={style.textInput}
                                 id='gender'
                                 label="Gender"
