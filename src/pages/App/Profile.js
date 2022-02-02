@@ -25,7 +25,11 @@ function LoggedIn() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
 
     return (
@@ -46,7 +50,11 @@ function NotLoggedIn() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
 
     return (

@@ -53,11 +53,15 @@ function MobileProfileContainer() {
         })
     }
     useEffect(() => {
+        let isSubscribed = true;
         fetchList();
+        return () => {
+            isSubscribed = false;
+        };
     }, [userProfile]);
 
     function logout() {
-        signOut(auth)
+        firebase.auth().signOut()
             .then(() => {
                 localStorage.removeItem("uid");
                 localStorage.removeItem("email");

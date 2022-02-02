@@ -10,5 +10,10 @@
         "dmode": "Enable Dark Mode",
         "changeLang": "Change Language",
         "langLabel": "Select"
-    }
+    },
+    "login": "Login",
+    "pleaseLogin": "Please Login to view your appointment.",
+    "createAccount": "Create Account",
+    "forgotPassword": "Forgot Your Password?",
+    "requestAppointment": "Request Appointment"
 }

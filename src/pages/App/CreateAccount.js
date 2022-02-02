@@ -35,7 +35,11 @@ function CreateAccount() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let isSubscribed = true;
     dispatch(getTheme());
+    return () => {
+      isSubscribed = false;
+    };
   }, [dispatch]);
   const db = firebase.firestore();
   const history = useHistory();
@@ -50,7 +54,7 @@ function CreateAccount() {
     houseNum: "",
     municipality: "",
     barangay: "",
-    
+
   });
 
   /* getAuth().onAuthStateChanged(function (user) {
@@ -156,15 +160,15 @@ function CreateAccount() {
 
   };
 
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword (!showConfirmPassword)
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword)
 
-  
+
 
   return (
     <Box className="base">
@@ -220,7 +224,7 @@ function CreateAccount() {
                       <LockIcon />
                     </InputAdornment>
                   ),
-                  endAdornment : (
+                  endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"
@@ -256,7 +260,7 @@ function CreateAccount() {
                     </InputAdornment>
                   ),
 
-                  endAdornment : (
+                  endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"

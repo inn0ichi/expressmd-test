@@ -26,7 +26,11 @@ function UserRegistration() {
     const location = useLocation();
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
     const db = firebase.firestore();
     const store = firebase.storage();

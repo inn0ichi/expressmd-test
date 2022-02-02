@@ -116,8 +116,13 @@ export default function EditRequest() {
     };
 
     useEffect(() => {
+
+        let isSubscribed = true;
         fetchUserData();
         fetchData();
+        return () => {
+            isSubscribed = false;
+        };
     }, []);
 
     const submitForm = (e) => {

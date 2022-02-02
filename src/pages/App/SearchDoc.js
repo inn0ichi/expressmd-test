@@ -10,7 +10,11 @@ export default function SearchDoc() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
     return (
         <Box className='base'>

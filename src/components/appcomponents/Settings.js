@@ -1,4 +1,4 @@
-import { MenuItem, Select, Button, Box, Typography, FormControl, Container, FormGroup, FormControlLabel, Switch, styled , Paper } from '@mui/material'
+import { MenuItem, Select, Button, Box, Typography, FormControl, Container, FormGroup, FormControlLabel, Switch, styled, Paper } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme, getTheme } from "../../redux/actions/uiAction";
@@ -44,7 +44,11 @@ export default function Settings() {
     const { t, i18n } = useTranslation()
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
 
     function setEn() {
@@ -63,33 +67,33 @@ export default function Settings() {
                 <FormGroup>
                     <FormControl>
                         <Paper>
-                        <FormControlLabel
-                            label={t("settinglist.dmode")}
-                            control={
-                                <React.Fragment>
-                                    <Android12Switch checked={ui.isDarkMode} onChange={() => dispatch(toggleTheme(!ui.isDarkMode))} />
-                                </React.Fragment>
-                            }
-                            labelPlacement="start"
-                            className="darkThemeSwitch"
-                        >
-                        </FormControlLabel>
+                            <FormControlLabel
+                                label={t("settinglist.dmode")}
+                                control={
+                                    <React.Fragment>
+                                        <Android12Switch checked={ui.isDarkMode} onChange={() => dispatch(toggleTheme(!ui.isDarkMode))} />
+                                    </React.Fragment>
+                                }
+                                labelPlacement="start"
+                                className="darkThemeSwitch"
+                            >
+                            </FormControlLabel>
                         </Paper>
                     </FormControl>
                     <FormControl>
-                    <Paper>
-                        <FormControlLabel
-                            label={t("settinglist.changeLang")}
-                            control={
-                                <React.Fragment>
-                                    <Button size="small" variant="contained" onClick={() => setEn()}>English</Button>
-                                    <Button size="small" variant="contained" onClick={() => setPh()}>Tagalog</Button>
-                                </React.Fragment>
-                            }
-                            labelPlacement="start"
-                            className="darkThemeSwitch"
-                        >
-                        </FormControlLabel>
+                        <Paper>
+                            <FormControlLabel
+                                label={t("settinglist.changeLang")}
+                                control={
+                                    <React.Fragment>
+                                        <Button size="small" variant="contained" onClick={() => setEn()}>English</Button>
+                                        <Button size="small" variant="contained" onClick={() => setPh()}>Tagalog</Button>
+                                    </React.Fragment>
+                                }
+                                labelPlacement="start"
+                                className="darkThemeSwitch"
+                            >
+                            </FormControlLabel>
                         </Paper>
 
                     </FormControl>

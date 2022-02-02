@@ -19,7 +19,11 @@ export default function EditProfile() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isSubscribed = true;
         dispatch(getTheme());
+        return () => {
+            isSubscribed = false;
+        };
     }, [dispatch]);
 
 
@@ -46,7 +50,12 @@ export default function EditProfile() {
         })
     }
     useEffect(() => {
+
+        let isSubscribed = true;
         fetchList();
+        return () => {
+            isSubscribed = false;
+        };
     }, []);
 
     const [credentials, setCredentials] = useState({
@@ -119,33 +128,33 @@ export default function EditProfile() {
     }
 
     const style = {
-        fileupCon : {
-            display : "flex",
-            alignItems : "center",
-            justifyContent : "center",
-            
-        },
-
-        Con : {
-            display : "flex",
-            marginBottom : "20px"
+        fileupCon: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
 
         },
 
-        btn : {
-            
-            fontSize : "12px"
+        Con: {
+            display: "flex",
+            marginBottom: "20px"
+
         },
 
-        innerCon : {
-            alignItems : "center",
-            display : "flex",
-            justifyContent : "space-between",
-            marginLeft : "20px",
-            marginRight : "20px"
+        btn: {
+
+            fontSize: "12px"
         },
-        helperText : {
-            marginLeft : "20px"
+
+        innerCon: {
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "space-between",
+            marginLeft: "20px",
+            marginRight: "20px"
+        },
+        helperText: {
+            marginLeft: "20px"
         }
 
 
@@ -156,8 +165,8 @@ export default function EditProfile() {
                 userProfile && userProfile.profile.map((userProfile) => {
                     return (
                         <Box>
-                            <Box sx = {style.fileupCon}>
-                            <FileUpload />
+                            <Box sx={style.fileupCon}>
+                                <FileUpload />
                             </Box>
                             {/* <Box className="avatarChange">
                                 
@@ -172,53 +181,53 @@ export default function EditProfile() {
                                 </Box>
                             </Box> */}
                             <FormGroup>
-                                <FormControl sx = {style.Con}>
-                            <Box sx = {style.innerCon}>
-                                <TextField
-                                    required
-                                    error = {nameError}
-                                    id="outlined-required"
-                                    label="Fullname"
-                                    defaultValue={userProfile.fullname}
-                                    disabled={nameField}
-                                    onChange={userInput("name")}
-                                />
-                                {
-                                    nameField ? (
-                                        <Button sx = {style.btn} onClick={() => setnameField(false)}>Edit Name</Button>
-                                    ) : (
-                                        <Button onClick={() => changename()}>Save</Button>
-                                    )
-                                }
-                            </Box>
-                            <FormHelperText sx = {style.helperText}>
-                                {nameError ? "Please enter your name" : "" }
-                            </FormHelperText>
-                            </FormControl>
+                                <FormControl sx={style.Con}>
+                                    <Box sx={style.innerCon}>
+                                        <TextField
+                                            required
+                                            error={nameError}
+                                            id="outlined-required"
+                                            label="Fullname"
+                                            defaultValue={userProfile.fullname}
+                                            disabled={nameField}
+                                            onChange={userInput("name")}
+                                        />
+                                        {
+                                            nameField ? (
+                                                <Button sx={style.btn} onClick={() => setnameField(false)}>Edit Name</Button>
+                                            ) : (
+                                                <Button onClick={() => changename()}>Save</Button>
+                                            )
+                                        }
+                                    </Box>
+                                    <FormHelperText sx={style.helperText}>
+                                        {nameError ? "Please enter your name" : ""}
+                                    </FormHelperText>
+                                </FormControl>
 
-                            <FormControl sx = {style.Con}>
-                            <Box sx = {style.innerCon}>
-                                <TextField
-                                error = {phoneError}
-                                    required
-                                    id="outlined-required"
-                                    label="Phone Number"
-                                    defaultValue={userProfile.phoneNumber}
-                                    disabled={phoneField}
-                                    onChange={userInput("phoneNumber")}
-                                />
-                                {
-                                    phoneField ? (
-                                        <Button sx = {style.btn} onClick={() => setphoneField(false)}>Edit Number</Button>
-                                    ) : (
-                                        <Button onClick={() => changephone()}>Save</Button>
-                                    )
-                                }
-                            </Box>
-                            <FormHelperText sx = {style.helperText}>
-                                {phoneError ? "Please enter your phone number" : "" }
-                            </FormHelperText>
-                            </FormControl>
+                                <FormControl sx={style.Con}>
+                                    <Box sx={style.innerCon}>
+                                        <TextField
+                                            error={phoneError}
+                                            required
+                                            id="outlined-required"
+                                            label="Phone Number"
+                                            defaultValue={userProfile.phoneNumber}
+                                            disabled={phoneField}
+                                            onChange={userInput("phoneNumber")}
+                                        />
+                                        {
+                                            phoneField ? (
+                                                <Button sx={style.btn} onClick={() => setphoneField(false)}>Edit Number</Button>
+                                            ) : (
+                                                <Button onClick={() => changephone()}>Save</Button>
+                                            )
+                                        }
+                                    </Box>
+                                    <FormHelperText sx={style.helperText}>
+                                        {phoneError ? "Please enter your phone number" : ""}
+                                    </FormHelperText>
+                                </FormControl>
                             </FormGroup>
                         </Box>
                     )

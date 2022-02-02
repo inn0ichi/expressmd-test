@@ -18,6 +18,7 @@ import validator from 'validator'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircle from '@mui/icons-material/CheckCircle';
+import { useTranslation } from "react-i18next";
 
 const auth = getAuth();
 function Login() {
@@ -26,8 +27,12 @@ function Login() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getTheme());
+        i18n.changeLanguage(localStorage.getItem("locale"));
     }, [dispatch]);
     const db = firebase.firestore();
+
+
+    const { t, i18n } = useTranslation();
 
     const [payload, setPayload] = useState({
         email: "",
@@ -239,7 +244,7 @@ function Login() {
                                     style: { color: 'black' },
                                 }}
                                 onChange={userInputPassword("password")}
-                               
+
                             />
                             <FormHelperText sx={style.textHelp}>
                                 {fill ? "Please enter password" : ""}
@@ -247,10 +252,10 @@ function Login() {
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, mt: 5 }}>
-                            <Button onClick={() => login()} variant='contained' style={{ color: "white", borderRadius: "10px" }}>Login</Button>
+                            <Button onClick={() => login()} variant='contained' style={{ color: "white", borderRadius: "10px" }}>{t("login")}</Button>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120 }}>
-                            <Button onClick={() => history.push("/createaccount")} style={{ borderRadius: "10px" }} variant='outlined'>Create an Account</Button>
+                            <Button onClick={() => history.push("/createaccount")} style={{ borderRadius: "10px" }} variant='outlined'>{t("createAccount")}</Button>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120 }}>
                             <Link
@@ -259,7 +264,7 @@ function Login() {
                                 onClick={() => history.push("/resetpassword")}
                                 style={{ color: "#808080" }}
                             >
-                                Forgot your password ?
+                                {t("forgotPassword")}
                             </Link>
                         </FormControl>
 

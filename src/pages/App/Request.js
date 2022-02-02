@@ -29,11 +29,11 @@ const style = {
     alignItems: "center",
     marginTop: "40px",
     marginBottom: "10px",
-    flexDirection : "column"
-    
+    flexDirection: "column"
+
   },
   label: {
-    textAlign : "center",
+    textAlign: "center",
     fontSize: "20px",
     marginRight: "10px",
     fontWeight: 100,
@@ -147,7 +147,11 @@ export default function Request() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let isSubscribed = true;
     dispatch(getTheme());
+    return () => {
+      isSubscribed = false;
+    };
   }, [dispatch]);
   /*fetch doc*/
 
@@ -174,7 +178,12 @@ export default function Request() {
   };
 
   useEffect(() => {
+
+    let isSubscribed = true;
     fetchUserData();
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
   /*fetch doc*/
 

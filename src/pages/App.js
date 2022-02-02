@@ -25,7 +25,6 @@ import { loadCSS } from "fg-loadcss";
 import Badge from '@mui/material/Badge';
 import Modal from '@mui/material/Modal';
 import ErrorIcon from '@mui/icons-material/Error';
-import addNotification from 'react-push-notification';
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
 
@@ -199,8 +198,12 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let isSubscribed = true;
     dispatch(getTheme());
     i18n.changeLanguage(localStorage.getItem("locale"));
+    return () => {
+      isSubscribed = false;
+    };
   }, [dispatch]);
 
   //icons
@@ -381,8 +384,11 @@ export default function App() {
   };
 
   useEffect(() => {
-
+    let isSubscribed = true;
     fetchTopRated();
+    return () => {
+      isSubscribed = false;
+    };
   }, []);
 
   return (
@@ -447,13 +453,13 @@ export default function App() {
                       return (
                         <Box>
                           <Typography className="schedText" variant="subtitle2">
-                            Please Login to view you appointments.
+                            {t("pleaseLogin")}
                           </Typography>
                           <Button sx={style.btn}
                             variant="contained"
                             onClick={() => history.push("/login")}
                           >
-                            Login
+                            {t("login")}
                           </Button>
                         </Box>
                       );
@@ -472,7 +478,7 @@ export default function App() {
                                       variant="contained"
                                       onClick={() => history.push("/request")}
                                     >
-                                      Request Appointment
+                                      {t("requestAppointment")}
                                     </Button>
                                   </Box>
                                 );
