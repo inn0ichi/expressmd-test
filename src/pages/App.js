@@ -406,15 +406,15 @@ export default function App() {
 
         <Box sx={style.topContainer}>
           <Paper sx={style.paperContainer2} elevation={5} onClick={() => history.push("/contacts")}>
-            <Button disabled sx={style.requestBtn} variant="outlined">
-              <Typography sx={style.textBtn}>Emergency Hotlines</Typography>
-            </Button>
             <Box
               component="img"
               src={Ambulance}
               alt="ambulance logo"
               sx={style.topPhoto2}
             ></Box>
+            <Button disabled sx={style.requestBtn} variant="outlined">
+              <Typography sx={style.textBtn}>Emergency Hotlines</Typography>
+            </Button>
           </Paper>
         </Box>
 
