@@ -86,8 +86,12 @@ export default function ViewArchive() {
     };
 
     useEffect(() => {
+        let isSubscribed = true;
         fetchDoc();
         fetchData();
+        return () => {
+            isSubscribed = false;
+        };
     }, [appointmentData]);
 
     const style = {
