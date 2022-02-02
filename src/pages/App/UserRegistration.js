@@ -206,7 +206,7 @@ function UserRegistration() {
                                 <MenuItem value={'Female'}>Female</MenuItem>
                                 <MenuItem value={'Others'}>Others/Prefer not to say</MenuItem>
                             </Select>
-                            <FormHelperText sx={style.textHelp}>*Required</FormHelperText>
+                            {/* <FormHelperText sx={style.textHelp}>*Required</FormHelperText> */}
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField

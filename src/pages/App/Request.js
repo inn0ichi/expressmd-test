@@ -279,7 +279,7 @@ export default function Request() {
 
   return (
     <Box className="base">
-      <Box sx={style.parentCon}>
+      <Box>
         <Typography sx={style.label}>What health or medical problems you want to discuss during you consultation? </Typography>
         <Typography sx={style.subLabel}>*Required</Typography>
       </Box>
