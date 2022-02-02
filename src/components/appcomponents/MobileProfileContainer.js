@@ -58,7 +58,7 @@ function MobileProfileContainer() {
         return () => {
             isSubscribed = false;
         };
-    }, [userProfile, t]);
+    }, []);
 
     function logout() {
         firebase.auth().signOut()
