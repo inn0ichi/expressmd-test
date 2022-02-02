@@ -1,12 +1,12 @@
 {
-  "background_color": "none",
+  "background_color": "#ffffff",
   "display": "fullscreen",
   "name": "ExpressMD",
   "orientation": "any",
   "scope": "/",
   "short_name": "ExpressMD",
   "start_url": "/",
-  "theme_color": "none",
+  "theme_color": "#c7f7ff",
   "icons": [
     {
       "src": "images/192x192.png",
