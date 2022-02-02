@@ -339,15 +339,29 @@ export default function ViewArchive() {
                                                     <Button variant="contained" onClick={() => submitForm()}>Rate</Button>
                                                 </Box>
                                             );
-                                        }
+                                        } else {
+                                            return (
+                                                <Box>
+                                                    <Typography>User Rating</Typography>
+                                                    <Rating
+                                                        name="rating"
+                                                        value={data.rating}
+                                                        precision={1}
+                                                    />
+                                                    <Typography>{data.review}</Typography>
+                                                </Box>
+                                            )
 
+                                        }
                                     case "Declined":
                                         return (
                                             <Box>
-                                                <Typography>Reason for Cancellation</Typography>
+                                                <Typography variant="h6">This Appointment has been Cancelled</Typography>
+                                                <Typography variant="subtitle1">Reason for Cancellation</Typography>
                                                 <TextField readOnly value={data.reason} />
                                             </Box>
-                                        );
+
+                                        )
                                     default:
                                         return null;
                                 }
