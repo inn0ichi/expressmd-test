@@ -8,7 +8,7 @@ const data = {
     {
       title: "How do I find a doctor using ExpressMD?",
       content:
-        "1. Search the doctor you need and request an appointment. 2. Fill up the form provided. 3. Elaborate all the symptoms that you observe with your body. 4. Set the date and time that you desire and the doctor will respond to you in a few hours/days depends on the schedule of the doctor. "
+        "Post an appointment on ExpressMD. Elaborate all the symptoms that you observe with your body. Set the date and time that you desire and the our doctors will bid on your request if they want to take on your request. You can then accept the bid and that doctor will be assigned to you. They may now contact you using your phone number and ask for more details."
     },
     {
       title: "Why choose ExpressMD?",

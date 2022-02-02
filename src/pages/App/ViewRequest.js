@@ -55,7 +55,7 @@ export default function ViewRequest() {
   });
 
 
-  const db = firebase.firestore().enablePersistence();
+  const db = firebase.firestore();
   const [specifiedDate, setSpecifiedDate] = useState(new Date());
   const [appointmentData, setappointmentData] = useState({
     data: [],
