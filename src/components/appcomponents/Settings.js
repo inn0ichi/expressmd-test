@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme, getTheme } from "../../redux/actions/uiAction";
 import { useTranslation } from 'react-i18next';
 import './css/Settings.css';
+import Icon from "@mui/material/Icon";
+import { loadCSS } from "fg-loadcss";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
     padding: 8,
@@ -60,18 +62,70 @@ export default function Settings() {
         window.location.reload()
     }
 
+
+    //fontawesome
+    React.useEffect(() => {
+        const node = loadCSS(
+            "https://use.fontawesome.com/releases/v5.14.0/css/all.css",
+            // Inject before JSS
+            document.querySelector("#font-awesome-css") || document.head.firstChild
+        );
+        return () => {
+            node.parentNode.removeChild(node);
+        };
+    }, []);
+
+
+    const style = {
+        outerCon: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+        },
+
+        paperCon: {
+            padding: "20px",
+            minWidth: "250px",
+            marginTop:"30px",
+            
+        },
+
+        LabelCon: {
+            marginTop: "5px",
+            textAlign: 'center',
+            marginLeft: "10px"
+        },
+
+        Label: {
+            fontSize: "24px"
+        }
+    }
     return (
         <Box>
-            <Typography>Settings</Typography>
+            <Typography className="headerStyle">
+                <Icon
+                    baseClassName="fas"
+                    className="fas fa-tools"
+                    sx={{
+                        fontSize: { xs: 30, md: 50 },
+                        color: "primary",
+                        width: 300,
+                        marginTop: 2,
+                    }}
+                />
+            </Typography>
+            <Box sx={style.LabelCon}>
+                <Typography sx={style.Label}>Settings</Typography>
+            </Box>
             <Container>
                 <FormGroup>
                     <FormControl>
-                        <Paper>
+                        <Paper sx={style.paperCon}>
                             <FormControlLabel
                                 label={t("settinglist.dmode")}
                                 control={
                                     <React.Fragment>
-                                        <Android12Switch checked={ui.isDarkMode} onChange={() => dispatch(toggleTheme(!ui.isDarkMode))} />
+                                        <Android12Switch sx={{marginLeft:"150px"}} checked={ui.isDarkMode} onChange={() => dispatch(toggleTheme(!ui.isDarkMode))} />
                                     </React.Fragment>
                                 }
                                 labelPlacement="start"
@@ -81,13 +135,13 @@ export default function Settings() {
                         </Paper>
                     </FormControl>
                     <FormControl>
-                        <Paper>
+                        <Paper sx={style.paperCon}>
                             <FormControlLabel
                                 label={t("settinglist.changeLang")}
                                 control={
                                     <React.Fragment>
-                                        <Button size="small" variant="contained" onClick={() => setEn()}>English</Button>
-                                        <Button size="small" variant="contained" onClick={() => setPh()}>Tagalog</Button>
+                                        <Button size="small" sx={{marginLeft:"30px"}} variant="contained" onClick={() => setEn()}>English</Button>
+                                        <Button size="small" sx={{marginLeft:"30px"}} variant="contained" onClick={() => setPh()}>Tagalog</Button>
                                     </React.Fragment>
                                 }
                                 labelPlacement="start"
