@@ -3,12 +3,12 @@ const data = {
   rows: [
     {
       title: "What is ExpressMsD?",
-      content: "ExpressmD is a mobile application developed by researchers to assist individuals in locating medical providers more quickly and receiving treatment at home. The patient can then schedule an appointment and communicate with the medical practitioner. The main customers of this application are the elderly, pregnant and children who need services without having to go to the hospital."
+      content: "ExpressMD is a mobile application developed by researchers to assist individuals in finding doctors and receive treatment at home."
     },
     {
       title: "How do I find a doctor using ExpressMD?",
       content:
-        "Post an appointment on ExpressMD. Elaborate all the symptoms that you observe with your body. Set the date and time that you desire and the our doctors will bid on your request if they want to take on your request. You can then accept the bid and that doctor will be assigned to you. They may now contact you using your phone number and ask for more details."
+        "Click Request Appointment button in home screen. Elaborate all your concerns do you want to discuss during your consultation. Set the date and time that you desired and all the doctors will read you request. All doctors who are interested to treat you will send a request to you. Choose the most qualified doctor among those who send a request to you and then click the accept button."
     },
     {
       title: "Why choose ExpressMD?",
@@ -16,8 +16,12 @@ const data = {
         "ExpressMD will provide you with the best services for requesting an appointment with a doctor without the need to go to a clinic or hospital. No charge is needed when you create your own account, you can immediately request services after you will fill important information that are needed to identify your identity and the credibility to use the application."
     },
     {
-      title: "What is Doctor’s Home Visit?",
-      content: "A Doctor is going to visit you in your house to examine your health condition and they will provide prescriptions that you needed."
+      title: "What is ExpressCredits?",
+      content: "It is the type of payment that you will use to pay your Physician. You will use your GCash account to buy your credits. "
+    },
+    {
+      title: "How to use ExpressCredits?",
+      content: "You will need to scan the GCASH QR code to buy ExpressCredits. NOTE: You need to put your email account as message in GCASH to validate your purchased ExpressCredits."
     }
   ]
 };
