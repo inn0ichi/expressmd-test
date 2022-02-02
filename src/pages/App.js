@@ -305,27 +305,6 @@ export default function App() {
     };
   }, [isEmpty]);
 
-  /*   const fetchList = () => {
-      
-      const userRef = db
-        .collection("users")
-        .doc(localStorage.getItem("uid"))
-        .collection("requests")
-        .doc(localStorage.getItem("uid"));
-      userRef.onSnapshot((doc) => {
-        if (doc.exists) {
-          setisEmpty(false);
-          let getAppointment = [];
-          userRef.get().then((doc) => {
-            getAppointment.push(doc.data());
-            setfetchAppointments({ appointments: getAppointment });
-          });
-        } else {
-          // doc.data() will be undefined in this case
-          setisEmpty(true);
-        }
-      });
-    }; */
 
   const fetchTopRated = () => {
     const docRef = db.collection("doctors").orderBy("rating", "desc").limit(3);
@@ -555,9 +534,9 @@ export default function App() {
           })}
           <Box sx={style.notifButton}>
             <Badge badgeContent={count} color="success">
-              <Fab  color="secondary" onClick={handleOpen}>
-                
-                  {/* <Icon
+              <Fab color="secondary" onClick={handleOpen}>
+
+                {/* <Icon
                     baseClassName="fas"
                     className="fas fa-bell"
                     sx={{
@@ -568,8 +547,8 @@ export default function App() {
                     }}
                   /> */}
 
-                    <NotificationsIcon/>
-                
+                <NotificationsIcon />
+
               </Fab>
             </Badge>
           </Box>

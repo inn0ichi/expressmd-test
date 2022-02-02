@@ -64,6 +64,7 @@ export default function ViewArchive() {
     };
 
     const fetchData = async () => {
+        
         let isMounted = true
         const docRef = db.collection("users").doc(localStorage.getItem("uid")).collection("archive").doc(id);
         let rawData = [];

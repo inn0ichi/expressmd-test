@@ -94,6 +94,7 @@ export default function ViewRequest() {
   };
 
   const fetchBidders = async () => {
+    
     let isMounted = true;
     const dataRef = await db
       .collection("requests")
@@ -103,7 +104,7 @@ export default function ViewRequest() {
     dataRef.onSnapshot((doc) => {
       doc.forEach((doc) => {
         setisBidderEmpty(false);
-
+        
         rawData.push(doc.data());
       });
       setfetchBidders({ data: rawData });
