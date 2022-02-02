@@ -89,7 +89,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="09436018271">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -119,7 +119,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="447661462">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -149,7 +149,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="447665018">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -179,7 +179,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="09325205825">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -209,7 +209,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="447663457">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -239,7 +239,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="443092143">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -269,7 +269,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="447618337">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -299,7 +299,7 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="447667008">
             <Paper
-              key={num.Hospital}
+
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
@@ -329,7 +329,6 @@ export default function HospitalContact() {
         <Box className="contactBox">
           <CopyToClipboard text="447618337">
             <Paper
-              key={num.Hospital}
               sx={{ marginTop: "5px", padding: "10px" }}
               onClick={handleClickOpen}
             >
