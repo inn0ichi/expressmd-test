@@ -1,35 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Box, TextField, Button, Rating, FormLabel, FormGroup, FormControlLabel, FormHelperText, FormControl } from "@mui/material";
+import {Paper, Typography, Box, TextField, Button, Rating, FormLabel, FormGroup, FormControlLabel, FormHelperText, FormControl } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
 
-const style = {
-    parentCon: {
-        display: "flex",
-        margin: "20px",
-        alignItems: "center"
 
-    },
-    label: {
-        fontSize: "24px",
-        marginRight: "10px"
-    },
-
-    subLabel: {
-        fontSize: "18px",
-        fontStyle: "italic",
-        color: "red"
-    },
-    
-    inputField: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: 'center'
-    }
-  
-   
-}
 
 export default function ViewArchive() {
     const { id } = useParams();
@@ -126,6 +101,14 @@ export default function ViewArchive() {
             marginBottom: "10px",
           },
 
+          innerSubrate: {
+            fontSize: "18px",
+            marginTop: "5px",
+            marginBottom: "10px",
+            textAlign:"center"
+          },
+    
+
         inputField: {
             display: "flex",
             marginLeft: "30px",
@@ -136,7 +119,7 @@ export default function ViewArchive() {
         },
 
         textField: {
-            width: "350px",
+            width: "300px",
         },
 
         dateTimeCon: {
@@ -152,6 +135,10 @@ export default function ViewArchive() {
             marginLeft: "20px",
             marginRight: "30px",
 
+        },
+
+        rateBox:{
+            alignItems:"center",
         },
 
         con: {
@@ -181,7 +168,28 @@ export default function ViewArchive() {
             width: "200px",
             marginBottom: "10px",
             borderRadius: "10px"
-        }
+        },
+        ratePaper: {
+            minWidth: "50px",
+            borderColor: "#7EB6BC",
+            borderWidth: "2px",
+            marginRight: "30px",
+            borderRadius: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent:"center",
+            padding: "10px",
+            minHeight: "10px",
+            marginBottom: "20px",
+            marginTop: "50px",
+            
+          },
+          rateContainer: {
+              marginLeft:"30px",
+          },
+          rateButn:{
+              marginTop:"10px"
+          }
     }
 
     const submitForm = (e) => {
@@ -314,14 +322,14 @@ export default function ViewArchive() {
                                 <TextField sx={style.textField} readOnly value={data.notes} />
                                 </Box>
                             </Box>
-                                                    <Box>
+                                                    <Box sx={style.rateContainer}>
+                                                      <Paper sx={style.ratePaper} elevation={3} > 
                                                         <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
                                                             <FormGroup>
-                                                                <Box>
-                                                                    <FormControl>
-                                                                        <TextField id="outlined-basic" label="What do I think?" variant="outlined" onChange={userInput("review")} />
-                                                                    </FormControl>
-                                                                </Box>
+                                                                
+                                                                <Typography sx={style.innerSubrate}>Rate Your Doctor</Typography>
+                                                                    
+                                                                
                                                             </FormGroup>
                                                             <FormGroup>
                                                                 <Box>
@@ -337,6 +345,7 @@ export default function ViewArchive() {
                                                                                 />
                                                                                 <Rating
                                                                                     name="rating"
+                                                                                    sx={{fontSize:"45px", marginTop:"10px", marginLeft:"50px", marginBottom:"50px"}}
                                                                                     value={rating}
                                                                                     precision={1}
                                                                                     onChange={(_, rating) => {
@@ -345,15 +354,25 @@ export default function ViewArchive() {
                                                                                 />
                                                                             </>
                                                                         }
-                                                                        label="Rating"
+                                                                        label=""
+                                                                        
                                                                     />
+                                                                    
                                                                 </Box>
+                                                              
+                                                                        <TextField sx={style.textField} id="outlined-basic" label="What do I think?" variant="outlined" onChange={userInput("review")} />
+                                                                    
+                                                   <Button sx={style.rateButn} variant="contained" onClick={() => submitForm()}>Rate</Button>
+
                                                             </FormGroup>
                                                         </FormControl>
+                                                        
+                                                        </Paper>
+                                                        
                                                     </Box>
-                                                    <Button variant="contained" onClick={() => submitForm()}>Rate</Button>
+                                               
                                                 </Box>
-                                            );
+                                            ); 
                                         } else {
                                             return (
                                                 <Box>

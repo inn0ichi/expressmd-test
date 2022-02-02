@@ -188,11 +188,12 @@ export default function App() {
   const [count, setCount] = useState(0);
   function handleOpen(e) {
     e.preventDefault();
-    setCount(0);
+    console.log(count);
     setOpen(true);
 
   }
   const handleClose = () => {
+    setCount(0);
     setOpen(false);
   };
 
@@ -251,6 +252,8 @@ export default function App() {
         if (snapshot.exists) {
           const data = snapshot.val();
           setNotif(data);
+          
+          
           const customId = data;
 
           toast.info(data, {
