@@ -218,7 +218,6 @@ export default function ViewArchive() {
                                     .then((docRef) => {
                                         docRef = db.collection("doctors").doc(data.doctorId);
                                         docData.data.map((doc) => {
-                                            console.log(doc);
                                             let currentrev = doc.numReviews;
                                             let currentrate = doc.rating;
 

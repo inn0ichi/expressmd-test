@@ -170,7 +170,6 @@ export default function Request() {
       .doc(localStorage.getItem("uid"));
     let userProfile = [];
     docRef.get().then((doc) => {
-      console.log(doc.data());
       userProfile.push(doc.data());
       setuserProfile({ profile: userProfile });
     });
@@ -200,7 +199,6 @@ export default function Request() {
     getValue();
     if (!payload.feel) {
       alert("Please enter the required fields!");
-      console.log(payload);
     } else {
       var userRef = db
         .collection("users")

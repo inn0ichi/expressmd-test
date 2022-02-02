@@ -250,7 +250,6 @@ export default function App() {
       notifRef.on('value', (snapshot) => {
         if (snapshot.exists) {
           const data = snapshot.val();
-          console.log(data);
           setNotif(data);
           const customId = data;
 
@@ -362,7 +361,6 @@ export default function App() {
           setgetAnnouncement(snapshot.val());
           setisLoading(false);
         } else {
-          console.log("No data available");
           setisLoading(true);
         }
       })

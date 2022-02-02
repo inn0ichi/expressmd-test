@@ -57,8 +57,6 @@ export default function DocProfile() {
         };
     }, []);
 
-    console.log(isEmpty);
-
     return (
         <Box className='base'>
             <Container className='container'>
