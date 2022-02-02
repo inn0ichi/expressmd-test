@@ -19,15 +19,10 @@ const style = {
         fontSize: "18px",
         fontStyle: "italic",
         color: "red"
+        
     },
-    textField: {
-        width: "300px",
-    },
-    inputField: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: 'center'
-    },
+   
+    
 
     innerCon: {
         marginTop: "20px",
@@ -50,9 +45,7 @@ const style = {
         fontSize: "24px"
     },
 
-    subLabel: {
-        fontSize: "18px"
-    },
+    
 
     mainCon: {
         marginLeft: "20px",
@@ -72,6 +65,7 @@ const style = {
         marginRight: "30px",
         justifyContent: "center",
         marginTop: "10px",
+        alignItems: 'center'
 
     },
 

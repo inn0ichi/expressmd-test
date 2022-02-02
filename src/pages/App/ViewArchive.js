@@ -21,14 +21,14 @@ const style = {
         fontStyle: "italic",
         color: "red"
     },
-    textField: {
-        width: "300px",
-    },
+    
     inputField: {
         display: "flex",
         justifyContent: "center",
         alignItems: 'center'
     }
+  
+   
 }
 
 export default function ViewArchive() {
@@ -116,7 +116,15 @@ export default function ViewArchive() {
             fontSize: "24px",
             marginLeft: "25px",
             marginTop: "20px",
-        },
+            marginBottom: "10px",
+          },
+
+          innerSub2: {
+            fontSize: "18px",
+            marginLeft: "25px",
+            marginTop: "40px",
+            marginBottom: "10px",
+          },
 
         inputField: {
             display: "flex",
@@ -293,16 +301,19 @@ export default function ViewArchive() {
                                     <Typography variant="subtitle1">Location: {data.location}</Typography>
                                 </Box>
                             </Box>
-                            <Box>
-                                <Typography>Doctor's Notes</Typography>
-                                <TextField readOnly value={data.notes} />
-                            </Box>
+                           
                             {(() => {
                                 switch (data.status) {
                                     case "Completed":
                                         if (!data.rated) {
                                             return (
                                                 <Box>
+                                                     <Box>
+                                <Typography sx={style.innerSub}>Doctor's Notes</Typography>
+                                <Box sx={style.inputField}>
+                                <TextField sx={style.textField} readOnly value={data.notes} />
+                                </Box>
+                            </Box>
                                                     <Box>
                                                         <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
                                                             <FormGroup>
@@ -360,9 +371,14 @@ export default function ViewArchive() {
                                     case "Declined":
                                         return (
                                             <Box>
-                                                <Typography variant="h6">This Appointment has been Cancelled</Typography>
-                                                <Typography variant="subtitle1">Reason for Cancellation</Typography>
-                                                <TextField readOnly value={data.reason} />
+                                                
+                                                <Typography  variant="h6" sx={{textAlign:"center",marginTop:"50px"}}>This Appointment has been Cancelled</Typography>
+                                                
+                                                
+                                        <Typography variant="subtitle1" sx={style.innerSub2}>Reason for Cancellation:</Typography>
+                                                <Box sx={style.inputField}>
+                                                <TextField sx={style.textField}  readOnly value={data.reason} />
+                                                </Box>
                                             </Box>
 
                                         )

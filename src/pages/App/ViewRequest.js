@@ -27,11 +27,7 @@ const style = {
   textField: {
     width: "300px",
   },
-  inputField: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+ 
 };
 
 export default function ViewRequest() {
@@ -238,6 +234,7 @@ export default function ViewRequest() {
       marginRight: "30px",
       justifyContent: "center",
       marginTop: "10px",
+      alignItems: "center",
     },
 
     textField: {
@@ -303,6 +300,7 @@ export default function ViewRequest() {
     innerSub3: {
       marginBottom: "20px",
       fontSize: "20px",
+      textAlign:"center"
 
 
     },
@@ -327,6 +325,12 @@ export default function ViewRequest() {
       flexDirection: "column",
       color: "success.main"
     },
+    subLabelCon: {
+      display: "flex",
+      flexdirection: "column",
+      alignItems: "center",
+      marginTop: "20px"
+  }
   };
 
   return (
@@ -619,6 +623,50 @@ export default function ViewRequest() {
                     } else {
                       return null;
                     }
+
+                    case "Requested Cancellation":
+                     
+                        return (
+                          <Box>
+                          <Box sx={style.subLabelCon}>
+                                <Typography sx={style.innerSub}>Reason for Cancellation </Typography>
+                                
+                            </Box>
+                            <Box sx={style.inputField} >
+                                <TextField
+                                inputProps={{ readOnly: true }}
+                                    id="outlined-basic"
+                                    sx={style.textField}
+                                    variant="outlined"
+                                    multiline
+                                    maxRows={10}
+                                    minRows={6}
+                                    value={data.reason}
+                                />
+
+                            </Box>
+                            <Box>
+                          <Typography sx={style.innerSub}>Status:</Typography>
+                          <Box sx={style.statIconPending}>
+                            <Typography sx={style.innerSub3}>
+                              <Icon
+                                baseClassName="fas"
+                                className="fas fa-business-time"
+                                sx={{
+                                  fontSize: { xs: 40, md: 80 },
+                                  width: 50,
+                                  marginLeft: 2
+
+                                }}
+                              />
+                              <Typography sx={style.innerSub3}>Waiting for Cancellation</Typography>
+
+                            </Typography>
+                          </Box>
+                        </Box>
+                          </Box>
+                        );
+
 
                   case "Declined":
                     return null;
