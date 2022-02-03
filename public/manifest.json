@@ -2,7 +2,7 @@
   "background_color": "#ffffff",
   "display": "fullscreen",
   "name": "ExpressMD",
-  "orientation": "any",
+  "orientation": "portrait",
   "scope": "/",
   "short_name": "ExpressMD",
   "start_url": "/",
