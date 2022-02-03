@@ -163,12 +163,12 @@ export default function IsSuccessful() {
                   Unverified Account
                 </Typography>
                 <Typography sx={style.sublabel}>
-                  Please check your email for the verification mail. If you can't see it, please check the spam folder. Thank You
+                  You Need to have a verified account to request. Please check your email for the verification mail. If you can't see it, please check the spam folder. Thank You
                 </Typography>
                 <Button
                   variant="filled"
                   sx={style.btn}
-                  onClick={() => history.push("/login")}
+                  onClick={() => history.push("/")}
                 >
                   OK
                 </Button>

@@ -16,7 +16,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 import './Registration.css';
 
-
+var md5 = require("md5");
 const auth = getAuth();
 
 
@@ -76,6 +76,9 @@ function UserRegistration() {
                     const userRef = db.collection("users").doc(localStorage.getItem("uid"));
                     var user = userCredential.user;
                     user.sendEmailVerification();
+
+                    var random = md5(Date.now());
+
                     localStorage.setItem("uid", user.uid);
                     localStorage.setItem("email", location.state.email);
                     batch.set(userRef, {
@@ -86,7 +89,7 @@ function UserRegistration() {
                         phoneNumber: payload.phoneNumber,
                         coins: 0,
                         location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
-                        photoURL: "http://www.gravatar.com/avatar/3b3be63a4c2a439b013787725dfce802?d=identicon",
+                        photoURL: `http://www.gravatar.com/avatar/${random}?d=identicon`,
                     })
 
                     batch.commit().then((doc) => {

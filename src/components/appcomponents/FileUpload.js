@@ -83,7 +83,10 @@ export default function FileUpload() {
                     .update({
                         photoURL: url,
                     })
-                    .then((doc) => { window.location.reload() });
+                    .then((doc) => {
+                        window.location.reload()
+                        localStorage.removeItem("profileLoaded");
+                    });
             });
         })
     }
@@ -100,7 +103,10 @@ export default function FileUpload() {
                 .update({
                     fullname: credentials.name,
                 })
-                .then((doc) => { window.location.reload() });
+                .then((doc) => {
+                    window.location.reload()
+                    localStorage.removeItem("profileLoaded");
+                });
 
         }
 
@@ -118,7 +124,10 @@ export default function FileUpload() {
                 .update({
                     phoneNumber: credentials.phoneNumber,
                 })
-                .then((doc) => { window.location.reload() });
+                .then((doc) => {
+                    window.location.reload()
+                    localStorage.removeItem("profileLoaded");
+                });
         }
 
     }

@@ -133,20 +133,18 @@ export default function Request() {
   const index = searchClient.initIndex('requests');
   var batch = db.batch();
 
-  useEffect(() => {
-    let isSubscribed = true;
-    getAuth().onAuthStateChanged(function (user) {
-      if (!user) {
-        window.location.replace("/login");
-      }
-    });
-    return () => {
-      isSubscribed = false;
-    };
-  }, []);
-
   const dispatch = useDispatch();
 
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.replace("/login");
+    } else {
+      if (!user.emailVerified) {
+        history.push(`/success/${"unverified"}`)
+      }
+    }
+  });
 
   /*fetch doc*/
 

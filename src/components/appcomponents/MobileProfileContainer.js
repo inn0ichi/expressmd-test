@@ -77,6 +77,9 @@ function MobileProfileContainer() {
             .then(() => {
                 localStorage.removeItem("uid");
                 localStorage.removeItem("email");
+                localStorage.removeItem("isLoaded");
+                localStorage.removeItem("profileLoaded");
+                localStorage.removeItem("requestLoaded");
                 history.push("/");
             })
             .catch((error) => {

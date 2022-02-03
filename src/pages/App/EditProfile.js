@@ -98,7 +98,10 @@ export default function EditProfile() {
                     .update({
                         photoURL: url,
                     })
-                    .then((doc) => { window.location.reload() });
+                    .then((doc) => {
+                        window.location.reload();
+                        localStorage.removeItem("profileLoaded");
+                    });
             });
         })
     }
@@ -116,7 +119,10 @@ export default function EditProfile() {
                 .update({
                     fullname: credentials.name,
                 })
-                .then((doc) => { window.location.reload() });
+                .then((doc) => {
+                    window.location.reload()
+                    localStorage.removeItem("profileLoaded");
+                });
 
         }
 
@@ -134,7 +140,10 @@ export default function EditProfile() {
                 .update({
                     phoneNumber: credentials.phoneNumber,
                 })
-                .then((doc) => { window.location.reload() });
+                .then((doc) => {
+                    window.location.reload()
+                    localStorage.removeItem("profileLoaded");
+                });
         }
 
     }
