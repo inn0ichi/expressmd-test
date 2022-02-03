@@ -19,10 +19,10 @@ const style = {
         fontSize: "18px",
         fontStyle: "italic",
         color: "red"
-        
+
     },
-   
-    
+
+
 
     innerCon: {
         marginTop: "20px",
@@ -45,7 +45,7 @@ const style = {
         fontSize: "24px"
     },
 
-    
+
 
     mainCon: {
         marginLeft: "20px",
@@ -106,10 +106,22 @@ export default function CancelRequest() {
     };
 
     const fetchData = async () => {
+        var getOptions;
+
+        if (!localStorage.getItem("requestLoaded")) {
+            getOptions = {
+                source: 'server'
+            };
+            localStorage.setItem("requestLoaded", true)
+        } else {
+            var getOptions = {
+                source: 'cache'
+            };
+        }
         let isMounted = true
         const docRef = await db.collection("users").doc(localStorage.getItem("uid")).collection("requests").doc(id);
         let rawData = [];
-        docRef.get().then((doc) => {
+        docRef.get(getOptions).then((doc) => {
             rawData.push(doc.data());
             setappointmentData({ data: rawData });
         });

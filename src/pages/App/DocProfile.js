@@ -38,10 +38,22 @@ export default function DocProfile() {
     }
 
     const fetchData = async () => {
+        var getOptions;
+
+        if (!localStorage.getItem("requestLoaded")) {
+            getOptions = {
+                source: 'server'
+            };
+            localStorage.setItem("requestLoaded", true)
+        } else {
+            var getOptions = {
+                source: 'cache'
+            };
+        }
         let isMounted = true
         const docRef = await db.collection("doctors").doc(id);
         let docProfile = [];
-        docRef.get().then((doc) => {
+        docRef.get(getOptions).then((doc) => {
             docProfile.push(doc.data());
             setdoctorProfile({ profile: docProfile });
         });

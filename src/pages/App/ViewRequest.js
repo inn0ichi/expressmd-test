@@ -65,11 +65,23 @@ export default function ViewRequest() {
     profile: [],
   })
   const fetchUser = async () => {
+    var getOptions;
+    if (!localStorage.getItem("profileLoaded")) {
+      getOptions = {
+        source: 'server'
+      };
+      localStorage.setItem("profileLoaded", true)
+    } else {
+      var getOptions = {
+        source: 'cache'
+      };
+    }
     const userRef = db.collection('users').doc(id);
     let usrProfile = [];
-    userRef.get().then(doc => {
+    userRef.get(getOptions).then(doc => {
       usrProfile.push(doc.data());
       setuserProfile({ profile: usrProfile });
+      localStorage.setItem("userImage", doc.data().photoURL);
     })
   }
 
@@ -383,7 +395,7 @@ export default function ViewRequest() {
                     component="img"
                     alt="Image of Patient"
                     sx={style.patientProf}
-                    src={data.photoURL}
+                    src={localStorage.getItem("photoURL")}
                   />
                 </Box>
                 <Box sx={style.superInnerCon}>

@@ -42,9 +42,21 @@ export default function EditProfile() {
     const [url, setURL] = useState("");
 
     const fetchList = async () => {
+        var getOptions;
+
+        if (!localStorage.getItem("profileLoaded")) {
+            getOptions = {
+                source: 'server'
+            };
+            localStorage.setItem("profileLoaded", true)
+        } else {
+            var getOptions = {
+                source: 'cache'
+            };
+        }
         const userRef = db.collection('users').doc(localStorage.getItem("uid"));
         let usrProfile = [];
-        userRef.get().then(doc => {
+        userRef.get(getOptions).then(doc => {
             usrProfile.push(doc.data());
             setuserProfile({ profile: usrProfile });
         })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Paper, Typography, Box, TextField, Button, Rating, FormLabel, FormGroup, FormControlLabel, FormHelperText, FormControl } from "@mui/material";
+import { Paper, Typography, Box, TextField, Button, Rating, FormLabel, FormGroup, FormControlLabel, FormHelperText, FormControl } from "@mui/material";
 import { useParams, useHistory } from "react-router-dom";
 import firebase from '../../config/firebase';
 import { getAuth } from "firebase/auth";
@@ -39,11 +39,22 @@ export default function ViewArchive() {
     };
 
     const fetchData = async () => {
-        
+        var getOptions;
+
+        if (!localStorage.getItem("profileLoaded")) {
+            getOptions = {
+                source: 'server'
+            };
+            localStorage.setItem("profileLoaded", true)
+        } else {
+            var getOptions = {
+                source: 'cache'
+            };
+        }
         let isMounted = true
         const docRef = db.collection("users").doc(localStorage.getItem("uid")).collection("archive").doc(id);
         let rawData = [];
-        docRef.get().then((doc) => {
+        docRef.get(getOptions).then((doc) => {
             rawData.push(doc.data());
             setappointmentData({ data: rawData });
             localStorage.setItem("docID", doc.data().doctorId)
@@ -51,14 +62,15 @@ export default function ViewArchive() {
         isMounted = false
     };
     const fetchDoc = async () => {
-        let isMounted = true
-        const docRef = db.collection("doctors").doc(localStorage.getItem("docID"));
-        let rawData = [];
-        docRef.get().then((doc) => {
-            rawData.push(doc.data());
-            setdocData({ data: rawData });
-        });
-        isMounted = false
+        appointmentData.data.map((data) => {
+            const docRef = db.collection("doctors").doc(data.doctorId);
+            let rawData = [];
+            docRef.get().then((doc) => {
+                rawData.push(doc.data());
+                setdocData({ data: rawData });
+            });
+        })
+
     };
 
     useEffect(() => {
@@ -92,22 +104,22 @@ export default function ViewArchive() {
             marginLeft: "25px",
             marginTop: "20px",
             marginBottom: "10px",
-          },
+        },
 
-          innerSub2: {
+        innerSub2: {
             fontSize: "18px",
             marginLeft: "25px",
             marginTop: "40px",
             marginBottom: "10px",
-          },
+        },
 
-          innerSubrate: {
+        innerSubrate: {
             fontSize: "18px",
             marginTop: "5px",
             marginBottom: "10px",
-            textAlign:"center"
-          },
-    
+            textAlign: "center"
+        },
+
 
         inputField: {
             display: "flex",
@@ -137,8 +149,8 @@ export default function ViewArchive() {
 
         },
 
-        rateBox:{
-            alignItems:"center",
+        rateBox: {
+            alignItems: "center",
         },
 
         con: {
@@ -177,19 +189,19 @@ export default function ViewArchive() {
             borderRadius: "8px",
             display: "flex",
             alignItems: "center",
-            justifyContent:"center",
+            justifyContent: "center",
             padding: "10px",
             minHeight: "10px",
             marginBottom: "20px",
             marginTop: "50px",
-            
-          },
-          rateContainer: {
-              marginLeft:"30px",
-          },
-          rateButn:{
-              marginTop:"10px"
-          }
+
+        },
+        rateContainer: {
+            marginLeft: "30px",
+        },
+        rateButn: {
+            marginTop: "10px"
+        }
     }
 
     const submitForm = (e) => {
@@ -309,70 +321,70 @@ export default function ViewArchive() {
                                     <Typography variant="subtitle1">Location: {data.location}</Typography>
                                 </Box>
                             </Box>
-                           
+
                             {(() => {
                                 switch (data.status) {
                                     case "Completed":
                                         if (!data.rated) {
                                             return (
                                                 <Box>
-                                                     <Box>
-                                <Typography sx={style.innerSub}>Doctor's Notes</Typography>
-                                <Box sx={style.inputField}>
-                                <TextField sx={style.textField} readOnly value={data.notes} />
-                                </Box>
-                            </Box>
-                                                    <Box sx={style.rateContainer}>
-                                                      <Paper sx={style.ratePaper} elevation={3} > 
-                                                        <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
-                                                            <FormGroup>
-                                                                
-                                                                <Typography sx={style.innerSubrate}>Rate Your Doctor</Typography>
-                                                                    
-                                                                
-                                                            </FormGroup>
-                                                            <FormGroup>
-                                                                <Box>
-                                                                    <FormControlLabel
-                                                                        control={
-                                                                            <>
-                                                                                <input
-                                                                                    name="rating"
-                                                                                    type="number"
-                                                                                    value={rating}
-                                                                                    hidden
-                                                                                    readOnly
-                                                                                />
-                                                                                <Rating
-                                                                                    name="rating"
-                                                                                    sx={{fontSize:"45px", marginTop:"10px", marginLeft:"50px", marginBottom:"50px"}}
-                                                                                    value={rating}
-                                                                                    precision={1}
-                                                                                    onChange={(_, rating) => {
-                                                                                        setRating(rating);
-                                                                                    }}
-                                                                                />
-                                                                            </>
-                                                                        }
-                                                                        label=""
-                                                                        
-                                                                    />
-                                                                    
-                                                                </Box>
-                                                              
-                                                                        <TextField sx={style.textField} id="outlined-basic" label="What do I think?" variant="outlined" onChange={userInput("review")} />
-                                                                    
-                                                   <Button sx={style.rateButn} variant="contained" onClick={() => submitForm()}>Rate</Button>
-
-                                                            </FormGroup>
-                                                        </FormControl>
-                                                        
-                                                        </Paper>
-                                                        
+                                                    <Box>
+                                                        <Typography sx={style.innerSub}>Doctor's Notes</Typography>
+                                                        <Box sx={style.inputField}>
+                                                            <TextField sx={style.textField} readOnly value={data.notes} />
+                                                        </Box>
                                                     </Box>
-                                               
+                                                    <Box sx={style.rateContainer}>
+                                                        <Paper sx={style.ratePaper} elevation={3} >
+                                                            <FormControl sx={{ m: 1 }} component="fieldset" variant="standard">
+                                                                <FormGroup>
+
+                                                                    <Typography sx={style.innerSubrate}>Rate Your Doctor</Typography>
+
+
+                                                                </FormGroup>
+                                                                <FormGroup>
+                                                                    <Box>
+                                                                        <FormControlLabel
+                                                                            control={
+                                                                                <>
+                                                                                    <input
+                                                                                        name="rating"
+                                                                                        type="number"
+                                                                                        value={rating}
+                                                                                        hidden
+                                                                                        readOnly
+                                                                                    />
+                                                                                    <Rating
+                                                                                        name="rating"
+                                                                                        sx={{ fontSize: "45px", marginTop: "10px", marginLeft: "50px", marginBottom: "50px" }}
+                                                                                        value={rating}
+                                                                                        precision={1}
+                                                                                        onChange={(_, rating) => {
+                                                                                            setRating(rating);
+                                                                                        }}
+                                                                                    />
+                                                                                </>
+                                                                            }
+                                                                            label=""
+
+                                                                        />
+
+                                                                    </Box>
+
+                                                                    <TextField sx={style.textField} id="outlined-basic" label="What do I think?" variant="outlined" onChange={userInput("review")} />
+
+                                                                    <Button sx={style.rateButn} variant="contained" onClick={() => submitForm()}>Rate</Button>
+
+                                                                </FormGroup>
+                                                            </FormControl>
+
+                                                        </Paper>
+
+                                                    </Box>
+
                                                 </Box>
-                                            ); 
+                                            );
                                         } else {
                                             return (
                                                 <Box>
@@ -390,13 +402,13 @@ export default function ViewArchive() {
                                     case "Declined":
                                         return (
                                             <Box>
-                                                
-                                                <Typography  variant="h6" sx={{textAlign:"center",marginTop:"50px"}}>This Appointment has been Cancelled</Typography>
-                                                
-                                                
-                                        <Typography variant="subtitle1" sx={style.innerSub2}>Reason for Cancellation:</Typography>
+
+                                                <Typography variant="h6" sx={{ textAlign: "center", marginTop: "50px" }}>This Appointment has been Cancelled</Typography>
+
+
+                                                <Typography variant="subtitle1" sx={style.innerSub2}>Reason for Cancellation:</Typography>
                                                 <Box sx={style.inputField}>
-                                                <TextField sx={style.textField}  readOnly value={data.reason} />
+                                                    <TextField sx={style.textField} readOnly value={data.reason} />
                                                 </Box>
                                             </Box>
 
