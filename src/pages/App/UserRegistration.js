@@ -1,4 +1,4 @@
-import { Box, Container, TextField, Button, FormGroup, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem } from '@mui/material'
+import { Box, Container, TextField, Button, FormGroup, FormControl, FormHelperText, Avatar, Select, InputLabel, MenuItem, Typography } from '@mui/material'
 import firebase from '../../config/firebase';
 import React, { useState, useEffect } from 'react';
 import { useHistory, withRouter, useLocation } from "react-router-dom";
@@ -120,7 +120,20 @@ function UserRegistration() {
         textHelp: {
             color: "red"
         },
-
+        labelCon: {
+            marginTop: "20px",
+            marginLeft: "10px",
+        },
+        label: {
+            color: "#808080",
+            fontSize: "30px",
+        },
+        completeBtn: {
+            width: "350px",
+            height:"40px",
+            borderRadius:"4px",
+            marginTop:"10px"
+        },
         uploadBtn: {
             width: "80px",
             padding: "10px",
@@ -133,7 +146,9 @@ function UserRegistration() {
             [`& fieldset`]: {
                 borderRadius: 4,
             },
-        }
+
+        },
+      
     }
     return (
         <Box className='base'>
@@ -157,7 +172,13 @@ function UserRegistration() {
                             </Box>
 
                         </FormControl> */}
+                        <Box sx={style.labelCon}>
+                            <Typography sx={style.label}>Personal Details</Typography>
+
+                        </Box>
+
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+
                             <TextField
                                 sx={style.textInput}
                                 required
@@ -283,7 +304,9 @@ function UserRegistration() {
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <Button onClick={() => completeProfile()} variant='outlined'>Complete</Button>
+                            <Button onClick={() => completeProfile()} variant='outlined'
+                                sx={style.completeBtn}
+                            >Complete</Button>
                             <FormHelperText>By clicking complete, you agree to the Privacy Policy.</FormHelperText>
                         </FormControl>
 

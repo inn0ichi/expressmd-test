@@ -21,14 +21,14 @@ function Nav() {
         <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
+                    {/* <Typography
                         variant="h6"
                         noWrap
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
                         <img src={Logo} alt='logo' width={64} height={64} />
-                    </Typography>
+                    </Typography> */}
                     <Typography
                         variant="h6"
                         noWrap
@@ -37,7 +37,7 @@ function Nav() {
                     >
                         <img src={Logo2} alt='logo2' width={64} height={50} />
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <NavLink to='/'>
                             <Button
                                 onClick={handleCloseNavMenu}
@@ -54,7 +54,7 @@ function Nav() {
                                 FAQ
                             </Button>
                         </NavLink>
-                    </Box>
+                    </Box> */}
 
                 </Toolbar>
             </Container>
