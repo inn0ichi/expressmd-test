@@ -133,7 +133,8 @@ function CreateAccount() {
     },
 
     createBtn: {
-      width: "200px",
+      width: "350px",
+      height:"40px"
     },
 
     txtHelp: {
@@ -282,7 +283,7 @@ function CreateAccount() {
                 sx={style.createBtn}
                 onClick={() => createaccount()}
                 variant="filled"
-                style={{ backgroundColor: "#167694", color: "white", borderRadius: "10px", marginTop: "50px" }}
+                style={{ backgroundColor: "#167694", color: "white", borderRadius: "5px", marginTop: "30px" }}
               >
                 Create Account
               </Button>
