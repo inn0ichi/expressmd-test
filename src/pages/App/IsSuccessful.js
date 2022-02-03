@@ -150,7 +150,7 @@ export default function IsSuccessful() {
                 <Button
                   variant="filled"
                   sx={style.btn}
-                  onClick={() => history.push("/login")}
+                  onClick={() => history.push("/profile")}
                 >
                   OK
                 </Button>

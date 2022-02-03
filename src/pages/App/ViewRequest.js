@@ -395,7 +395,7 @@ export default function ViewRequest() {
                     component="img"
                     alt="Image of Patient"
                     sx={style.patientProf}
-                    src={localStorage.getItem("photoURL")}
+                    src={data.photoURL}
                   />
                 </Box>
                 <Box sx={style.superInnerCon}>

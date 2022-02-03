@@ -86,29 +86,14 @@ function UserRegistration() {
                         phoneNumber: payload.phoneNumber,
                         coins: 0,
                         location: payload.houseNum + " " + payload.barangay + ", " + payload.municipality,
+                        photoURL: "http://www.gravatar.com/avatar/3b3be63a4c2a439b013787725dfce802?d=identicon",
                     })
 
                     batch.commit().then((doc) => {
-                        const ref = store.ref(`/images/${localStorage.getItem("uid")}/${file.name}`);
-                        const uploadTask = ref.put(file);
-                        uploadTask.on("state_changed", console.log, console.error, () => {
-                            ref.getDownloadURL().then((url) => {
-                                setFile(null);
-                                setURL(url);
-                                db
-                                    .collection("users")
-                                    .doc(localStorage.getItem("uid"))
-                                    .update({
-                                        photoURL: url,
-                                    })
-                                    .then((doc) => {
-                                        firebase.database().ref('users/' + localStorage.getItem("uid")).set({
-                                            message: "Welcome To ExpressMD"
-                                        }).then((doc6) => {
-                                            history.push(`/success/${"verifyemail"}`);
-                                        })
-                                    });
-                            });
+                        firebase.database().ref('users/' + localStorage.getItem("uid")).set({
+                            message: "Welcome To ExpressMD"
+                        }).then((doc6) => {
+                            history.push(`/success/${"verifyemail"}`);
                         })
                     })
                 })
@@ -156,7 +141,7 @@ function UserRegistration() {
                         <img className='usrImg' alt='profileImg' src={localStorage.getItem("photoURL")} />
                     </Box> */}
                     <FormGroup>
-                        <FormControl sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
+                        {/* <FormControl sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }} >
                                 <IconButton color="primary" aria-label="upload picture">
                                     <Avatar src={file} sx={{ width: 128, height: 128 }} />
@@ -168,7 +153,7 @@ function UserRegistration() {
 
                             </Box>
 
-                        </FormControl>
+                        </FormControl> */}
                         <FormControl required sx={{ m: 1, minWidth: 120, zIndex: 0, marginTop: "30px" }}>
                             <TextField
                                 sx={style.textInput}
@@ -295,7 +280,7 @@ function UserRegistration() {
                             </FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <Button onClick={() => completeProfile()} variant='outlined' disabled={!file}>Complete</Button>
+                            <Button onClick={() => completeProfile()} variant='outlined'>Complete</Button>
                             <FormHelperText>By clicking complete, you agree to the Privacy Policy.</FormHelperText>
                         </FormControl>
 
