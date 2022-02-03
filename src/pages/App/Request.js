@@ -332,8 +332,8 @@ export default function Request() {
                   control={
                     <Checkbox name="checks" onChange={userInput("symptoms")} />
                   }
-                  value="Diarrhea"
-                  label="Diarrhea"
+                  value="Sore Throat"
+                  label="Sore Throat"
                 />
               </Box>
               <Box sx={style.checkBox}>
