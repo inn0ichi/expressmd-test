@@ -489,12 +489,11 @@ export default function App() {
                                   <Box>
                                     {
                                       fetchAppointments.appointments.map((setappointment) => {
-                                        let setDate = setappointment.datetime
-                                          .toDate()
-                                          .toLocaleDateString();
+                                        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                                        let setDate = setappointment.datetime.toDate().toLocaleDateString('en-US', options);
                                         let setTime = setappointment.datetime
                                           .toDate()
-                                          .toLocaleTimeString();
+                                          .toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
                                         return (
                                           <Link
                                             to={`/r/${setappointment.userID}/view`}

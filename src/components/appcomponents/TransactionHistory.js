@@ -120,7 +120,7 @@ export default function TransactionHistory() {
                     <List className='transactionList'>
                         {transactions && transactions.datas.map((transactions) => {
                             let setDate = transactions.datetime.toDate().toLocaleDateString();
-                            let setTime = transactions.datetime.toDate().toLocaleTimeString();
+                            let setTime = transactions.datetime.toDate().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
                             return (
                                 <ListItem sx={style.outerCon} key={transactions.documentId}>
                                     <Link to={`/a/${transactions.documentId}/view`}>

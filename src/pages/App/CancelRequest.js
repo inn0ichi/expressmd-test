@@ -199,8 +199,9 @@ export default function CancelRequest() {
         <Box className="base">
             {
                 appointmentData && appointmentData.data.map((data) => {
-                    let setDate = data.datetime.toDate().toLocaleDateString();
-                    let setTime = data.datetime.toDate().toLocaleTimeString();
+                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    let setDate = data.datetime.toDate().toLocaleDateString('en-US', options);
+                    let setTime = data.datetime.toDate().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
                     return (
                         <Box key={data.userID} sx={style.mainCon}>
                             <Typography sx={style.Label}>Request Cancellation</Typography>
