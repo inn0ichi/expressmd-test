@@ -27,7 +27,7 @@ const style = {
   textField: {
     width: "300px",
   },
- 
+
 };
 
 export default function ViewRequest() {
@@ -81,8 +81,18 @@ export default function ViewRequest() {
       .collection("requests")
       .doc(localStorage.getItem("uid"));
     let rawData = [];
-    docRef.get().then((doc) => {
-
+    var getOptions;
+    if (!localStorage.getItem("requestLoaded")) {
+      getOptions = {
+        source: 'server'
+      };
+      localStorage.setItem("requestLoaded", true)
+    } else {
+      var getOptions = {
+        source: 'cache'
+      };
+    }
+    docRef.get(getOptions).then((doc) => {
       rawData.push(doc.data());
       setappointmentData({ data: rawData });
     });
@@ -110,7 +120,6 @@ export default function ViewRequest() {
 
 
   useEffect(() => {
-    console.log("hello")
     let isSubscribed = true;
     fetchBidders();
     fetchData();
@@ -300,7 +309,7 @@ export default function ViewRequest() {
     innerSub3: {
       marginBottom: "20px",
       fontSize: "20px",
-      textAlign:"center"
+      textAlign: "center"
 
 
     },
@@ -330,7 +339,7 @@ export default function ViewRequest() {
       flexdirection: "column",
       alignItems: "center",
       marginTop: "20px"
-  }
+    }
   };
 
   return (
@@ -624,28 +633,28 @@ export default function ViewRequest() {
                       return null;
                     }
 
-                    case "Requested Cancellation":
-                     
-                        return (
-                          <Box>
-                          <Box sx={style.subLabelCon}>
-                                <Typography sx={style.innerSub}>Reason for Cancellation </Typography>
-                                
-                            </Box>
-                            <Box sx={style.inputField} >
-                                <TextField
-                                inputProps={{ readOnly: true }}
-                                    id="outlined-basic"
-                                    sx={style.textField}
-                                    variant="outlined"
-                                    multiline
-                                    maxRows={10}
-                                    minRows={6}
-                                    value={data.reason}
-                                />
+                  case "Requested Cancellation":
 
-                            </Box>
-                            <Box>
+                    return (
+                      <Box>
+                        <Box sx={style.subLabelCon}>
+                          <Typography sx={style.innerSub}>Reason for Cancellation </Typography>
+
+                        </Box>
+                        <Box sx={style.inputField} >
+                          <TextField
+                            inputProps={{ readOnly: true }}
+                            id="outlined-basic"
+                            sx={style.textField}
+                            variant="outlined"
+                            multiline
+                            maxRows={10}
+                            minRows={6}
+                            value={data.reason}
+                          />
+
+                        </Box>
+                        <Box>
                           <Typography sx={style.innerSub}>Status:</Typography>
                           <Box sx={style.statIconPending}>
                             <Typography sx={style.innerSub3}>
@@ -664,8 +673,8 @@ export default function ViewRequest() {
                             </Typography>
                           </Box>
                         </Box>
-                          </Box>
-                        );
+                      </Box>
+                    );
 
 
                   case "Declined":

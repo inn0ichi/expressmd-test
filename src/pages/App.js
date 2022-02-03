@@ -28,6 +28,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { batch } from "react-redux";
 
 const style = {
   requestBtn: {
@@ -252,8 +253,8 @@ export default function App() {
         if (snapshot.exists) {
           const data = snapshot.val();
           setNotif(data);
-          
-          
+
+
           const customId = data;
 
           toast.info(data, {
@@ -292,9 +293,20 @@ export default function App() {
           if (doc.exists) {
             setisEmpty(false);
             let getAppointment = [];
-            userRef.get().then((doc) => {
+            if (!localStorage.getItem("requestLoaded")) {
+              getOptions = {
+                source: 'server'
+              };
+              localStorage.setItem("requestLoaded", true)
+            } else {
+              var getOptions = {
+                source: 'cache'
+              };
+            }
+            userRef.get(getOptions).then((doc) => {
               getAppointment.push(doc.data());
               setfetchAppointments({ appointments: getAppointment });
+              console.log(doc.metadata);
             });
           } else {
             // doc.data() will be undefined in this case
@@ -309,16 +321,19 @@ export default function App() {
   }, [isEmpty]);
 
 
+
   const fetchTopRated = () => {
+
     const docRef = db.collection("doctors").orderBy("rating", "desc").limit(3);
     docRef.onSnapshot((doc) => {
       let getTopDoctor = [];
-      doc.forEach((req) => {
+      doc.docChanges().forEach((req) => {
         getTopDoctor.push(req.data());
       });
       setfetchTopDoc({ topdoc: getTopDoctor });
     });
   };
+
 
 
   const override = css`
@@ -365,10 +380,16 @@ export default function App() {
   };
 
   useEffect(() => {
-    let isSubscribed = true;
-    fetchTopRated();
+    const subscribed = db.collection("doctors").orderBy("rating", "desc").limit(3).onSnapshot((doc) => {
+      let getTopDoctor = [];
+      doc.forEach((req) => {
+        getTopDoctor.push(req.data());
+      });
+      setfetchTopDoc({ topdoc: getTopDoctor });
+    });
+
     return () => {
-      isSubscribed = false;
+      subscribed();
     };
   }, []);
 
