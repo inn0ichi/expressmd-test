@@ -112,6 +112,12 @@ export default function ViewArchive() {
             marginTop: "40px",
             marginBottom: "10px",
         },
+        innerSub5: {
+            fontSize: "18px",
+           
+            marginTop: "20px",
+            marginBottom: "10px",
+        },
 
         innerSubrate: {
             fontSize: "18px",
@@ -331,9 +337,9 @@ export default function ViewArchive() {
                                             return (
                                                 <Box>
                                                     <Box>
-                                                        <Typography sx={style.innerSub}>Doctor's Notes</Typography>
+                                                        <Typography sx={style.innerSub}>Doctor's Notes:</Typography>
                                                         <Box sx={style.inputField}>
-                                                            <TextField sx={style.textField} readOnly value={data.notes} />
+                                                            <Typography>{data.notes}</Typography>
                                                         </Box>
                                                     </Box>
                                                     <Box sx={style.rateContainer}>
@@ -389,14 +395,33 @@ export default function ViewArchive() {
                                             );
                                         } else {
                                             return (
-                                                <Box>
-                                                    <Typography>User Rating</Typography>
+                                                <Box sx={style.rateContainer}>
+                                                    
+                                                    <Paper sx={style.ratePaper} elevation={3} >
+                                                    <Box >
+                                                   
+                                                    <Box><Typography sx={style.innerSubrate}>User Rating:</Typography></Box>
+                                                    <Typography sx={style.innerSub5}>Name of Doctor:</Typography>
+                                                    {docData &&
+                        docData.data.map((docProfile) => {
+                            return (
+                                
+                                <Typography variant="h5" className="docDeets">Dr. {docProfile.firstname} {docProfile.lastname}</Typography>
+                            );
+                        })}
                                                     <Rating
+                                                    sx={{ fontSize: "45px", marginTop: "10px", marginLeft: "30px",  }}
                                                         name="rating"
                                                         value={data.rating}
                                                         precision={1}
                                                     />
-                                                    <Typography>{data.review}</Typography>
+                                                   
+                                                    
+                                                    <Typography sx={style.innerSub5}>User Review:</Typography>
+                                                    <Typography sx={{marginLeft:"30px",marginBottom:"30px"}}>{data.review}</Typography>
+                                                    </Box>
+                                                    </Paper>
+                                                    
                                                 </Box>
                                             )
 

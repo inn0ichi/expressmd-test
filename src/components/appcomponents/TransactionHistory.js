@@ -38,7 +38,7 @@ export default function TransactionHistory() {
         datas: [],
     })
     const fetchData = async () => {
-        const userRef = db.collection('users').doc(localStorage.getItem("uid")).collection("archive");
+        const userRef = db.collection('users').doc(localStorage.getItem("uid")).collection("archive").orderBy("timestamp", "desc");
         const data = await userRef.get();
         if (data.size > 0) {
             setisEmpty(false);
