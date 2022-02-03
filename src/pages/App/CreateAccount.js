@@ -133,7 +133,7 @@ function CreateAccount() {
     },
 
     createBtn: {
-      width: "350px",
+      width: "300px",
       height:"40px"
     },
 
