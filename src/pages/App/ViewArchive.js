@@ -337,7 +337,7 @@ export default function ViewArchive() {
                                             return (
                                                 <Box>
                                                     <Box>
-                                                        <Typography sx={style.innerSub}>Doctor's Notes</Typography>
+                                                        <Typography sx={style.innerSub}>Doctor's Notes:</Typography>
                                                         <Box sx={style.inputField}>
                                                             <Typography>{data.notes}</Typography>
                                                         </Box>
