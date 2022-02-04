@@ -266,7 +266,7 @@ export default function ViewArchive() {
                                                 })
                                                 .then((docRef) => {
                                                     db.collection("doctors").doc(data.doctorId).collection("archive").doc(data.documentId)
-                                                        .set({
+                                                        .update({
                                                             rated: true,
                                                             reviewID: localStorage.getItem("reviewID"),
                                                         })
