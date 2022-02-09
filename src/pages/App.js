@@ -29,6 +29,8 @@ import { ToastContainer, toast } from 'material-react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { batch } from "react-redux";
+import axios from "axios";
+var proxyMiddleware = require('http-proxy-middleware');
 
 const style = {
   requestBtn: {
@@ -234,7 +236,9 @@ export default function App() {
   });
 
   const [getAnnouncement, setgetAnnouncement] = useState("");
+
   const [getNotif, setNotif] = useState("");
+  const [getLoc, setgetLoc] = useState("");
 
   const [fetchTopDoc, setfetchTopDoc] = useState({
     topdoc: [],
@@ -275,6 +279,16 @@ export default function App() {
       // ...
       setisLoggedOut(true);
     }
+    axios({
+      method: 'GET',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      url: 'https://ipapi.co/json/'
+    })
+      .then(res => {
+        let data = res.data;
+        setgetLoc(data.region);
+        console.log(getLoc);
+      })
   });
 
   useEffect(() => {
