@@ -281,7 +281,7 @@ export default function App() {
     }
     axios({
       method: 'GET',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: { 'Access-Control-Allow-Origin': '*' },
       url: 'https://ipapi.co/json/'
     })
       .then(res => {
