@@ -38,20 +38,20 @@ const auth = getAuth();
 function Login() {
   const history = useHistory();
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getTheme());
-        i18n.changeLanguage(localStorage.getItem("locale"));
-    }, [dispatch]);
-    const db = firebase.firestore();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTheme());
+    i18n.changeLanguage(localStorage.getItem("locale"));
+  }, [dispatch]);
+  const db = firebase.firestore();
 
 
-    const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-    const [payload, setPayload] = useState({
-        email: "",
-        password: "",
-    });
+  const [payload, setPayload] = useState({
+    email: "",
+    password: "",
+  });
 
   /* getAuth().onAuthStateChanged(function (user) {
         var userRef = db.collection("users").doc(localStorage.getItem('uid'));
@@ -109,6 +109,7 @@ function Login() {
           console.log(user);
           localStorage.setItem("uid", user.uid);
           localStorage.setItem("email", user.email);
+          localStorage.setItem("profileLoaded", false);
           history.push("/");
         })
         .catch((error) => {

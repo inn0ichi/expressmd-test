@@ -51,7 +51,7 @@ function MobileProfileContainer() {
             getOptions = {
                 source: 'server'
             };
-            localStorage.setItem("profileLoaded", true)
+            localStorage.setItem("profileLoaded", true);
         } else {
             var getOptions = {
                 source: 'cache'
