@@ -279,16 +279,7 @@ export default function App() {
       // ...
       setisLoggedOut(true);
     }
-    axios({
-      method: 'GET',
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      url: 'https://ipapi.co/json/'
-    })
-      .then(res => {
-        let data = res.data;
-        setgetLoc(data.region);
-        console.log(getLoc);
-      })
+    
   });
 
   useEffect(() => {
