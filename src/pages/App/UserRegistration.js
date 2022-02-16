@@ -69,6 +69,8 @@ function UserRegistration() {
         ) {
 
             setField(true)
+        } else if (payload.municipality != "Angat" || payload.municipality != "Bustos" || payload.municipality != "Baliuag") {
+            alert("This app is only available for people on Angat, Bustos, and Baliuag");
         } else {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
                 .then((userCredential) => {
@@ -107,11 +109,9 @@ function UserRegistration() {
                     if (errorCode == "auth/email-already-in-use") {
                         alert("Email already exists.")
                     }
-
                     if (errorCode == "auth/invalid-password") {
                         alert("Password must be 6 characters or more.")
                     }
-
                 });
         }
     };
@@ -130,9 +130,9 @@ function UserRegistration() {
         },
         completeBtn: {
             width: "350px",
-            height:"40px",
-            borderRadius:"4px",
-            marginTop:"10px"
+            height: "40px",
+            borderRadius: "4px",
+            marginTop: "10px"
         },
         uploadBtn: {
             width: "80px",
@@ -148,7 +148,7 @@ function UserRegistration() {
             },
 
         },
-      
+
     }
     return (
         <Box className='base'>
@@ -295,18 +295,20 @@ function UserRegistration() {
                                 onChange={userInput("municipality")}
                                 value={payload.municipality}
                             >
+                                <MenuItem value={'Angat'}>Angat</MenuItem>
                                 <MenuItem value={'Bustos'}>Bustos</MenuItem>
                                 <MenuItem value={'Baliuag'}>Baliuag</MenuItem>
-                                <MenuItem value={'Angat'}>Angat</MenuItem>
                             </Select>
                             <FormHelperText sx={style.textHelp}>
                                 {field ? "Please fill out all of the fields" : ""}
                             </FormHelperText>
+                            <FormHelperText>This app is only available for people in Angat, Bustos, and Baliuag.</FormHelperText>
                         </FormControl>
                         <FormControl required sx={{ m: 1, minWidth: 120, display: "flex", alignItems: "center", justifyContent: "center" }}>
                             <Button onClick={() => completeProfile()} variant='outlined'
                                 sx={style.completeBtn}
                             >Complete</Button>
+
                             <FormHelperText>By clicking complete, you agree to the Privacy Policy.</FormHelperText>
                         </FormControl>
 
