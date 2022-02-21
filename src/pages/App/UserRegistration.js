@@ -69,8 +69,6 @@ function UserRegistration() {
         ) {
 
             setField(true)
-        } else if (payload.municipality != "Angat" || payload.municipality != "Bustos" || payload.municipality != "Baliuag") {
-            alert("This app is only available for people on Angat, Bustos, and Baliuag");
         } else {
             firebase.auth().createUserWithEmailAndPassword(location.state.email, location.state.password)
                 .then((userCredential) => {
