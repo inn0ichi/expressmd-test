@@ -307,7 +307,7 @@ function UserRegistration() {
                                 sx={style.completeBtn}
                             >Complete</Button>
 
-                            <FormHelperText>By clicking complete, you agree to the Privacy Policy.</FormHelperText>
+                            <FormHelperText>By clicking complete, you agree to the <a href='https://www.privacypolicygenerator.info/live.php?token=qxg7w5ox5MIZLtbZCpzBdZkHNcwnn57s' target="_blank">Privacy Policy</a>.</FormHelperText>
                         </FormControl>
 
                     </FormGroup>
